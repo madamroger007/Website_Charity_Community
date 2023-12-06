@@ -4,11 +4,11 @@ app = Flask(__name__)
 #************************* Login & Register client || admin *****************************
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template("auth/login.html")
 
 @app.route("/register/<role>")
 def register(role):
-    return render_template("register.html")
+    return render_template("auth/register.html")
 
 #**************************************** Client ****************************************
 @app.route('/')
