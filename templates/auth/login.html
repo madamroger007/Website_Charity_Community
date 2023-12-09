@@ -1,12 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
 </head>
+
 <body>
-    
+    {% if token %}
+    <!-- If a valid token exists, perform automatic login -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Replace 'YOUR_TOKEN' with the actual token value
+            var token = '{{ token }}';
+
+            // Set the token in a cookie
+            document.cookie = 'mytoken=' + token + '; path=/';
+
+            // Redirect to the home page
+            window.location.replace('/');
+        });
+    </script>
+{% endif %}
+
+    <form id="formLogin" method="post" action="{{ url_for('login') }}"
+        class="d-flex justify-content-center  align-items-center w-100 h-100">
+        {{ form.hidden_tag() }}
+        <div class="container w-25">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="username" class="form-control" id="username" name="username_give"
+                    placeholder="name@example.com">
+                {% if form.username_give.errors %}
+                <span style="color: red;">{{ form.username_give.errors[0] }}</span>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <input type="password" class="form-control" id="password" name="password_give"
+                    placeholder="name@example.com">
+                {% if form.password_give.errors %}
+                <span style="color: red;">{{ form.password_give.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-3">Login</button>
+        </div>
+
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <script>
+        $('#formLogin').submit(function (event) {
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    username_give: username,
+                    password_give: password,
+                },
+                success: function (response) {
+                    if (response["result"] === "success") {
+                        $.cookie("mytoken", response["token"], { path: "/" });
+                        window.location.replace("/");
+                    } else {
+                        alert(response["msg"]);
+                    }
+                },
+            });
+        });
+    </script>
 </body>
+
 </html>

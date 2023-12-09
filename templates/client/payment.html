@@ -7,6 +7,102 @@
     <title>Document</title>
 </head>
 <body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
+</head>
+<body>
+    <h1>Donation Form {{ user_info.username }}</h1>
+
+    <form id="donateForm" method="post" action="{{ url_for('donate_pay') }}" class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            <label for="country" class="form-label">Country:</label>
+            <input class="form-control" type="text" id="country" name="country_give" value="{{ 'empty' if user_info.country == 'unknown' else user_info.country }}" placeholder="{{ 'empty' if user_info.country == 'unknown' else user_info.country }}" required>
+            {% if form.country_give.errors %}
+                <span style="color: red;">{{ form.country_give.errors[0] }}</span>
+            {% endif %}
+        </div>
     
+        <div class="mb-3">
+            <label for="donation" class="form-label">Donation Amount:</label>
+            <input class="form-control" type="number" id="donation" name="donate_give" required>
+            {% if form.donate_give.errors %}
+                <span style="color: red;">{{ form.donate_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input class="form-control" type="email" id="email" name="email_give" value="{{ 'empty' if user_info.email == 'unknown' else user_info.email }}" placeholder="{{ 'empty' if user_info.email == 'unknown' else user_info.email }}"  required>
+            {% if form.email_give.errors %}
+                <span style="color: red;">{{ form.email_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="flexCheckChecked" name="agree_give " required>
+                <label class="form-check-label" for="flexCheckChecked">Click Here</label>
+                {% if form.agree_give.errors %}
+                    <span style="color: red;">{{ form.agree_give.errors[0] }}</span>
+                {% endif %}
+            </div>
+        </div>
+    
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone:</label>
+            <input class="form-control" type="text" id="phone" name="phone_give" required>
+            {% if form.phone_give.errors %}
+                <span style="color: red;">{{ form.phone_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="rekening" class="form-label">Bank Account:</label>
+            <input class="form-control" type="text" id="rekening" name="rekening_give" required>
+            {% if form.rekening_give.errors %}
+                <span style="color: red;">{{ form.rekening_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="expiry_date" class="form-label">Expiry Date:</label>
+            <input class="form-control" type="text" id="expiry_date" name="expiry_date_give" required>
+            {% if form.expiry_date_give.errors %}
+                <span style="color: red;">{{ form.expiry_date_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="security_code" class="form-label">Security Code:</label>
+            <input class="form-control" type="text" id="security_code" name="security_code_give" required>
+            {% if form.security_code_give.errors %}
+                <span style="color: red;">{{ form.security_code_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name:</label>
+            <input class="form-control" type="text" id="fullname" name="fullname_give" value="{{ 'empty' if user_info.full_name == 'unknown' else user_info.full_name }}" placeholder="{{ 'empty' if user_info.full_name == 'unknown' else user_info.full_name }}"  required>
+            {% if form.fullname_give.errors %}
+                <span style="color: red;">{{ form.fullname_give.errors[0] }}</span>
+            {% endif %}
+        </div>
+    
+        <button type="submit">Donate</button>
+    </form>
+    
+</body>
+</html>
 </body>
 </html>
