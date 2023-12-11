@@ -254,43 +254,21 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Username</th>
-                                        <th scope="col">Biodata</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Role</th>
                                         <th scope="col">Country</th>
-                                        <th scope="col">No HP</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Maps</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Donations</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Agree</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Bank Account</th>
+                                       
+                                        <th scope="col">Date</th>
 
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for user in users_all %}
 
 
-
-                                    <tr>
-                                        <th scope="row">{{ loop.index }}</th>
-                                        <td>{{ user.username }}</td>
-                                        <td>{{ user.biodata }}</td>
-                                        <td>{{ user.email }}</td>
-                                        <td>{{ user.role }}</td>
-                                        <td>{{ user.country }}</td>
-                                        <td>{{ user.phone }}</td>
-                                        <td>{{ user.address }}</td>
-                                        <td><a href="{{ user.maps }}">Map</a></td>
-                                        <td>{{user._id}}</td>
-                                        <td>
-
-                                            <button class="delete-button" data-userid="{{ user._id }}">Delete</button>
-
-                                        </td>
-
-
-                                    </tr>
-                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -332,7 +310,9 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ url_for('static', filename='admin/assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
@@ -347,10 +327,55 @@
     <!--Custom JavaScript -->
     <script src="{{ url_for('static', filename='admin/dist/js/custom.js') }}"></script>
     <script>
-         $(document).ready(function () {
-        $('.delete-button').click(function () {
-            let userId = $(this).data('userid');
+        $(document).ready(function () {
+            updateTable()
+
+        });
+
+        function updateTable() {
+            // Ambil data pengguna baru dan perbarui tabel
+            $.ajax({
+                type: 'GET',
+                url: "/get_donate",
+                success: function (response) {
+                    console.log(response)
+                    // Perbarui tabel dengan data pengguna baru
+                    updateTableContent(response.donation);
+                    console.log(response.total_donation)
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function updateTableContent(donation) {
+            // Hapus semua baris tabel kecuali header
+            $('.table tbody').empty();
+
+            // Tambahkan data pengguna baru ke tabel
+            for (let index = 0; index < donation.length; index++) {
+                let user = donation[index];
+                let row = `
+        <tr>
+            <th scope="row">${(index + 1)}</th>
+            <td>${user.username}</td>
+            <td>${user.country}</td>
+            <td>${user.donation_amount}</td>
+            <td>${user.email}</td>
+            <td>${user.agree}</td>
+            <td>${user.phone}</td>
+            <td>${user.bank_account}</td>
+            <td>${user.date}</td>
             
+        </tr>`;
+                $('.table tbody').append(row);
+            }
+        }
+
+
+        function delete_user(userId) {
+
             // Dapatkan token CSRF dari formulir
             let csrfToken = $('meta[name=csrf-token]').attr('content');
 
@@ -363,15 +388,14 @@
                 success: function (response) {
                     // Handle success, e.g., update the UI or reload the page
                     console.log(response);
-                    window.location.reload();
+
                 },
                 error: function (error) {
                     // Handle error, e.g., show an alert
                     console.error(error);
                 }
-            });
-        });
-    });
+            })
+        }
     </script>
 </body>
 

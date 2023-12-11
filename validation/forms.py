@@ -67,7 +67,7 @@ class Newsform(FlaskForm):
     title_give = StringField('Title', validators=[DataRequired()])
     img_give = FileField('Image', validators=[DataRequired()])
     description_give = TextAreaField('Description', validators=[DataRequired()])
-    topic_give = SelectField('Topic', choices=[('politics', 'Politics'), ('sports', 'Sports'), ('technology', 'Technology')],
+    topic_give = SelectField('Topic', choices=[('sosial', 'Sosial'), ('bencana', 'Bencana'), ('konflik', 'Konflik')],
                              validators=[DataRequired()])
     submit = SubmitField('Submit')
 
@@ -75,8 +75,28 @@ class UpdateNewsform(FlaskForm):
     title_update= StringField('Title', validators=[DataRequired()])
 
     description_update = TextAreaField('Description', validators=[DataRequired()])
-    topic_update = SelectField('Topic', choices=[('politics', 'Politics'), ('sports', 'Sports'), ('technology', 'Technology')],
+    topic_update = SelectField('Topic', choices=[('sosial', 'Sosial'), ('bencana', 'Bencana'), ('konflik', 'Konflik')],
                              validators=[DataRequired()])
     submit = SubmitField('Update')
 
+class Projectsform(FlaskForm):
+    title_give = StringField('Title', validators=[DataRequired()])
+    img_give = FileField('Image', validators=[DataRequired()])
+    description_give = TextAreaField('Description', validators=[DataRequired()])
+    topic_give = SelectField('Topic', choices=[('sosial', 'Sosial'), ('bencana', 'Bencana'), ('konflik', 'Konflik')],
+                             validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
+class UpdateProjectsform(FlaskForm):
+    title_update= StringField('Title', validators=[DataRequired()])
+    description_update = TextAreaField('Description', validators=[DataRequired()])
+    topic_update = SelectField('Topic', choices=[('sosial', 'Sosial'), ('bencana', 'Bencana'), ('konflik', 'Konflik')],
+                             validators=[DataRequired()])
+    submit = SubmitField('Update')
+
+class UpdateUsersForm(FlaskForm):
+    fullname_receive = StringField('Full Name', validators=[DataRequired()])
+    email_receive = StringField('Email', validators=[DataRequired(), Email()])
+    no_hp_receive = StringField('Phone Number', validators=[DataRequired()])
+    country_receive = StringField('Country', validators=[DataRequired()])
+    submit = SubmitField('Update User')

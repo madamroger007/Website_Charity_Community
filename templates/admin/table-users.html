@@ -339,6 +339,7 @@
                 url: "/get_users",
                 success: function (response) {
                     // Perbarui tabel dengan data pengguna baru
+                    console.log(response.total_users)
                     updateTableContent(response.users);
                 },
                 error: function (error) {
@@ -364,7 +365,12 @@
             <td>${user.country}</td>
             <td>${user.phone}</td>
             <td>${user.address}</td>
-            <td><a href="${user.maps}">Map</a></td>
+            <td>
+                <iframe
+                                        src="${user.maps}"
+                                        width="80%" height="50" frameborder="0" style="border:0"
+                                        allowfullscreen></iframe>
+                </td>
             <td>
                 <button class="delete-button" onclick='delete_user("${user._id}")'>Delete</button>
             </td>

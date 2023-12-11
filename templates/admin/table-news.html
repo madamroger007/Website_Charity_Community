@@ -42,9 +42,9 @@
             <label for="topic">Topic:</label>
             <select name="topic_give" id="topic" class="form-control" required>
                 <option value="">Select a topic</option>
-                <option value="politics">Politics</option>
-                <option value="sports">Sports</option>
-                <option value="technology">Technology</option>
+                <option value="sosial">Sosial</option>
+                <option value="bencana">Bencana</option>
+                <option value="konflik">Konflik</option>
             </select>
             <!-- Menampilkan pesan kesalahan validasi di samping bidang -->
             <span id="topicError" style="color: red;"></span>
@@ -153,9 +153,9 @@
 
     <option value="">Select a topic</option>
 
-                                            <option value="politics" ${topic === "politics" ? "selected" : ""}>Politics</option>
-                                            <option value="sports" ${topic === "sports" ? "selected" : ""}>Sports</option>
-                                            <option value="technology" ${topic === "technology" ? "selected" : ""}>Technology</option>
+                                            <option value="sosial" ${topic === "sosial" ? "selected" : ""}>Sosial</option>
+                                            <option value="bencana" ${topic === "bencana" ? "selected" : ""}>Bencana</option>
+                                            <option value="konflik" ${topic === "konflik" ? "selected" : ""}>Konflik</option>
   </select>
 </div>
 
@@ -190,6 +190,7 @@
 
         function submitNews() {
             let formData = new FormData($("#newsForm")[0]);
+            console.log(formData)
             $.ajax({
                 type: "POST",
                 url: "/posting_news",
@@ -209,6 +210,7 @@
 
         function update_news(newsId) {
             let formData = new FormData($("#updateForm")[0]);
+            console.log({...formData})
             $.ajax({
                 type: "POST",
                 url: "/update_news/" + newsId,

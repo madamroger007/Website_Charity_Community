@@ -7,7 +7,7 @@ from os.path import join, dirname
 import os
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
-from validation.forms import RegistrationForm, LoginForm, DonateForm, Newsform, UpdateNewsform
+from validation.forms import RegistrationForm, LoginForm, DonateForm, Newsform,UpdateProjectsform, UpdateNewsform,Projectsform,UpdateUsersForm
 from werkzeug.utils import secure_filename
 from bson import ObjectId, json_util
 
@@ -51,8 +51,8 @@ def save_image(file, file_type):
     time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
 
     extention = file.filename.split(".")[-1]
-    filename = f"static/assets/img/{file_type}/post-{time_str}.{extention}"
-    file.save(filename)
+    filename = f"assets/img/{file_type}/post-{time_str}.{extention}"
+    file.save("./static/" +filename)
 
     return filename
 
@@ -77,17 +77,17 @@ def register(role):
         default_role = role if role == 'admin' else 'users'
         doc = {
             "username": username,
-            "full_name": fullname,
+            "fullname": fullname,
             "password": password_hash,
             "role": default_role,
             "profile_info": "unknown",
-            "profile_img": "static/assets/img/users/profile/users.png",
+            "profile_img": "assets/img/users/users.png",
             "email": email,
             "country": "unknown",
             "no_hp": "unknown",
             "address": "unknown",
             "maps": "unknown",
-            "profile_img_bg": "static/assets/img/users/bg/bg_users.jpg",
+            "profile_img_bg": "assets/img/bgusers/bg_users.jpg",
             "date": time_str 
 
         }
@@ -167,7 +167,7 @@ def about():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
+        
         return render_template('client/about.html', user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
@@ -179,7 +179,7 @@ def news():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
+        
         return render_template('client/news.html', user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
@@ -203,7 +203,7 @@ def donate_pay():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(form.agree_give.data)
+    
 
         if request.method == 'POST' and form.validate_on_submit():
             # time
@@ -262,7 +262,7 @@ def profile():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
+        
         return render_template('client/profile.html', user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
@@ -276,7 +276,7 @@ def dashboard():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
+        
         return render_template('admin/index.html')
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
@@ -288,6 +288,7 @@ def users_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
+        
         return render_template('admin/table-users.html', user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
@@ -309,11 +310,13 @@ def news_admin():
 @app.route('/dashboard/admin/project')
 def project_admin():
     token_receive = request.cookies.get(app.config["TOKEN_KEY"])
+    form = Projectsform()
+    updateform = UpdateProjectsform()
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
-        return render_template('admin/table-project.html')
+        
+        return render_template('admin/table-project.html',user_info=user_info,form=form,updateform=updateform)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
 
@@ -324,8 +327,8 @@ def donate_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
-        return render_template('admin/table-donate.html')
+        
+        return render_template('admin/table-donate.html',user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
 
@@ -333,21 +336,24 @@ def donate_admin():
 @app.route('/dashboard/admin/profile')
 def profile_admin():
     token_receive = request.cookies.get(app.config["TOKEN_KEY"])
+    form = UpdateUsersForm()
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
-        return render_template('admin/pages-profile.html')
+        
+        return render_template('admin/pages-profile.html',user_info=user_info, form=form)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
 
 
 # *********************************************** RESTAPI *********************************************
 
-# *************** GET API
+#**************** GET API
+#*** Users
 @app.route('/get_users')
 def get_users():
     users = db.users.find({})
+    total_user = db.users.count_documents({})
     user_list = [
         {
             '_id': str(user['_id']),
@@ -368,14 +374,16 @@ def get_users():
 
     return jsonify({
         "msg": "success",
-        "users": user_list
+        "users": user_list,
+        "total_users": total_user
     })
 
-# News
+#*** News
 
 @app.route('/get_news')
 def get_news():
     news = db.news.find({})
+    total_news = db.news.count_documents({})
     news_list = [
         {
             '_id': str(user['_id']),
@@ -391,7 +399,8 @@ def get_news():
 
     return jsonify({
         "msg": "success",
-        "news": news_list
+        "news": news_list,
+        "total_news": total_news
     })
 
 @app.route('/get_news/<newsId>')
@@ -413,11 +422,24 @@ def get_newsId(newsId):
         "news": news_list
     })
 
-# * Donate
+#*** Donate
 @app.route('/get_donate')
 def get_donate():
-    news = db.news.find({})
-    news_list = [
+    donate = db.donations.find({})
+    user_donate = db.donations.count_documents({})
+    # total donation
+    pipeline = [
+            {
+                '$group': {
+                    '_id': None,
+                    'total_donation_amount': {'$sum': '$donation_amount'}
+                }
+            }
+        ]
+
+        # Melakukan agregasi
+    result = list(db.donations.aggregate(pipeline))
+    donate_list = [
         {
             '_id': str(user['_id']),
             'username': user.get('username', ''),
@@ -429,18 +451,64 @@ def get_donate():
             'bank_account': user.get('bank_account', ''),
             'date': user.get('date', ''),
         }
-        for user in news
+        for user in donate
     ]
 
     return jsonify({
         "msg": "success",
-        "news": news_list
+        "donation": donate_list,
+        "total_donation": result[0]['total_donation_amount'],
+        "user_donate": user_donate
+    })
+
+
+#*** News
+
+@app.route('/get_project')
+def get_project():
+    projects = db.projects.find({})
+    projects_list = [
+        {
+            '_id': str(user['_id']),
+            'username': user.get('username', ''),
+            'title': user.get('title', ''),
+            'img': user.get('img', ''),
+            'description': user.get('description', ''),
+            'topic': user.get('topic', ''),
+            'date': user.get('date', ''),
+        }
+        for user in projects
+    ]
+
+    return jsonify({
+        "msg": "success",
+        "projects": projects_list
+    })
+
+@app.route('/get_project/<projectId>')
+def get_projectId(projectId):
+    projects = db.projects.find_one({'_id':ObjectId(projectId)})
+    projects_list =  {
+            '_id': str(projects['_id']),
+            'username': projects.get('username', ''),
+            'title': projects.get('title', ''),
+            'img': projects.get('img', ''),
+            'description': projects.get('description', ''),
+            'topic': projects.get('topic', ''),
+            'date': projects.get('date', ''),
+        }
+
+
+    return jsonify({
+        "msg": "success",
+        "projects": projects_list
     })
 
 
 
-# ******************* POST API
+#******************** POST API
 
+#* News
 
 @app.route("/posting_news", methods=["POST"])
 def posting_news():
@@ -452,12 +520,10 @@ def posting_news():
             return jsonify({"result": "error", "msg": "User not found"})
         form = Newsform()
         file = request.files.get('img_give')
-        print(form.validate())
         if form.validate():
             title_receive = form.title_give.data
             description_receive = form.description_give.data
             topic_receive = form.topic_give.data
-            print(topic_receive)
             # time
             time_now = datetime.now()
             time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
@@ -476,22 +542,136 @@ def posting_news():
 
             db.news.insert_one(doc)
 
-            return jsonify({"result": "success", "msg": "Posting Successful"})
+            return jsonify({"result": "success", "msg": "Posting News Successful"})
+        else:
+            # Handle the case when form validation fails
+            errors = {field: form[field].errors for field in form.errors}
+            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
 
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
 
-# ************* UPDATE API
+#*** Projects
+
+@app.route("/posting_project", methods=["POST"])
+def posting_project():
+    token_receive = request.cookies.get(app.config["TOKEN_KEY"])
+    try:
+        payload = decode_token(token_receive)
+        user_info = db.users.find_one({"username": payload.get("username")})
+        if not user_info:
+            return jsonify({"result": "error", "msg": "User not found"})
+        form = Projectsform()
+        
+        if form.validate():
+            title_receive = form.title_give.data
+            description_receive = form.description_give.data
+            topic_receive = form.topic_give.data
+            file = request.files.get('img_give')
+            # time
+            time_now = datetime.now()
+            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+
+            # Simpan gambar ke server
+            img_url = save_image(file, 'projects')
+
+            doc = {
+                "username": user_info.get("username"),
+                "title": title_receive,
+                "img": img_url,
+                "description": description_receive,
+                "topic": topic_receive,
+                'date': time_str
+            }
+
+            db.projects.insert_one(doc)
+
+            return jsonify({"result": "success", "msg": "Posting Projects Successful"})
+        else:
+            # Handle the case when form validation fails
+            errors = {field: form[field].errors for field in form.errors}
+            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("index"))
+
+#************** UPDATE API
+
+#*** users
+@app.route("/update_users/<userid>", methods=["POST"])
+def update_users(userid):
+    token_receive = request.cookies.get(app.config["TOKEN_KEY"])
+    print(userid)
+    form = UpdateUsersForm()  # Gunakan UpdateUsersForm, bukan UpdateNewsform
+    try:
+        payload = decode_token(token_receive)
+        username = payload.get("username")
+        print(form.fullname_receive.data)
+        print(request.files.get("profile_img_receive"))
+        print(form.validate())
+        if form.validate():
+            fullname_receive = form.fullname_receive.data
+            profile_info_receive = request.form.get("profile_info_receive")
+            email_receive = form.email_receive.data
+            maps_receive = request.form.get("maps_receive")
+            no_hp_receive = form.no_hp_receive.data
+            address_receive = request.form.get("address_receive")
+            country_receive = form.country_receive.data
+
+            new_doc = {
+                "fullname": fullname_receive,
+                "profile_info": profile_info_receive,
+                "email": email_receive,
+                "maps": maps_receive,
+                "no_hp": no_hp_receive,
+                "address": address_receive,
+                "country": country_receive
+            }
+
+            # Check if a new image is uploaded
+            if "profile_img_receive" in request.files:
+                file = request.files.get('profile_img_receive')
+
+                # Check if the file is not empty
+                if file and file.filename:
+                    img_url = save_image(file, 'users')
+                    new_doc["profile_img"] = img_url
+                else:
+                    # Handle the case when the file is empty
+                    return jsonify({"result": "error", "msg": "No file provided for update"})
+            elif "profile_bg_img_receive" in request.files:
+                file = request.files.get('profile_bg_img_receive')
+
+                # Check if the file is not empty
+                if file and file.filename:
+                    img_url = save_image(file, 'bgusers')
+                    new_doc["profile_img_bg"] = img_url
+                else:
+                    # Handle the case when the file is empty
+                    return jsonify({"result": "error", "msg": "No file provided for update"})
+            # Update other fields
+            db.users.update_one({"_id": ObjectId(userid)}, {"$set": new_doc})
+
+            return jsonify({"result": "success", "msg": "Update Successful"})
+        else:
+            # Handle the case when form validation fails
+            errors = {field: form[field].errors for field in form.errors}
+            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("index"))
+
+
+
+#*** News
 @app.route("/update_news/<newsid>", methods=["POST"])
 def update_news(newsid):
     token_receive = request.cookies.get(app.config["TOKEN_KEY"])
-    print(newsid)
     try:
         payload = decode_token(token_receive)
         username = payload.get("username")
         form = UpdateNewsform()
-        
-       
+  
         if form.validate():
             title_receive = form.title_update.data
             description_receive = form.description_update.data
@@ -516,6 +696,7 @@ def update_news(newsid):
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
             db.news.update_one({"_id": ObjectId(newsid)}, {"$set":  new_doc })
+            print("berhasil")
 
             return jsonify({"result": "success", "msg": "Update Successful"})
         else:
@@ -526,7 +707,50 @@ def update_news(newsid):
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
 
-# ****************** DELETE API
+
+#*** Projects
+@app.route("/update_project/<projectid>", methods=["POST"])
+def update_project(projectid):
+    token_receive = request.cookies.get(app.config["TOKEN_KEY"])
+    try:
+        payload = decode_token(token_receive)
+        username = payload.get("username")
+        form = UpdateProjectsform()
+        print(form.validate())
+        if form.validate():
+            title_receive = form.title_update.data
+            description_receive = form.description_update.data
+            topic_receive = form.topic_update.data        
+            new_doc = {
+                "title": title_receive,
+                "description": description_receive,
+                "topic": topic_receive
+            }
+            # Check if a new image is uploaded
+            if "img_update" in request.files:
+                file = request.files.get('img_update')
+                # Check if the file is not empty
+                if file and file.filename:
+                    img_url = save_image(file, 'projects')
+                    new_doc["img"] = img_url
+                else:
+                    # Handle the case when the file is empty
+                    return jsonify({"result": "error", "msg": "No file provided for update"})
+            # Update other fields
+            db.projects.update_one({"_id": ObjectId(projectid)}, {"$set":  new_doc })
+
+            return jsonify({"result": "success", "msg": "Update Successful"})
+        else:
+            # Handle the case when form validation fails
+            errors = {field: form[field].errors for field in form.errors}
+            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("index"))
+
+
+#* ****************** DELETE API
+#*** Users
 @app.route('/delete_user/<user_id>', methods=['POST'])
 def delete_user(user_id):
     result = db.users.delete_one({'_id': ObjectId(user_id)})
@@ -534,10 +758,9 @@ def delete_user(user_id):
         'status': 'success' if result.deleted_count == 1 else 'error',
         'message': 'User deleted successfully' if result.deleted_count == 1 else 'User not found or could not be deleted'
     }
-    print("delete user")
     return jsonify(response)
 
-
+#*** News
 @app.route('/delete_news/<news_id>', methods=['POST'])
 def delete_news(news_id):
     result = db.news.delete_one({'_id': ObjectId(news_id)})
@@ -545,7 +768,16 @@ def delete_news(news_id):
         'status': 'success' if result.deleted_count == 1 else 'error',
         'message': 'News deleted successfully' if result.deleted_count == 1 else 'News not found or could not be deleted'
     }
-    print("delete user")
+    return jsonify(response)
+
+#*** Projects
+@app.route('/delete_project/<project_id>', methods=['POST'])
+def delete_project(project_id):
+    result = db.projects.delete_one({'_id': ObjectId(project_id)})
+    response = {
+        'status': 'success' if result.deleted_count == 1 else 'error',
+        'message': 'Projects deleted successfully' if result.deleted_count == 1 else 'Projects not found or could not be deleted'
+    }
     return jsonify(response)
 
 

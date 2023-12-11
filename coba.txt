@@ -1,92 +1,55 @@
-Malah terjadi error seperti dibawah ini
-untuk kode app.py :
-@app.route('/donate/payment',  methods=['POST', 'GET'])
-def donate_pay():
+Perbaiki kode logika untuk kode server Flask dalam penanganan Update users untuk kodenya :
+Untuk kode validasinya:
+class UpdateUsersForm(FlaskForm):
+    fullname = StringField('Full Name', validators=[DataRequired()])
+    profile_info = StringField('Biodata', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    maps = StringField('Maps', validators=[DataRequired()])
+    no_hp = StringField('Phone Number', validators=[DataRequired()])
+    address = TextAreaField('Address', validators=[DataRequired()])
+    country = StringField('Country', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+Untuk kode flask nya : 
+@app.route("/update_users/<userid>", methods=["POST"])
+def update_users(userid):
     token_receive = request.cookies.get(app.config["TOKEN_KEY"])
-    form = DonateForm()
     try:
         payload = decode_token(token_receive)
-        user_info = db.users.find_one({"username": payload.get("username")})
-        print(user_info)
-        if request.method == 'POST' and form.validate_on_submit():
-        # Handle the form submission, store data in MongoDB
-            user_info = db.users.find_one({"username": payload.get("username")})
-            print(form.country_give.data)
-            # donation_data = {
-            # "username":user_info.get("username"),
-            # "country": form.country_give.data,
-            # "donation_amount": form.donate_give.data,
-            # "email": form.email_give.data,
-            # "agree": form.agree_give.data,
-            # "phone": form.phone_give.data,
-            # "bank_account": form.rekening_give.data,
-            # "expiry_date": form.expiry_date_give.data,
-            # "security_code": form.security_code_give.data,
-            # "full_name": form.fullname_give.data,
-            # }
+        username = payload.get("username")
+        form = UpdateNewsform()
+        
+       
+        if form.validate():
+            title_receive = form.title_update.data
+            description_receive = form.description_update.data
+            topic_receive = form.topic_update.data        
+            new_doc = {
+                "title": title_receive,
+                "description": description_receive,
+                "topic": topic_receive
+            }
+            # Check if a new image is uploaded
+            if "img_update" in request.files:
 
-        # Insert the data into the MongoDB collection (adjust collection name as needed)
-            # db.donations.insert_one(donation_data)
-            return redirect(url_for('donate'))
-      
-        return render_template('client/payment.html', user_info=user_info,form=form)
+                file = request.files.get('img_update')
+                # Check if the file is not empty
+   
+                if file and file.filename:
+
+                    img_url = save_image(file, 'news')
+                    new_doc["img"] = img_url
+                else:
+                    # Handle the case when the file is empty
+                    return jsonify({"result": "error", "msg": "No file provided for update"})
+            # Update other fields
+            db.users.update_one({"_id": ObjectId(userid)}, {"$set":  new_doc })
+
+            return jsonify({"result": "success", "msg": "Update Successful"})
+        else:
+            # Handle the case when form validation fails
+            errors = {field: form[field].errors for field in form.errors}
+            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("index"))
-
-Untuk errornya : 
-
-
-TypeError: expected string or bytes-like object
-Traceback (most recent call last)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 1478, in __call__
-
-    return self.wsgi_app(environ, start_response)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 1458, in wsgi_app
-
-    response = self.handle_exception(e)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 1455, in wsgi_app
-
-    response = self.full_dispatch_request()
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 869, in full_dispatch_request
-
-    rv = self.handle_user_exception(e)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 867, in full_dispatch_request
-
-    rv = self.dispatch_request()
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 852, in dispatch_request
-
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-
-    File "/home/adam/Coding/Python/Final_porject/app.py", line 183, in donate_pay
-
-    if request.method == 'POST' and form.validate_on_submit():
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask_wtf/form.py", line 86, in validate_on_submit
-
-    return self.is_submitted() and self.validate(extra_validators=extra_validators)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/wtforms/form.py", line 329, in validate
-
-    return super().validate(extra)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/wtforms/form.py", line 146, in validate
-
-    if not field.validate(self, extra):
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/wtforms/fields/core.py", line 246, in validate
-
-    stop_validation = self._run_validation_chain(form, chain)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/wtforms/fields/core.py", line 266, in _run_validation_chain
-
-    validator(form, self)
-
-    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/wtforms/validators.py", line 352, in __call__
-
-    match = self.regex.match(field.data or "")

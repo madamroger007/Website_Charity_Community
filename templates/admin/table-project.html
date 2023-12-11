@@ -42,9 +42,9 @@
             <label for="topic">Topic:</label>
             <select name="topic_give" id="topic" class="form-control" required>
                 <option value="">Select a topic</option>
-                <option value="politics">Politics</option>
-                <option value="sports">Sports</option>
-                <option value="technology">Technology</option>
+                <option value="sosial">Sosial</option>
+                <option value="bencana">Bencana</option>
+                <option value="konflik">Konflik</option>
             </select>
             <!-- Menampilkan pesan kesalahan validasi di samping bidang -->
             <span id="topicError" style="color: red;"></span>
@@ -100,13 +100,13 @@
 
             $.ajax({
                 type: 'GET',
-                url: "/get_news/" + newsId,
+                url: "/get_project/" + newsId,
                 headers: {
                     'X-CSRFToken': csrfToken
                 },
                 success: function (response) {
                     console.log("cek");
-                    const { _id, title, username, img, topic, description, date } = response.news;
+                    const { _id, title, username, img, topic, description, date } = response.projects;
 
                     let modalContent = `
                 <div class="box">
@@ -153,9 +153,9 @@
 
     <option value="">Select a topic</option>
 
-                                            <option value="politics" ${topic === "politics" ? "selected" : ""}>Politics</option>
-                                            <option value="sports" ${topic === "sports" ? "selected" : ""}>Sports</option>
-                                            <option value="technology" ${topic === "technology" ? "selected" : ""}>Technology</option>
+                                            <option value="sosial" ${topic === "sosial" ? "selected" : ""}>Sosial</option>
+                                            <option value="bencana" ${topic === "bencana" ? "selected" : ""}>Bencana</option>
+                                            <option value="konflik" ${topic === "konflik" ? "selected" : ""}>Konflik</option>
   </select>
 </div>
 
@@ -192,7 +192,7 @@
             let formData = new FormData($("#newsForm")[0]);
             $.ajax({
                 type: "POST",
-                url: "/posting_news",
+                url: "/posting_project",
                 headers: {
                     'X-CSRFToken': csrfToken
                 },
@@ -207,11 +207,11 @@
             });
         }
 
-        function update_news(newsId) {
+        function update_news(projectid) {
             let formData = new FormData($("#updateForm")[0]);
             $.ajax({
                 type: "POST",
-                url: "/update_news/" + newsId,
+                url: "/update_project/" + projectid,
                 headers: {
                     'X-CSRFToken': csrfToken
                 },
@@ -232,10 +232,10 @@
         function get_news() {
             $.ajax({
                 type: 'GET',
-                url: "/get_news",
+                url: "/get_project",
                 success: function (response) {
                     // Perbarui tabel dengan data pengguna baru
-                    updateCard(response.news);
+                    updateCard(response.projects);
                     
 
                 },
@@ -265,10 +265,10 @@
             }
         }
 
-        function delete_news(newsId){
+        function delete_news(projectId){
             $.ajax({
                 type: 'POST',
-                url: "/delete_news/" + newsId,
+                url: "/delete_project/" + projectId,
                 headers: {
                     'X-CSRFToken': csrfToken  // Setel token CSRF di header
                 },
