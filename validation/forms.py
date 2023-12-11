@@ -1,6 +1,6 @@
 # forms.py
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField,BooleanField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField,BooleanField, FileField,TextAreaField,SelectField
 from wtforms.validators import DataRequired, Email, Length, Regexp, NumberRange, EqualTo, InputRequired
 
 
@@ -62,3 +62,21 @@ class DonateForm(FlaskForm):
         Length(min=3, message='Should be a string with a minimum length of 3')
     ])
     submit = SubmitField('donate')
+
+class Newsform(FlaskForm):
+    title_give = StringField('Title', validators=[DataRequired()])
+    img_give = FileField('Image', validators=[DataRequired()])
+    description_give = TextAreaField('Description', validators=[DataRequired()])
+    topic_give = SelectField('Topic', choices=[('politics', 'Politics'), ('sports', 'Sports'), ('technology', 'Technology')],
+                             validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class UpdateNewsform(FlaskForm):
+    title_update= StringField('Title', validators=[DataRequired()])
+
+    description_update = TextAreaField('Description', validators=[DataRequired()])
+    topic_update = SelectField('Topic', choices=[('politics', 'Politics'), ('sports', 'Sports'), ('technology', 'Technology')],
+                             validators=[DataRequired()])
+    submit = SubmitField('Update')
+
+

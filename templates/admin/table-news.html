@@ -1,12 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
 </head>
+
 <body>
-    
+    <form method="post" enctype="multipart/form-data" class="container" id="newsForm">
+        {{ form.hidden_tag() }}
+        <h1>Add News</h1>
+        <div class="mb-3">
+            <label for="title">Title:</label>
+            <input type="text" name="title_give" id="title" class="form-control" required>
+            <!-- Menampilkan pesan kesalahan validasi di samping bidang -->
+            <span id="titleError" style="color: red;"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="img">Image:</label>
+            <input type="file" name="img_give" id="img" class="form-control" required>
+            <!-- Menampilkan pesan kesalahan validasi di samping bidang -->
+            <span id="imgError" style="color: red;"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="description">Description:</label>
+            <textarea name="description_give" id="description" class="form-control" required></textarea>
+            <!-- Menampilkan pesan kesalahan validasi di samping bidang -->
+            <span id="descriptionError" style="color: red;"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="topic">Topic:</label>
+            <select name="topic_give" id="topic" class="form-control" required>
+                <option value="">Select a topic</option>
+                <option value="politics">Politics</option>
+                <option value="sports">Sports</option>
+                <option value="technology">Technology</option>
+            </select>
+            <!-- Menampilkan pesan kesalahan validasi di samping bidang -->
+            <span id="topicError" style="color: red;"></span>
+        </div>
+
+        <button type="button" onclick="submitNews()" class="btn btn-primary">Submit</button>
+    </form>
+
+  
+
+    <nav id="btns-me" class="level is-mobile" style="margin-top: 2rem;">
+      
+        <div class="modal" id="modal-edit">
+            <div class="modal-background" onclick="$('#modal-edit').removeClass('is-active')">
+            </div>
+
+
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div id="card-content">
+
+        </div>
+    </div>
+
+    <!-- Sertakan jQuery dan Bootstrap JS jika diperlukan -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ url_for('static', filename='admin/assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/dist/js/app-style-switcher.js') }}"></script>
+    <!-- Wave Effects -->
+    <script src="{{ url_for('static', filename='admin/dist/js/waves.js') }}"></script>
+    <!-- Menu sidebar -->
+    <script src="{{ url_for('static', filename='admin/dist/js/sidebarmenu.js') }}"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='admin/dist/js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            get_news()
+
+        });
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        function showUpdateCard(newsId) {
+            $('#modal-edit').addClass('is-active');
+
+            $.ajax({
+                type: 'GET',
+                url: "/get_news/" + newsId,
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                success: function (response) {
+                    console.log("cek");
+                    const { _id, title, username, img, topic, description, date } = response.news;
+
+                    let modalContent = `
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <form id='updateForm' method="post" enctype="multipart/form-data">
+                            {{ updateform.hidden_tag() }}
+                            <div class="field">
+                                <label for="input-name" class="label">Title</label>
+                                <p class="control">
+                                    <input type="text" name="title_update" id="title_update" class="input" placeholder="Input your name" value="${title}">
+                                </p>
+                            </div>
+
+                            <div class="field">
+                                <label for="input-pic" class="label">Profile Picture</label>
+                                <div class="control is-expanded">
+                                    <div class="file has-name">
+                                        <label class="file-label" style="width: 100%;">
+                                            <input name="img_update" id="img_update" class="file-input" type="file" >
+                                            <span class="file-cta">
+                                                <span class="file-icon">
+                                                    <i class="fa fa-upload"></i>
+                                                </span>
+                                                <span class="file-label">Select a file</span>
+                                            </span>
+                                            <span id="file-name" class="file-name" style="width: 100%; max-width:100%;">
+                                                ${img}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="textarea-about" class="label">Description</label>
+                                <p class="control">
+                                    <textarea id="description_update"name="description_update" class="textarea" placeholder="pleace introduce yourself" value="${description}">${description}</textarea>
+                                </p>
+                            </div>
+
+                            <div class="select">
+  <select name="topic_update" id="topic_update">
+
+    <option value="">Select a topic</option>
+
+                                            <option value="politics" ${topic === "politics" ? "selected" : ""}>Politics</option>
+                                            <option value="sports" ${topic === "sports" ? "selected" : ""}>Sports</option>
+                                            <option value="technology" ${topic === "technology" ? "selected" : ""}>Technology</option>
+  </select>
+</div>
+
+                            <nav class="level is-mobile">
+                                <div class="level-left"></div>
+                                <div class="level-right">
+                                    <div class="level-item">
+                                        <a class="button is-sparta" onclick="update_news('${_id}')">
+                                            Update
+                                        </a>
+                                    </div>
+                                   
+                                    <div class="level-item">
+                                        <a class="button is-sparta is-outlined" onclick="$('#modal-edit').removeClass('is-active')">
+                                            Cancel
+                                        </a>
+                                    </div>
+                                </div>
+                            </nav>
+</form>
+                        </div>
+                    </article>
+                </div>
+            `;
+
+                    // Hapus konten modal sebelumnya dan tambahkan yang baru
+                    $('#modal-edit').empty().append(modalContent);
+                }
+            });
+        }
+
+
+        function submitNews() {
+            let formData = new FormData($("#newsForm")[0]);
+            $.ajax({
+                type: "POST",
+                url: "/posting_news",
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    // Handle the response as needed, e.g., show success message or redirect
+                    window.location.reload()
+                }
+            });
+        }
+
+        function update_news(newsId) {
+            let formData = new FormData($("#updateForm")[0]);
+            $.ajax({
+                type: "POST",
+                url: "/update_news/" + newsId,
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    // Handle the response as needed, e.g., show success message or redirect
+                    window.location.reload()
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function get_news() {
+            $.ajax({
+                type: 'GET',
+                url: "/get_news",
+                success: function (response) {
+                    // Perbarui tabel dengan data pengguna baru
+                    updateCard(response.news);
+                    
+
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function updateCard(news) {
+            // Tambahkan data pengguna baru ke tabel
+            for (let index = 0; index < news.length; index++) {
+                let berita = news[index];
+                let row = `
+                <div class="card" style="width: 18rem;">
+                <img src="/${berita.img}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">${berita.title}</h5>
+                  <p class="card-text">${berita.title}</p>
+                  <button type='button' onclick='showUpdateCard("${berita._id} ")' class="btn btn-primary">Update</button>
+                  <button type='button' onclick='delete_news("${berita._id} ")' class="btn btn-danger">Delete</button>
+                
+                  </div>
+              </div>
+                `;
+                $('#card-content').append(row);
+            }
+        }
+
+        function delete_news(newsId){
+            $.ajax({
+                type: 'POST',
+                url: "/delete_news/" + newsId,
+                headers: {
+                    'X-CSRFToken': csrfToken  // Setel token CSRF di header
+                },
+                success: function (response) {
+                    // Handle success, e.g., update the UI or reload the page
+                    console.log(response);
+                    window.location.reload()
+
+                },
+                error: function (error) {
+                    // Handle error, e.g., show an alert
+                    console.error(error);
+                }
+            })
+        }
+    </script>
 </body>
+
 </html>
