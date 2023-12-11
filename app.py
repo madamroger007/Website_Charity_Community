@@ -505,9 +505,15 @@ def update_news(newsid):
             if "img_update" in request.files:
 
                 file = request.files.get('img_update')
-                print(file)
-                img_url = save_image(file,'news')
-                new_doc["img"] = img_url
+                # Check if the file is not empty
+   
+                if file and file.filename:
+
+                    img_url = save_image(file, 'news')
+                    new_doc["img"] = img_url
+                else:
+                    # Handle the case when the file is empty
+                    return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
             db.news.update_one({"_id": ObjectId(newsid)}, {"$set":  new_doc })
 
