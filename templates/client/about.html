@@ -12,41 +12,42 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
     </head>
     <body class="bg-white">
-       <header class="container-fluid ">
-          <div class="shadow">
-              <div class="container p-2">
-                   <div class="row top-ro">
-                       <div class="col-lg-3 col-md-12 pt-2">
-                           <img class="max-250 my-2 my-lg-4" src="{{ url_for('static', filename='client/assets/images/logo.jpg') }}" alt="">
-                           <a  data-bs-toggle="collapse" data-bs-target="#menu" class="float-end d-lg-none pt-1 ps-3"><i class="bi pt-1 fs-11 cp bi-list"></i></a>
-                       </div>
-                       <div class="col-md-9  logiki">
-                           <div class="top-row  bg-primary d-none d-lg-flex p-2 rounded-pill row">
-                               <ul class="text-white ">
-                                   <li class="float-start p-2"><i class="bi fs-6 bi-geo-alt"></i> 1'st Floor Vplaza, Chennai, Tamilnadu, India</li>
-                                   <li class="float-end p-2"><i class="bi s-6 bi-phone-vibrate"></i> +91 878 8783 997</li>
-                                   <li class="float-end p-2"><i class="bi s-6 bi-envelope-x"></i> support@smarteyeapps.com</li>
-                               </ul>
-                           </div>
-                          <div id="menu" class="nav-row d-none d-lg-flex  row">
-                               <ul class="d-inline-block">
-                                   <li class="float-none float-md-start p-4 px-4"><a href="index.html">Home</a></li>
-                                   <li class="float-none float-md-start p-4 px-4"><a href="about.html">About US</a></li>
-                                   <li class="float-none float-md-start p-4 px-4"><a href="causes.html">Causes</a></li>
-                                   <li class="float-none float-md-start p-4 px-4"><a href="gallery.html">Gallery</a></li>
-                                   <li class="float-none float-md-start p-4 px-4"><a href="blog.html">Blog</a></li>
-                                   <li class="float-none float-md-start p-4 px-4"><a href="contact.html">Contact Us</a></li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-          </div>
+       <header class="mb-5 ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top p-1">
+            <div class="container-fluid">
+              
+                <img class="mx-2" src="{{ url_for('static', filename='client/assets/images/logo.jpg') }}" alt="" style="max-width: 100px;">
+
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/about">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link"  href="/donate">Donate</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/project">Project</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/contact_us">Contact Us</a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </div>
+          </nav>
        </header>
        
        
         <!--  ************************* Page Title Starts Here ************************** -->
-     <div class="page-nav no-margin row">
+     <div class="page-nav no-margin row mt-5">
             <div class="container">
                 <div class="row">
                     <h2 class="text-start">About Us</h2>
@@ -256,7 +257,7 @@
         </footer>
         <div class="copy">
             <div class="container">
-                <a href="https://www.smarteyeapps.com/">2022 &copy; All Rights Reserved | Designed and Developed by Smarteyeapps.com</a>
+                <p>2023 &copy; All Rights Reserved | Charity Community </p>
 
                 <span>
                     <a href=""><i class="fab fa-github"></i></a>

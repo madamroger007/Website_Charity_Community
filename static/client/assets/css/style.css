@@ -705,3 +705,9 @@ footer .inner .foot-news ul li i {
 }
 
 /*# sourceMappingURL=style.css.map */
+.navbar .navbar-nav li>a.nav-link{
+margin: auto 10px auto 10px;
+padding: 2px;
+font-weight: 400;
+font-size: large;
+}

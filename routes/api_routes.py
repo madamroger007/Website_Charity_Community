@@ -78,7 +78,7 @@ def get_users():
 
 @api_bp.route('/get_news')
 def get_news():
-    news = db.news.find({})
+    news = db.news.find({}).limit(20)
     total_news = db.news.count_documents({})
     news_list = [
         {
