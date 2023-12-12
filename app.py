@@ -1,76 +1,48 @@
-from flask import Flask, render_template,jsonify,redirect,request,url_for
-app = Flask(__name__)
-
-#************************* Login & Register client || admin *****************************
-@app.route("/login")
-def login():
-    return render_template("auth/login.html")
-
-@app.route("/register/<role>")
-def register(role):
-    return render_template("auth/register.html")
-
-#**************************************** Client ****************************************
-@app.route('/')
-def index():
-    return render_template('client/index.html')
-
-@app.route('/about')
-def about():
-    return render_template('client/about.html')
-
-@app.route('/news')
-def news():
-    return render_template('client/news.html')
-
-@app.route('/donate')
-def donate():
-    return render_template('client/donate.html')
-
-@app.route('/donate/payment')
-def donate_pay():
-    return render_template('client/payment.html')
-
-@app.route('/project')
-def project():
-    return render_template('client/project.html')
-
-@app.route('/contact_us')
-def contact_us():
-    return render_template('client/contact.html')
-
-@app.route('/profile')
-def profile():
-    return render_template('client/profile.html')
-
-#*************************************** Admin *****************************************
-@app.route('/dashboard/admin')
-def dashboard():
-    return render_template('admin/index.html')
-
-@app.route('/dashboard/admin/users')
-def users_admin():
-    return render_template('admin/table-users.html')
-
-@app.route('/dashboard/admin/news')
-def news_admin():
-    return render_template('admin/table-news.html')
-
-@app.route('/dashboard/admin/project')
-def project_admin():
-    return render_template('admin/table-project.html')
+from dotenv import load_dotenv
+from os.path import join, dirname
+import os
+from flask import Flask, render_template
+from flask_wtf.csrf import CSRFProtect
+from routes import auth_bp,admin_bp,api_bp,client_bp
 
 
-@app.route('/dashboard/admin/donate')
-def donate_admin():
-    return render_template('admin/table-donate.html')
 
-@app.route('/dashboard/admin/profile')
-def profile_admin():
-    return render_template('admin/pages-profile.html')
+# ************************* Variable & Key *****************************
+dotenv_path = join(dirname(__file__), ".env")
+load_dotenv(dotenv_path)
+
+
+# * config flask
+app = Flask(__name__, template_folder='templates')
+csrf = CSRFProtect(app)
+
+app.config.from_mapping(
+    SECRET_KEY=os.environ.get("SECRET_KEY"),
+    TEMPLATE_AUTO_RELOAD=True,
+    UPLOAD_FOLDER=["./static/assets/img/news",
+                   "./static/assets/img/projects", "./static/assets/img/users"],
+)
+
+# * Connect database
+
+app.register_blueprint(auth_bp)
+app.register_blueprint(client_bp)
+app.register_blueprint(admin_bp)
+app.register_blueprint(api_bp)
+
+
+
+# *********************************************** Error Page *********************************************
+# Handler untuk kesalahan server internal (500)
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error/500.html'), 500
+# Handler untuk kesalahan server internal (404)
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error/404.html'), 404
 
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=True)
- 
+    app.run(debug=True)
