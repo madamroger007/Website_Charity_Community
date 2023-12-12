@@ -1,55 +1,148 @@
-Perbaiki kode logika untuk kode server Flask dalam penanganan Update users untuk kodenya :
-Untuk kode validasinya:
-class UpdateUsersForm(FlaskForm):
-    fullname = StringField('Full Name', validators=[DataRequired()])
-    profile_info = StringField('Biodata', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    maps = StringField('Maps', validators=[DataRequired()])
-    no_hp = StringField('Phone Number', validators=[DataRequired()])
-    address = TextAreaField('Address', validators=[DataRequired()])
-    country = StringField('Country', validators=[DataRequired()])
-    submit = SubmitField('Register')
+perbaiki kode ini kenapa pada kode mongoclient nya error :
+from flask import Blueprint,render_template, jsonify, request, redirect, url_for
+from pymongo import MongoClient
+import jwt
+from datetime import datetime, timedelta
+import hashlib
+from dotenv import load_dotenv
+from os.path import join, dirname
+import os
+from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
+from validation.forms import RegistrationForm, LoginForm, DonateForm, Newsform,UpdateProjectsform, UpdateNewsform,Projectsform,UpdateUsersForm
+from werkzeug.utils import secure_filename
+from bson import ObjectId, json_util
 
-Untuk kode flask nya : 
-@app.route("/update_users/<userid>", methods=["POST"])
-def update_users(userid):
-    token_receive = request.cookies.get(app.config["TOKEN_KEY"])
-    try:
-        payload = decode_token(token_receive)
-        username = payload.get("username")
-        form = UpdateNewsform()
-        
-       
-        if form.validate():
-            title_receive = form.title_update.data
-            description_receive = form.description_update.data
-            topic_receive = form.topic_update.data        
-            new_doc = {
-                "title": title_receive,
-                "description": description_receive,
-                "topic": topic_receive
+auth_bp = Blueprint('auth', __name__)
+
+dotenv_path = join(dirname(dirname(__file__)), ".env")
+load_dotenv(dotenv_path)
+
+SECRET_KEY=os.environ.get("SECRET_KEY"),
+MONGODB_URI=os.environ.get("MONGODB_URI"),
+DB_NAME=os.environ.get("DB_NAME"),
+TOKEN_KEY=os.environ.get("TOKEN_KEY"),
+print(DB_NAME)
+
+
+# * Connect database
+client = MongoClient(MONGODB_URI)
+db = client[DB_NAME]
+
+
+# * Function Helper
+def decode_token(payload):
+    token = jwt.decode(payload, SECRET_KEY, algorithms=["HS256"])
+    return token
+
+
+def encode_token(payload):
+    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    return token
+
+# ************************* Login & Register client || admin *****************************
+
+@auth_bp.route("/register/<role>", methods=["POST", 'GET'])
+def register(role):
+    form = RegistrationForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        # time
+        time_now = datetime.now()
+        time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+        username = form.username_give.data
+        fullname = form.fullname_give.data
+        email = form.email_give.data
+        password = form.password_give.data
+        password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+        exists = bool(db.users.find_one({"username": username}))
+        if exists:
+            return jsonify({"result": "success", "exists": exists})
+        default_role = role if role == 'admin' else 'users'
+        doc = {
+            "username": username,
+            "fullname": fullname,
+            "password": password_hash,
+            "role": default_role,
+            "profile_info": "unknown",
+            "profile_img": "assets/img/users/users.png",
+            "email": email,
+            "country": "unknown",
+            "no_hp": "unknown",
+            "address": "unknown",
+            "maps": "unknown",
+            "profile_img_bg": "assets/img/bgusers/bg_users.jpg",
+            "date": time_str 
+
+        }
+
+        db.users.insert_one(doc)
+        return redirect(url_for('login'))
+
+    return render_template("auth/register.html", form=form, role=role)
+
+
+@auth_bp.route("/login", methods=['POST', 'GET'])
+def login():
+    form = LoginForm()
+    if request.method == 'POST':
+        # Regular login process
+        username = form.username_give.data
+        password = form.password_give.data
+        pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+
+        user = db.users.find_one(
+            {
+                "username": username,
+                "password": pw_hash,
+            })
+
+        if user:
+            payload = {
+                "username": username,
+                "exp": datetime.utcnow() + timedelta(seconds=60 * 60 * 24),
             }
-            # Check if a new image is uploaded
-            if "img_update" in request.files:
+            token = encode_token(payload)
+            # Check if it's an AJAX request
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({
+                    "result": "success",
+                    "token": token,
+                })
+            else:
+                msg = "Invalid username or password"
+                return render_template("auth/login.html", token=token, form=form, msg=msg)
 
-                file = request.files.get('img_update')
-                # Check if the file is not empty
-   
-                if file and file.filename:
-
-                    img_url = save_image(file, 'news')
-                    new_doc["img"] = img_url
-                else:
-                    # Handle the case when the file is empty
-                    return jsonify({"result": "error", "msg": "No file provided for update"})
-            # Update other fields
-            db.users.update_one({"_id": ObjectId(userid)}, {"$set":  new_doc })
-
-            return jsonify({"result": "success", "msg": "Update Successful"})
         else:
-            # Handle the case when form validation fails
-            errors = {field: form[field].errors for field in form.errors}
-            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+            # Check if it's an AJAX request
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({"result": "fail", "msg": "We could not find a user with that id/password combination"})
+            else:
+                # Assuming you are using Flask's flash messages
+                msg = "Invalid username or password"
+                return redirect(url_for("login", msg=msg))
+    else:
+        return render_template("auth/login.html", form=form)
 
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("index"))
+errornya :
+('dbcharity_community',)
+Traceback (most recent call last):
+  File "/home/adam/Coding/Python/Final_porject/app.py", line 13, in <module>
+    from routes.auth_routes import auth_bp
+  File "/home/adam/Coding/Python/Final_porject/routes/auth_routes.py", line 27, in <module>
+    db = client[DB_NAME]
+  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1597, in __getitem__
+    return database.Database(self, name)
+  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/database.py", line 137, in __init__
+    raise TypeError("name must be an instance of str")
+TypeError: name must be an instance of str
+(.venv) adam@madamroger07:~/Coding/Python/Final_porject$ python app.py
+('dbcharity_community',)
+Traceback (most recent call last):
+  File "/home/adam/Coding/Python/Final_porject/app.py", line 13, in <module>
+    from routes.auth_routes import auth_bp
+  File "/home/adam/Coding/Python/Final_porject/routes/auth_routes.py", line 28, in <module>
+    db = client[DB_NAME]
+  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1597, in __getitem__
+    return database.Database(self, name)
+  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/database.py", line 137, in __init__
+    raise TypeError("name must be an instance of str")
+TypeError: name must be an instance of str
