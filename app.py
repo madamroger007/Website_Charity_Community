@@ -1,17 +1,9 @@
-from pymongo import MongoClient
-import jwt
-from datetime import datetime, timedelta
-import hashlib
 from dotenv import load_dotenv
 from os.path import join, dirname
 import os
-from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask import Flask, render_template
 from flask_wtf.csrf import CSRFProtect
-from bson import ObjectId, json_util
-from routes.auth_routes import auth_bp
-from routes.admin_routes import admin_bp
-from routes.client_routes import client_bp
-from routes.api_routes import api_bp
+from routes import auth_bp,admin_bp,api_bp,client_bp
 
 
 

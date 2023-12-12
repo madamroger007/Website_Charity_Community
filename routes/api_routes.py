@@ -19,7 +19,7 @@ db = client[DB_NAME]
 
 
 
-# * Function Helper
+#************* Function Helper
 def decode_token(payload):
     token = jwt.decode(payload, SECRET_KEY, algorithms=["HS256"])
     return token
@@ -43,7 +43,8 @@ def save_image(file, file_type):
 
 #****************************************** GET API ******************************************
 
-#*** Users
+#***************** USERS
+
 @api_bp.route('/get_users')
 def get_users():
     users = db.users.find({})
@@ -73,7 +74,8 @@ def get_users():
     })
 
 
-#*** News
+#***************** NEWS
+
 @api_bp.route('/get_news')
 def get_news():
     news = db.news.find({})
@@ -117,7 +119,8 @@ def get_newsId(newsId):
     })
 
 
-#*** Donate
+#***************** DONATE
+
 @api_bp.route('/get_donate')
 def get_donate():
     donate = db.donations.find({})
@@ -157,7 +160,8 @@ def get_donate():
     })
 
 
-#*** News
+#***************** PROJECTS
+
 @api_bp.route('/get_project')
 def get_project():
     projects = db.projects.find({})
@@ -202,7 +206,7 @@ def get_projectId(projectId):
 
 #****************************************** POST API ********************************************* 
 
-#*** News
+#***************** NEWS
 
 @api_bp.route("/posting_news", methods=["POST"])
 def posting_news():
@@ -245,7 +249,7 @@ def posting_news():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
-#*** Projects
+#***************** PROJECTS
 
 @api_bp.route("/posting_project", methods=["POST"])
 def posting_project():
@@ -291,7 +295,8 @@ def posting_project():
 
 #****************************************** UPDATE API ******************************************
 
-#*** users
+#***************** USERS
+
 @api_bp.route("/update_users/<userid>", methods=["POST"])
 def update_users(userid):
     token_receive = request.cookies.get(TOKEN_KEY)
@@ -300,9 +305,6 @@ def update_users(userid):
     try:
         payload = decode_token(token_receive)
         username = payload.get("username")
-        print(form.fullname_receive.data)
-        print(request.files.get("profile_img_receive"))
-        print(form.validate())
         if form.validate():
             fullname_receive = form.fullname_receive.data
             profile_info_receive = request.form.get("profile_info_receive")
@@ -357,7 +359,8 @@ def update_users(userid):
 
 
 
-#*** News
+#***************** NEWS
+
 @api_bp.route("/update_news/<newsid>", methods=["POST"])
 def update_news(newsid):
     token_receive = request.cookies.get(TOKEN_KEY)
@@ -402,7 +405,7 @@ def update_news(newsid):
         return redirect(url_for("client.index"))
 
 
-#*** Projects
+#***************** PROJECTS
 @api_bp.route("/update_project/<projectid>", methods=["POST"])
 def update_project(projectid):
     token_receive = request.cookies.get(TOKEN_KEY)
@@ -445,7 +448,8 @@ def update_project(projectid):
 
 #****************************************** DELETE API ******************************************
 
-#*** Users
+#***************** USERS
+
 @api_bp.route('/delete_user/<user_id>', methods=['POST'])
 def delete_user(user_id):
     result = db.users.delete_one({'_id': ObjectId(user_id)})
@@ -455,7 +459,8 @@ def delete_user(user_id):
     }
     return jsonify(response)
 
-#*** News
+#***************** NEWS
+
 @api_bp.route('/delete_news/<news_id>', methods=['POST'])
 def delete_news(news_id):
     result = db.news.delete_one({'_id': ObjectId(news_id)})
@@ -465,7 +470,8 @@ def delete_news(news_id):
     }
     return jsonify(response)
 
-#*** Projects
+#***************** PROJECTS
+
 @api_bp.route('/delete_project/<project_id>', methods=['POST'])
 def delete_project(project_id):
     result = db.projects.delete_one({'_id': ObjectId(project_id)})
