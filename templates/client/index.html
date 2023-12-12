@@ -1,3 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Cek web | Adam</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='client/assets/images/fav.png') }}"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='client/assets/images/fav.jpg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='client/assets/css/style.css') }}"
+    />
+  </head>
+  <body class="bg-white">
+    <header class="container-fluid">
+      <div class="shadow">
+        <div class="container p-2">
+          <div class="row top-ro">
+            <div class="col-lg-3 col-md-12 pt-2">
+              <img
+                class="max-250 my-2 my-lg-4"
+                src="{{ url_for('static', filename='client/assets/images/logo.jpg') }}"
+                alt=""
+              />
+              <a
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+                class="float-end d-lg-none pt-1 ps-3"
+                ><i class="bi pt-1 fs-11 cp bi-list"></i
+              ></a>
+            </div>
+            <div class="col-md-9 logiki">
+              
+              <div id="menu" class="nav-row d-none d-lg-flex row">
+                <ul class="d-inline-block">
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/">Home</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/about">About US</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/donate">Donate</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/project">Project</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/news">News</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/contact_us">Contact Us</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4 nav-item">
+                    <a href="/profile">
+                      <img src="{{ url_for('static', filename='client/assets/images/profile_image/profile-placeholder.png') }}" alt="Logo" class="logo-small">
+                    </a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/donate/payment">Donate</a>
+                  </li>
+                </ul>
+=======
 <!doctype html>
     <html lang="en">
     <head>
@@ -49,445 +135,536 @@
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
               </div>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="{{ url_for('static', filename='client/assets/images/slider/slide-02.jpg') }}" class="d-block w-100" alt="...">
-                  <div class="carousel-caption d-none pb-5 mb-5 d-md-block">
-                        <h5 class="text-white fw-bold fs-1 bounceInDown">Support  Child for Education</h5>
-                        <p class=" bounceInLeft mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, <br>
-                            aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br>
-                            sed sagittis at, sagittis quis neque. Praesent.</p>
-                        <div class="row text-center mt-3 vbh">
-                            <div class="btn mx-auto w-auto  px-5 py-3 btn-primary fs-5  bounceInUp"> Donate Now </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                  <img src="{{ url_for('static', filename='client/assets/images/slider/slide-03.jpg') }}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none pb-5 mb-5 d-md-block">
-                        <h5 class="text-white fw-bold fs-1 bounceInDown">Support  Child for Education</h5>
-                        <p class=" bounceInLeft mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, <br>
-                            aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br>
-                            sed sagittis at, sagittis quis neque. Praesent.</p>
-                        <div class="row text-center mt-3 vbh">
-                            <div class="btn mx-auto w-auto  px-5 py-3 btn-primary fs-5  bounceInUp"> Donate Now </div>
-                        </div>
-                    </div>
-                </div>
-               
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
-       </div>
-       
-       <div class="what-we-do big-padding container-fluid">
-           <div class="container">
-               <div class="section-title row">
-                   <h2>What we do?</h2>
-                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac accumsan ante. Proin ac lectus porttitor, pharetra lorem sit amet, euismod tortor. Donec blandit accumsan elit</p>
-               </div>
-               <div class="row mt-4 whd">
-                   <div class="col-md-4 text-center mb-5">
-                       <i class="bi text-primary fs-1 bi-egg-fried"></i>
-                       <h4 class="fs-6 fw-bold mt-3">RAISE FUND FOR HEALTHY FOOD</h4>
-                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla  consectetur adipiscing elit. Sed ac accumsan hic deserunt facere et animi</p>
-                   </div>
-                    <div class="col-md-4 text-center mb-5">
-                       <i class="bi fs-1 text-primary bi-house-door"></i>
-                       <h4 class="fs-6 fw-bold mt-3">HUGE HELP TO HOMELESS PUPIL</h4>
-                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla  consectetur adipiscing elit. Sed ac accumsan hic deserunt facere et animi</p>
-                   </div>
-                    <div class="col-md-4 text-center mb-5">
-                      <i class="bi fs-1 text-primary bi-book-half"></i>
-                       <h4 class="fs-6 fw-bold mt-3">EDUCATION FOR POOR CHILDREN</h4>
-                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla  consectetur adipiscing elit. Sed ac accumsan hic deserunt facere et animi</p>
-                   </div>
-                     <div class="col-md-4 text-center mb-5">
-                      <i class="bi fs-1 text-primary bi-currency-dollar"></i>
-                       <h4 class="fs-6 fw-bold mt-3">MASSIVE DONATION TO POOR</h4>
-                       <p>Lorem ipsum dolor sit amet consectetur,  consectetur adipiscing elit. Sed ac accumsan adipisicing elit. Nulla hic deserunt facere et animi</p>
-                   </div>
-                    <div class="col-md-4 text-center mb-5">
-                       <i class="bi fs-1 text-primary bi-building"></i>
-                       <h4 class="fs-6 fw-bold mt-3">LET’S BUILD SOME HOMES</h4>
-                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla  consectetur adipiscing elit. Sed ac accumsan hic deserunt facere et animi</p>
-                   </div>
-                     <div class="col-md-4 text-center mb-5">
-                       <i class="bi fs-1 text-primary bi-heart-pulse"></i>
-                       <h4 class="fs-6 fw-bold mt-3">MEDICAL FACILITIES</h4>
-                       <p>Lorem ipsum dolor sit amet consectetur,  consectetur adipiscing elit. Sed ac accumsan adipisicing elit. Nulla hic deserunt facere et animi</p>
-                   </div>
-                   
-                  
-               </div>
-           </div>
-       </div>
-    
-    
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="slider containr-fluid">
+      <div
+        id="carouselExampleCaptions"
+        class="carousel slide"
+        data-bs-ride="false"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="{{ url_for('static', filename='client/assets/images/slider/slide-02.jpg') }}"
+              class="d-block w-100"
+              alt="..."
+            />
+            <div class="carousel-caption d-none pb-5 mb-5 d-md-block">
+              <h5 class="text-white fw-bold fs-1 bounceInDown">
+                Dukung Anak untuk Pendidikan
+              </h5>
+              <p class="bounceInLeft mb-4">
+                Dukunglah anak-anak dengan memberikan motivasi, dorongan, dan
+                dukungan penuh agar mereka dapat mengakses pendidikan yang
+                berkualitas. Melalui peran aktif dalam mendukung proses
+                pembelajaran mereka, kita dapat membantu membangun fondasi yang
+                kokoh bagi masa depan mereka.
+              </p>
+              <div class="row text-center mt-3 vbh">
+                <div
+                  class="btn mx-auto w-auto px-5 py-3 btn-primary fs-5 bounceInUp"
+                >
+                  Donasi Sekarang
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="{{ url_for('static', filename='client/assets/images/slider/slide-03.jpg') }}"
+              class="d-block w-100"
+              alt="..."
+            />
+            <div class="carousel-caption d-none pb-5 mb-5 d-md-block">
+              <h5 class="text-white fw-bold fs-1 bounceInDown">
+                Dukung Anak untuk Pendidikan
+              </h5>
+              <p class="bounceInLeft mb-4">
+                Dukunglah anak-anak dengan memberikan motivasi, dorongan, dan
+                dukungan penuh agar mereka dapat mengakses pendidikan yang
+                berkualitas. Melalui peran aktif dalam mendukung proses
+                pembelajaran mereka, kita dapat membantu membangun fondasi yang
+                kokoh bagi masa depan mereka.
+              </p>
+              <div class="row text-center mt-3 vbh">
+                <div
+                  class="btn mx-auto w-auto px-5 py-3 btn-primary fs-5 bounceInUp"
+                >
+                  Donasi Sekarang
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="what-we-do big-padding container-fluid">
+      <div class="container">
+        <div class="section-title row">
+          <h2>Apa yang kita lakukan?</h2>
+          <p>
+            Kami mengajak siapapun yang ingin donasi agar mencukupi ekonomi
+            mereka yang saat ini sangat tidak mampu
+          </p>
+        </div>
+        <div class="row mt-4 whd">
+          <div class="col-md-4 text-center mb-5">
+            <i class="bi text-primary fs-1 bi-egg-fried"></i>
+            <h4 class="fs-6 fw-bold mt-3">ANGKAT DANA UNTUK MAKANAN SEHAT</h4>
+            <p>
+              Tidak ada yang lebih memberdayakan daripada makanan sehat di saat
+              kesulitan. Mari bersama-sama memberikan kehangatan dan kekuatan
+              melalui setiap suapan makanan yang bernutrisi.
+            </p>
+          </div>
+          <div class="col-md-4 text-center mb-5">
+            <i class="bi fs-1 text-primary bi-house-door"></i>
+            <h4 class="fs-6 fw-bold mt-3">
+              BANTUAN BESAR BAGI SISWA GANGGUAN RUMAH
+            </h4>
+            <p>
+              Dengan memberikan dukungan yang holistik, kita dapat membantu
+              siswa yang mengalami gangguan rumah untuk tumbuh dan berkembang
+              secara optimal meskipun tantangan yang mereka hadapi di rumah.
+            </p>
+          </div>
+          <div class="col-md-4 text-center mb-5">
+            <i class="bi fs-1 text-primary bi-book-half"></i>
+            <h4 class="fs-6 fw-bold mt-3">PENDIDIKAN BAGI ANAK MISKIN</h4>
+            <p>
+              Dukunglah anak-anak dengan memberikan motivasi, dorongan, dan
+              dukungan penuh agar mereka dapat mengakses pendidikan yang
+              berkualitas. Kita dapat membantu membangun fondasi yang kokoh bagi
+              masa depan mereka.
+            </p>
+          </div>
+          <div class="col-md-4 text-center mb-5">
+            <i class="bi fs-1 text-primary bi-currency-dollar"></i>
+            <h4 class="fs-6 fw-bold mt-3">DONASI UNTUK YANG MEMBUTUHKAN</h4>
+            <p>
+              Melalui donasi, kita memberikan peluang bagi orang-orang yang
+              kurang beruntung untuk mendapatkan akses ke kebutuhan dasar
+              seperti makanan, pakaian, pendidikan, layanan kesehatan, dan
+              berbagai kebutuhan lainnya.
+            </p>
+          </div>
+          <div class="col-md-4 text-center mb-5">
+            <i class="bi fs-1 text-primary bi-building"></i>
+            <h4 class="fs-6 fw-bold mt-3">MARI MEMBANGUN BEBERAPA RUMAH</h4>
+            <p>
+              Mari bersama-sama mengumpulkan dukungan untuk membangun beberapa
+              rumah bagi mereka yang masih belum memiliki tempat tinggal.
+            </p>
+          </div>
+          <div class="col-md-4 text-center mb-5">
+            <i class="bi fs-1 text-primary bi-heart-pulse"></i>
+            <h4 class="fs-6 fw-bold mt-3">FASILITAS MEDIS</h4>
+            <p>
+              Mari kita berkomitmen untuk meningkatkan fasilitas medis bagi
+              komunitas yang membutuhkan. Dengan investasi dan perhatian
+              terhadap infrastruktur kesehatan, kita dapat memberikan akses
+              lebih luas terhadap perawatan medis yang berkualitas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <section class="container-fluid causes bg-gray">
-        <div class="container">
-            <div class="section-title row">
-            <p>Learn more about our</p>
-            <h2>RECENT CAUSES</h2>
+      <div class="container">
+        <div class="section-title row">
+          <p>Pelajari lebih lanjut tentang kami</p>
+          <h2>PENYEBAB TERBARU</h2>
         </div>
         <div class="cuses-row row">
-            <div class="col-md-4">
-                <div class="causen-ccover">
-                    
-                
-                <div class="caus-img">
-                    <img src="{{ url_for('static', filename='client/assets/images/causes/c1.jpg') }}" alt="">
-                </div>
-                <div class="caus-info row no-margin">
-                    <span class="left-info col-6">
-                        RAISED: $764
-                    </span>
-                    <span class="rit-info text-right col-6">
-                       TARGET: $1500
-                    </span>
-                </div>
-                <div class="caus-detail">
-                    <h4>CONNECTING THE PEOPLE</h4>
-                    <p>he point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                </div>
-                
-                <div class="donat-btn">
-                    <button class="btn btn-danger"><i class="fas fa-hand-holding-usd"></i> Donate</button>
-                </div>
+          <div class="col-md-4">
+            <div class="causen-ccover">
+              <div class="caus-img">
+                <img
+                  src="{{ url_for('static', filename='client/assets/images/causes/c1.jpg') }}"
+                  alt=""
+                />
+              </div>
+              <div class="caus-info row no-margin">
+                <span class="left-info col-6"> RAISED: $764 </span>
+                <span class="rit-info text-right col-6"> TARGET: $1500 </span>
+              </div>
+              <div class="caus-detail">
+                <h4>PEDULI PALESTINA</h4>
+                <p>
+                  Mari kita semua bersama membantu negara kecil ini yang sedang
+                  dalam keadaan yang sangat menyedihkan yaitu dibunuh di siksa
+                  oleh zionis, walaupun kita tidakbisa membantu secara langsung
+                  terjun kesana berharap dengan donasi ini bisa membantu mereka
+                  yang sangat kesusahan menghadapi ini semua disana.
+                </p>
+              </div>
 
+              <div class="donat-btn">
+                <button class="btn btn-danger" id="donateButton">
+                  <i class="fas fa-hand-holding-usd"></i> Donate
+                </button>
+              </div>
             </div>
+          </div>
 
+          <div class="col-md-4">
+            <div class="causen-ccover">
+              <div class="caus-img">
+                <img
+                  src="{{ url_for('static', filename='client/assets/images/causes/c2.jpg') }}"
+                  alt=""
+                />
+              </div>
+              <div class="caus-info row no-margin">
+                <span class="left-info col-6"> RAISED: $764 </span>
+                <span class="rit-info text-right col-6"> TARGET: $1500 </span>
+              </div>
+              <div class="caus-detail">
+                <h4>CONNECTING THE PEOPLE</h4>
+                <p>
+                  he point of using Lorem Ipsum is that it has a more-or-less
+                  normal distribution of letters, as opposed to using 'Content
+                  here, content here', making it look like readable English.
+                </p>
+              </div>
+
+              <div class="donat-btn">
+                <button class="btn btn-danger">
+                  <i class="fas fa-hand-holding-usd"></i> Donate
+                </button>
+              </div>
             </div>
+          </div>
 
-            <div class="col-md-4">
-                <div class="causen-ccover">
-                    
-                
-                <div class="caus-img">
-                    <img src="{{ url_for('static', filename='client/assets/images/causes/c2.jpg') }}" alt="">
-                </div>
-                <div class="caus-info row no-margin">
-                    <span class="left-info col-6">
-                        RAISED: $764
-                    </span>
-                    <span class="rit-info text-right col-6">
-                       TARGET: $1500
-                    </span>
-                </div>
-                <div class="caus-detail">
-                    <h4>CONNECTING THE PEOPLE</h4>
-                    <p>he point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                </div>
-                
-                <div class="donat-btn">
-                    <button class="btn btn-danger"><i class="fas fa-hand-holding-usd"></i> Donate</button>
-                </div>
+          <div class="col-md-4">
+            <div class="causen-ccover">
+              <div class="caus-img">
+                <img
+                  src="{{ url_for('static', filename='client/assets/images/causes/c3.jpg') }}"
+                  alt=""
+                />
+              </div>
+              <div class="caus-info row no-margin">
+                <span class="left-info col-6"> RAISED: $764 </span>
+                <span class="rit-info text-right col-6"> TARGET: $1500 </span>
+              </div>
+              <div class="caus-detail">
+                <h4>CONNECTING THE PEOPLE</h4>
+                <p>
+                  he point of using Lorem Ipsum is that it has a more-or-less
+                  normal distribution of letters, as opposed to using 'Content
+                  here, content here', making it look like readable English.
+                </p>
+              </div>
 
+              <div class="donat-btn">
+                <button class="btn btn-danger">
+                  <i class="fas fa-hand-holding-usd"></i> Donate
+                </button>
+              </div>
             </div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="causen-ccover">
-                    
-                
-                <div class="caus-img">
-                    <img src="{{ url_for('static', filename='client/assets/images/causes/c3.jpg') }}" alt="">
-                </div>
-                <div class="caus-info row no-margin">
-                    <span class="left-info col-6">
-                        RAISED: $764
-                    </span>
-                    <span class="rit-info text-right col-6">
-                       TARGET: $1500
-                    </span>
-                </div>
-                <div class="caus-detail">
-                    <h4>CONNECTING THE PEOPLE</h4>
-                    <p>he point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                </div>
-                
-                <div class="donat-btn">
-                    <button class="btn btn-danger"><i class="fas fa-hand-holding-usd"></i> Donate</button>
-                </div>
-
-            </div>
-
-            </div>
+          </div>
         </div>
-        </div>
-     </section> 
-     
-     
-      <!-- ******************** About US Starts Here ******************* -->
+      </div>
+    </section>
+
+    <!-- ******************** About US Starts Here ******************* -->
 
     <div class="about-us">
-        <div class="container">
-            <div class="session-title">
-                <p>Help us to Achieve our Goal</p>
-                <h2>About Our Charity</h2>
-            </div>
-            <div class="about-row row">
-                <div class="col-md-8">
-                    <div class="abut-detail">
-                         <h4>BUILDING SCHOOL IN AFRICAN COMMUNITIES.</h4>
-                        <p>Integer vulputate vehicula dolor a eleifend. Duis aliquam condimentum sapien, eget tempor justo. Aenean porttitor nibh metus, sollicitudin egestas metus posuere et . Fusce egestas volutpat metus, in sodales sem bibendum porta. Nunc hendrerit nunc sit </p> <p> Amet tellus posuere, at malesuada sem gravida. Integer maximus ultricies augue, at dapibus elit bibendum consequat. Cras faucibus tellus eleifend, fermentum purus in, dapibus sapien. Praesent nec ornare risus. Etiam iaculis, ligula vel gravida vestibulum, urna justo posuere ante, id pretium massa arcu sed mi. Nunc a sollicitudin sem. Duis tempus</p>
-                    </div>
-                   
-
-                    <div class="row diag-ro">
-                        <div class="about-diag">
-                            <div class="icon"><i class="fas fa-arrow-right"></i></div>
-                            <div class="tex">
-                                <h5>$500</h5>
-                                <p>Raised by your help</p>
-                            </div>
-                        </div>
-                        <div class="about-diag">
-                            <div class="icon"><i class="fas fa-arrow-right"></i></div>
-                            <div class="tex">
-                                <h5>$1000</h5>
-                                <p>Immediate Need</p>
-                            </div>
-                        </div>
-                        <div class="about-diag">
-                            <div class="icon"><i class="fas fa-arrow-right"></i></div>
-                            <div class="tex">
-                                <h5>$5000</h5>
-                                <p>Our initial target</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename='client/assets/images/about_img.png') }}" alt="">
-                </div>
-            </div>
+      <div class="container">
+        <div class="session-title">
+          <p>Bantu kami untuk Mencapai Tujuan kami</p>
+          <h2>Tentang Amal Kami</h2>
         </div>
+        <div class="about-row row">
+          <div class="col-md-8">
+            <div class="abut-detail">
+              <h4>
+                KOMUNITAS AMAL UNTUK KORBAN BENCANA DAN KONFLIK ANTAR NEGARA.
+              </h4>
+              <p>
+                Komunitas amal kita adalah sinar harapan di tengah badai
+                penderitaan. Bersama, kita membentuk jaringan kasih dan
+                kepedulian yang menjangkau mereka yang terpinggirkan oleh
+                bencana dan konflik. Setiap tindakan kebaikan yang kita lakukan
+                menjadi langkah untuk mendukung, menyembuhkan luka, dan
+                membangun ulang kehidupan. Mari kita terus bersatu dalam membawa
+                cinta dan pencerahan kepada mereka yang membutuhkan, sehingga
+                setiap jiwa dapat merasakan kehangatan solidaritas kita.
+              </p>
+              <p>
+                Di tengah tragedi yang melanda, mari kita bersatu dalam sebuah
+                komunitas amal untuk memberikan harapan kepada korban bencana
+                dan konflik antar negara. Melalui kepedulian dan tindakan nyata,
+                kita dapat menyatukan kekuatan untuk memberikan bantuan yang
+                diperlukan. Bersama, kita membangun jaringan cinta dan
+                solidaritas yang mengatasi batas-batas negara dan membawa cahaya
+                di tengah kegelapan, membuktikan bahwa kebaikan tak mengenal
+                batas.
+              </p>
+            </div>
+
+            <div class="row diag-ro">
+              <div class="about-diag">
+                <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="tex">
+                  <h5>Rp5M</h5>
+                  <p>DIBANGKITKAN OLEH BANTUAN ANDA</p>
+                </div>
+              </div>
+              <div class="about-diag">
+                <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="tex">
+                  <h5>Rp10M</h5>
+                  <p>KEBUTUHAN SEGERA</p>
+                </div>
+              </div>
+              <div class="about-diag">
+                <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="tex">
+                  <h5>Rp50M</h5>
+                  <p>TARGET AWAL KAMI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='client/assets/images/about_img.png') }}"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    
-    
-             <div id="testimonial" class="service bg-gray container-fluid px-4 py-5">
-                <div class="container">
-                    
-               
-                 <div class="section-title row mb-3">
-                    <h2 class="fw-bolder">Testimonial</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum sit nibh amet egestas tellus.</p>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove shadow-md rounded bg-white p-3">
-                            <div class="prf row mb-3">
-                                <div class="col-3">
-                                    <img class="rounded-pill" src="{{ url_for('static', filename='client/assets/images/testimonial/member-01.jpg') }}" alt="">
-                                </div>
-                                <div class="col-9 align-self-center">
-                                    <h6 class="mb-0 fw-bolder">Vinoth Parkash</h6>
-                                    <span>CEO Fabric Nation</span>
-                                </div>
-                            </div>
-                            <div class="det text-center">
-                                <p class="fs-7 fst-italic">Sed lectus ante, pharetra in lacus sed, efficitur luctus elit. Suspendisse commodo felis dictum, tempor tortor a, dapibus tellus. Nam ornare felis ut arcu tristique luctus. Curabitur </p>
-                            </div>
-                       </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove shadow-md rounded bg-white p-3">
-                            <div class="prf row mb-3">
-                                <div class="col-3">
-                                    <img class="rounded-pill" src="{{ url_for('static', filename='client/assets/images/testimonial/member-03.jpg') }}" alt="">
-                                </div>
-                                <div class="col-9 align-self-center">
-                                    <h6 class="mb-0 fw-bolder">Jackson Daniel</h6>
-                                    <span>CEO Notitech</span>
-                                </div>
-                            </div>
-                            <div class="det text-center">
-                                <p class="fs-7 fst-italic">Sed lectus ante, pharetra in lacus sed, efficitur luctus elit. Suspendisse commodo felis dictum, tempor tortor a, dapibus tellus. Nam ornare felis ut arcu tristique luctus. Curabitur </p>
-                            </div>
-                       </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove shadow-md rounded bg-white p-3">
-                            <div class="prf row mb-3">
-                                <div class="col-3">
-                                    <img class="rounded-pill" src="{{ url_for('static', filename='client/assets/images/testimonial/member-02.jpg') }}" alt="">
-                                </div>
-                                <div class="col-9 align-self-center">
-                                    <h6 class="mb-0 fw-bolder">Praveen Thaney</h6>
-                                    <span>Admin Vintech</span>
-                                </div>
-                            </div>
-                            <div class="det text-center">
-                                <p class="fs-7 fst-italic">Sed lectus ante, pharetra in lacus sed, efficitur luctus elit. Suspendisse commodo felis dictum, tempor tortor a, dapibus tellus. Nam ornare felis ut arcu tristique luctus. Curabitur </p>
-                            </div>
-                       </div>
-                    </div>
-                     
-                </div>
-                 </div>
-            </div>
-            
-             <!--########################## Blog Starts Here ############################# -->
-            
-            <div id="blog" class="service container-fluid px-4 bg-white py-5">
-                <div class="container">
-                 <div class="section-title row mb-3">
-                    <h2 class="fw-bolder">Blog</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum sit nibh amet egestas tellus.</p>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove rounded bg-white p-2">
-                            <img src="{{ url_for('static', filename='client/assets/images/blog/blog_01.jpg') }}" alt="">
-                            <div class="p-2">
-                                <h5 class="mt-3 fs-7 fw-bold">Top 10 Trends in  Webdesign sit nibh amet  Mauris ipsum sit nibh</h5>
-                                <span class="fs-8">22 May 2015</span>
-                                <span class="float-end fs-8"><i class="bi bi-person"></i> Sam Anderson</span>
-                            </div>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove rounded bg-white p-2">
-                            <img src="{{ url_for('static', filename='client/assets/images/blog/blog_02.jpg') }}" alt="">
-                            <div class="p-2">
-                                <h5 class="mt-3 fs-7 fw-bold">Top 10 Trends in  Webdesign sit nibh amet  Mauris ipsum sit nibh</h5>
-                                <span class="fs-8">22 May 2015</span>
-                                <span class="float-end fs-8"><i class="bi bi-person"></i> Sam Anderson</span>
-                            </div>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove rounded bg-white p-2">
-                            <img src="{{ url_for('static', filename='client/assets/images/blog/blog_03.jpg') }}" alt="">
-                            <div class="p-2">
-                                <h5 class="mt-3 fs-7 fw-bold">Top 10 Trends in  Webdesign sit nibh amet  Mauris ipsum sit nibh</h5>
-                                <span class="fs-8">22 May 2015</span>
-                                <span class="float-end fs-8"><i class="bi bi-person"></i> Sam Anderson</span>
-                            </div>
-                       </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-    
-            
-            <footer>
-        <div class="inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 foot-about">
-                        <h4>About US</h4>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit libero pellentesque libero interdum, id mattis felis dictum. Praesent eget lacus tempor justo efficitur malesuada. Cras ut suscipit nisi.</p>
-
-                        <ul>
-                            <li>23 Rose Stren Melbourn</li>
-                            <li>sales@smarteyeapps.com</li>
-                            <li>+91 876 766 554</li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-3 foot-post">
-                        <h4>Latest Posts</h4>
-
-                        <div class="post-row">
-                            <div class="image">
-                                <img src="{{ url_for('static', filename='client/assets/images/blog/blog_01.jpg') }}" alt="">
-                            </div>
-                            <div class="detail">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit </p>
-                            </div>
-                        </div>
-
-                        <div class="post-row">
-                            <div class="image">
-                                <img src="{{ url_for('static', filename='client/assets/images/blog/blog_02.jpg') }}" alt="">
-                            </div>
-                            <div class="detail">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit </p>
-                            </div>
-                        </div>
-
-                        <div class="post-row">
-                            <div class="image">
-                                <img src="{{ url_for('static', filename='client/assets/images/blog/blog_03.jpg') }}" alt="">
-                            </div>
-                            <div class="detail">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 foot-services">
-                        <h4>Top Category</h4>
-
-                        <ul>
-                            <li><a href="">Target Statergy</a></li>
-                            <li><a href="">Web Analytics</a></li>
-                            <li><a href="">Page Monitering</a></li>
-                            <li><a href="">Page Optimization</a></li>
-                            <li><a href="">Target Statergy</a></li>
-                            <li><a href="">Email Marketing</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-3 foot-news">
-                        <h4>News Letter</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, vehicula eget eros. </p>
-
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control mb-0" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text bg-primary" id="basic-addon2"><i class="bi text-white bi-send"></i></span>
-                            </div>
-                        </div>
-
-                        <ul>
-                            <li><i class="bi bi-facebook"></i></li>
-                            <li><i class="bi bi-twitter"></i></li>
-                            <li><i class="bi bi-instagram"></i></li>
-                            <li><i class="bi bi-linkedin"></i></li>
-                            <li><i class="bi bi-pinterest"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <div id="testimonial" class="service bg-gray container-fluid px-4 py-5">
+      <div class="container">
+        <div class="section-title row mb-3">
+          <h2 class="fw-bolder">Testimonial</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+            ipsum sit nibh amet egestas tellus.
+          </p>
         </div>
+        <div class="row mt-5">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove shadow-md rounded bg-white p-3">
+              <div class="prf row mb-3">
+                <div class="col-3">
+                  <img
+                    class="rounded-pill"
+                    src="{{ url_for('static', filename='client/assets/images/testimonial/member-01.jpg') }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-9 align-self-center">
+                  <h6 class="mb-0 fw-bolder">Adam Setiadi</h6>
+                  <span>CEO Fabric Nation</span>
+                </div>
+              </div>
+              <div class="det text-center">
+                <p class="fs-7 fst-italic">
+                  Sed lectus ante, pharetra in lacus sed, efficitur luctus elit.
+                  Suspendisse commodo felis dictum, tempor tortor a, dapibus
+                  tellus. Nam ornare felis ut arcu tristique luctus. Curabitur
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove shadow-md rounded bg-white p-3">
+              <div class="prf row mb-3">
+                <div class="col-3">
+                  <img
+                    class="rounded-pill"
+                    src="{{ url_for('static', filename='client/assets/images/testimonial/member-03.jpg') }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-9 align-self-center">
+                  <h6 class="mb-0 fw-bolder">Juprianto Elkhat</h6>
+                  <span>CEO Notitech</span>
+                </div>
+              </div>
+              <div class="det text-center">
+                <p class="fs-7 fst-italic">
+                  Sed lectus ante, pharetra in lacus sed, efficitur luctus elit.
+                  Suspendisse commodo felis dictum, tempor tortor a, dapibus
+                  tellus. Nam ornare felis ut arcu tristique luctus. Curabitur
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove shadow-md rounded bg-white p-3">
+              <div class="prf row mb-3">
+                <div class="col-3">
+                  <img
+                    class="rounded-pill"
+                    src="{{ url_for('static', filename='client/assets/images/testimonial/member-02.jpg') }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-9 align-self-center">
+                  <h6 class="mb-0 fw-bolder">Rayhan Richard</h6>
+                  <span>Admin Vintech</span>
+                </div>
+              </div>
+              <div class="det text-center">
+                <p class="fs-7 fst-italic">
+                  Sed lectus ante, pharetra in lacus sed, efficitur luctus elit.
+                  Suspendisse commodo felis dictum, tempor tortor a, dapibus
+                  tellus. Nam ornare felis ut arcu tristique luctus. Curabitur
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--########################## Blog Starts Here ############################# -->
+
+    <div id="blog" class="service container-fluid px-4 bg-white py-5">
+      <div class="container">
+        <div class="section-title row mb-3">
+          <h2 class="fw-bolder">News</h2>
+          <p>Berikut adalah berita terkini yang menimpa saudara kita semua</p>
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove rounded bg-white p-2">
+              <img
+                src="{{ url_for('static', filename='client/assets/images/blog/blog_01.jpg') }}"
+                alt=""
+              />
+              <div class="p-2">
+                <h5 class="mt-3 fs-7 fw-bold">
+                  Konflik antar negara Palestina dan Zionis isr4el, keadaan
+                  palestina sangat memperhatinkan
+                </h5>
+                <span class="fs-8">20 desember 2023</span>
+                <span class="float-end fs-8"
+                  ><i class="bi bi-person"></i> Sam Anderson</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove rounded bg-white p-2">
+              <img
+                src="{{ url_for('static', filename='client/assets/images/blog/blog_02.jpg') }}"
+                alt=""
+              />
+              <div class="p-2">
+                <h5 class="mt-3 fs-7 fw-bold">
+                  Top 10 Trends in Webdesign sit nibh amet Mauris ipsum sit nibh
+                </h5>
+                <span class="fs-8">22 May 2015</span>
+                <span class="float-end fs-8"
+                  ><i class="bi bi-person"></i> Sam Anderson</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove rounded bg-white p-2">
+              <img
+                src="{{ url_for('static', filename='client/assets/images/blog/blog_03.jpg') }}"
+                alt=""
+              />
+              <div class="p-2">
+                <h5 class="mt-3 fs-7 fw-bold">
+                  Top 10 Trends in Webdesign sit nibh amet Mauris ipsum sit nibh
+                </h5>
+                <span class="fs-8">22 May 2015</span>
+                <span class="float-end fs-8"
+                  ><i class="bi bi-person"></i> Sam Anderson</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="inner">
+        <div class="container">
+          <div class="row">
+            <h1>FOOTER</h1>
+          </div>
+        </div>
+      </div>
     </footer>
-    <div class="copy">
-        <div class="container">
-            <a href="https://www.smarteyeapps.com/">2022 &copy; All Rights Reserved | Designed and Developed by Smarteyeapps.com</a>
+  </body>
+  <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
 
-            <span>
-                <a href=""><i class="fab fa-github"></i></a>
-                <a href=""><i class="fab fa-google-plus-g"></i></a>
-                <a href="https://in.pinterest.com/prabnr/pins/"><i class="fab fa-pinterest-p"></i></a>
-                <a href="https://twitter.com/prabinraja89"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.facebook.com/freewebtemplatesbysmarteye"><i class="fab fa-facebook-f"></i></a>
-            </span>
-        </div>
-    </div>
-    
-    
-    </body>
-    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"
+  ></script>
+  <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
 
-</html>
+  <script>
+    document.getElementById('donateButton').addEventListener('click', function() {
+      // Mengarahkan pengguna ke halaman pembayaran saat tombol diklik
+      window.location.href = '/payment'; // Ganti '/payment' dengan URL halaman pembayaran yang sesuai
+    });
+  </script>
+  </html>
