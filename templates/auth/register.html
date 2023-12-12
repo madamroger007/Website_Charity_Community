@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
 </head>
 <body>
-    <form id="formRegister" method="post" action="{{ url_for('register', role=role) }}" class="d-flex flex-column justify-content-center  align-items-center w-100 h-100">
+    <form id="formRegister" method="post" action="{{ url_for('auth.register', role=role) }}" class="d-flex flex-column justify-content-center  align-items-center w-100 h-100">
          {{ form.hidden_tag() }}
         <div class="mb-3">
             <label for="username" class="form-label">Username:</label>

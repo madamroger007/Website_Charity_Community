@@ -1,4 +1,3 @@
-perbaiki kode ini kenapa pada kode mongoclient nya error :
 from flask import Blueprint,render_template, jsonify, request, redirect, url_for
 from pymongo import MongoClient
 import jwt
@@ -7,22 +6,19 @@ import hashlib
 from dotenv import load_dotenv
 from os.path import join, dirname
 import os
-from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
-from validation.forms import RegistrationForm, LoginForm, DonateForm, Newsform,UpdateProjectsform, UpdateNewsform,Projectsform,UpdateUsersForm
-from werkzeug.utils import secure_filename
-from bson import ObjectId, json_util
+from validation.forms import RegistrationForm, LoginForm
+
+
 
 auth_bp = Blueprint('auth', __name__)
 
 dotenv_path = join(dirname(dirname(__file__)), ".env")
 load_dotenv(dotenv_path)
 
-SECRET_KEY=os.environ.get("SECRET_KEY"),
-MONGODB_URI=os.environ.get("MONGODB_URI"),
-DB_NAME=os.environ.get("DB_NAME"),
-TOKEN_KEY=os.environ.get("TOKEN_KEY"),
-print(DB_NAME)
-
+SECRET_KEY=os.environ.get("SECRET_KEY")
+MONGODB_URI=os.environ.get("MONGODB_URI")
+DB_NAME=os.environ.get("DB_NAME")
+TOKEN_KEY=os.environ.get("TOKEN_KEY")
 
 # * Connect database
 client = MongoClient(MONGODB_URI)
@@ -55,7 +51,7 @@ def register(role):
         password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
         exists = bool(db.users.find_one({"username": username}))
         if exists:
-            return jsonify({"result": "success", "exists": exists})
+            return jsonify({"result": "success", "exists": exists,"msg":"User ada"})
         default_role = role if role == 'admin' else 'users'
         doc = {
             "username": username,
@@ -75,7 +71,7 @@ def register(role):
         }
 
         db.users.insert_one(doc)
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
 
     return render_template("auth/register.html", form=form, role=role)
 
@@ -118,31 +114,6 @@ def login():
             else:
                 # Assuming you are using Flask's flash messages
                 msg = "Invalid username or password"
-                return redirect(url_for("login", msg=msg))
+                return redirect(url_for("auth.login", msg=msg))
     else:
         return render_template("auth/login.html", form=form)
-
-errornya :
-('dbcharity_community',)
-Traceback (most recent call last):
-  File "/home/adam/Coding/Python/Final_porject/app.py", line 13, in <module>
-    from routes.auth_routes import auth_bp
-  File "/home/adam/Coding/Python/Final_porject/routes/auth_routes.py", line 27, in <module>
-    db = client[DB_NAME]
-  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1597, in __getitem__
-    return database.Database(self, name)
-  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/database.py", line 137, in __init__
-    raise TypeError("name must be an instance of str")
-TypeError: name must be an instance of str
-(.venv) adam@madamroger07:~/Coding/Python/Final_porject$ python app.py
-('dbcharity_community',)
-Traceback (most recent call last):
-  File "/home/adam/Coding/Python/Final_porject/app.py", line 13, in <module>
-    from routes.auth_routes import auth_bp
-  File "/home/adam/Coding/Python/Final_porject/routes/auth_routes.py", line 28, in <module>
-    db = client[DB_NAME]
-  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1597, in __getitem__
-    return database.Database(self, name)
-  File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/pymongo/database.py", line 137, in __init__
-    raise TypeError("name must be an instance of str")
-TypeError: name must be an instance of str

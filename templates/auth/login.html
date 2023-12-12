@@ -28,7 +28,7 @@
     </script>
 {% endif %}
 
-    <form id="formLogin" method="post" action="{{ url_for('login') }}"
+    <form id="formLogin" method="post" action="{{ url_for('auth.login') }}"
         class="d-flex justify-content-center  align-items-center w-100 h-100">
         {{ form.hidden_tag() }}
         <div class="container w-25">
