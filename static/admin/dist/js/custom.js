@@ -1,3 +1,4 @@
+
 $(function() {
     "use strict";
 
@@ -32,4 +33,6 @@ $(function() {
     $(window).ready(setsidebartype);
     $(window).on("resize", setsidebartype);
 
+
 });
+
