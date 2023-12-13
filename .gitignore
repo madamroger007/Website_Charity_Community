@@ -1,17 +1,8 @@
 .venv
 coba.txt
 .env
-<<<<<<< HEAD
-<<<<<<< HEAD
 routes/__pycache__
 venv
 
-=======
-venv
-coba.txt
->>>>>>> 48196da802ff88385432ad5a672ecd0c982869af
-=======
-venv
-coba.txt
->>>>>>> 48196da802ff88385432ad5a672ecd0c982869af
+
 
