@@ -48,7 +48,6 @@ def save_image(file, file_type):
 @api_bp.route('/get_users')
 def get_users():
     users = db.users.find({})
-    total_user = db.users.count_documents({})
     user_list = [
         {
             '_id': str(user['_id']),
@@ -70,7 +69,7 @@ def get_users():
     return jsonify({
         "msg": "success",
         "users": user_list,
-        "total_users": total_user
+
     })
 
 
@@ -79,7 +78,7 @@ def get_users():
 @api_bp.route('/get_news')
 def get_news():
     news = db.news.find({}).limit(20)
-    total_news = db.news.count_documents({})
+  
     news_list = [
         {
             '_id': str(user['_id']),
@@ -96,7 +95,7 @@ def get_news():
     return jsonify({
         "msg": "success",
         "news": news_list,
-        "total_news": total_news
+      
     })
 
 @api_bp.route('/get_news/<newsId>')
@@ -124,19 +123,6 @@ def get_newsId(newsId):
 @api_bp.route('/get_donate')
 def get_donate():
     donate = db.donations.find({})
-    user_donate = db.donations.count_documents({})
-    # total donation
-    pipeline = [
-            {
-                '$group': {
-                    '_id': None,
-                    'total_donation_amount': {'$sum': '$donation_amount'}
-                }
-            }
-        ]
-
-        # Melakukan agregasi
-    result = list(db.donations.aggregate(pipeline))
     donate_list = [
         {
             '_id': str(user['_id']),
@@ -155,8 +141,7 @@ def get_donate():
     return jsonify({
         "msg": "success",
         "donation": donate_list,
-        "total_donation": result[0]['total_donation_amount'],
-        "user_donate": user_donate
+
     })
 
 
@@ -202,6 +187,57 @@ def get_projectId(projectId):
         "projects": projects_list
     })
 
+
+
+#***************** Total All
+
+@api_bp.route('/get_total')
+def get_total():
+    # total user
+    total_user = db.users.count_documents({})
+    # total news
+    total_news = db.news.count_documents({})
+    # total project
+    total_projects = db.projects.count_documents({})  
+    # total donation
+    pipeline = [
+        {
+            '$group': {
+                '_id': None,
+                'total_donation_amount': {'$sum': '$donation_amount'}
+            }
+        }
+    ]      
+    result = list(db.donations.aggregate(pipeline))
+
+    # Total user donasi
+    user_donate = db.donations.count_documents({})
+    
+    # Function to get the latest date from a collection
+    def get_latest_timestamp(collection):
+        latest_data = collection.find_one(sort=[("date", -1)])
+        return latest_data.get("date")
+
+
+
+    # Get the latest timestamps for each collection
+    timestamp_users = get_latest_timestamp(db.users)
+    timestamp_news = get_latest_timestamp(db.news)
+    timestamp_projects = get_latest_timestamp(db.projects)
+    timestamp_donations = get_latest_timestamp(db.donations)
+
+    return jsonify({
+        "msg": "success",
+        "total_users": total_user,
+        "total_news": total_news,
+        "total_donation": result[0]['total_donation_amount'],
+        "user_donate": user_donate,
+        "total_project": total_projects,
+        "timestamp_users": timestamp_users,
+        "timestamp_news": timestamp_news,
+        "timestamp_projects": timestamp_projects,
+        "timestamp_donations": timestamp_donations
+    })
 
 
 #****************************************** POST API ********************************************* 
