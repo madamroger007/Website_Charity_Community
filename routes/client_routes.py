@@ -3,7 +3,7 @@ import jwt
 from datetime import datetime
 import os
 from flask import render_template, request, redirect, url_for,Blueprint
-from validation.forms import DonateForm
+from validation.forms import DonateForm,UpdateUsersForm
 
 
 client_bp = Blueprint('client', __name__)
@@ -160,10 +160,11 @@ def contact_us():
 @client_bp.route('/profile')
 def profile():
     token_receive = request.cookies.get(TOKEN_KEY)
+    form = UpdateUsersForm()
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
         
-        return render_template('client/profile.html', user_info=user_info)
+        return render_template('client/profile.html', user_info=user_info,form=form)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))

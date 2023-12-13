@@ -7,7 +7,7 @@ from os.path import join, dirname
 import os
 from flask import Flask, render_template, jsonify, request, redirect, url_for,Blueprint
 from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
-from validation.forms import RegistrationForm, LoginForm, DonateForm, Newsform,UpdateProjectsform, UpdateNewsform,Projectsform,UpdateUsersForm
+from validation.forms import Newsform,UpdateProjectsform, UpdateNewsform,Projectsform,UpdateUsersForm
 from werkzeug.utils import secure_filename
 from bson import ObjectId, json_util
 
