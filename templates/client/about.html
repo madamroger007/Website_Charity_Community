@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
     <html lang="en">
     <head>
@@ -56,129 +57,183 @@
                         <li><i class="bi bi-chevron-double-right pe-2"></i> About Us</li>
                     </ul>
                 </div>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>About</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='client/assets/images/fav.png') }}"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='client/assets/images/fav.jpg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='client/assets/css/style.css') }}"
+    />
+  </head>
+  <body class="bg-white">
+    <header class="container-fluid">
+      <div class="shadow">
+        <div class="container p-2">
+          <div class="row top-ro">
+            <div class="col-lg-3 col-md-12 pt-2">
+              <img
+                class="max-250 my-2 my-lg-4"
+                src="{{ url_for('static', filename='client/assets/images/logo.jpg') }}"
+                alt=""
+              />
+              <a
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+                class="float-end d-lg-none pt-1 ps-3"
+                ><i class="bi pt-1 fs-11 cp bi-list"></i
+              ></a>
+>>>>>>> 48196da802ff88385432ad5a672ecd0c982869af
             </div>
+            <div class="col-md-9 logiki">
+              
+              <div id="menu" class="nav-row d-none d-lg-flex row">
+                <ul class="d-inline-block">
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/">Home</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/about">About US</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/donate">Donate</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/project">Project</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/news">News</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4">
+                    <a href="/contact_us">Contact Us</a>
+                  </li>
+                  <li class="float-none float-md-start p-4 px-4 nav-item">
+                    <a href="/profile">
+                      <img src="{{ url_for('static', filename='client/assets/images/profile_image/profile-placeholder.png') }}" alt="Logo" class="logo-small">
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        
-        <!-- ******************** About US Starts Here ******************* -->
+      </div>
+    </header>
+
+    <!--  ************************* Page Title Starts Here ************************** -->
+    <div class="page-nav no-margin row">
+      <div class="container">
+        <div class="row">
+          <h2 class="text-start">About Us</h2>
+          <ul>
+            <li>
+              <a href="#"><i class="bi bi-house-door"></i> Home</a>
+            </li>
+            <li><i class="bi bi-chevron-double-right pe-2"></i> About Us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ******************** About US Starts Here ******************* -->
 
     <div class="about-us">
-        <div class="container">
-            <div class="session-title">
-                <p>Help us to Achieve our Goal</p>
-                <h2>About Our Charity</h2>
-            </div>
-            <div class="about-row row">
-                <div class="col-md-8">
-                    <div class="abut-detail">
-                         <h4>BUILDING SCHOOL IN AFRICAN COMMUNITIES.</h4>
-                        <p>Integer vulputate vehicula dolor a eleifend. Duis aliquam condimentum sapien, eget tempor justo. Aenean porttitor nibh metus, sollicitudin egestas metus posuere et . Fusce egestas volutpat metus, in sodales sem bibendum porta. Nunc hendrerit nunc sit </p> <p> Amet tellus posuere, at malesuada sem gravida. Integer maximus ultricies augue, at dapibus elit bibendum consequat. Cras faucibus tellus eleifend, fermentum purus in, dapibus sapien. Praesent nec ornare risus. Etiam iaculis, ligula vel gravida vestibulum, urna justo posuere ante, id pretium massa arcu sed mi. Nunc a sollicitudin sem. Duis tempus</p>
-                    </div>
-                   
-
-                    <div class="row diag-ro">
-                        <div class="about-diag">
-                            <div class="icon"><i class="fas fa-arrow-right"></i></div>
-                            <div class="tex">
-                                <h5>$500</h5>
-                                <p>Raised by your help</p>
-                            </div>
-                        </div>
-                        <div class="about-diag">
-                            <div class="icon"><i class="fas fa-arrow-right"></i></div>
-                            <div class="tex">
-                                <h5>$1000</h5>
-                                <p>Immediate Need</p>
-                            </div>
-                        </div>
-                        <div class="about-diag">
-                            <div class="icon"><i class="fas fa-arrow-right"></i></div>
-                            <div class="tex">
-                                <h5>$5000</h5>
-                                <p>Our initial target</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename='client/assets/images/about_img.png') }}" alt="">
-                </div>
-            </div>
+      <div class="container">
+        <div class="session-title">
+          <p>Bantu kami untuk Mencapai Tujuan kami</p>
+          <h2>Tentang Amal Kami</h2>
         </div>
-    </div>
-      
-      <div id="testimonial" class="service bg-gray container-fluid px-4 py-5">
-                <div class="container">
-                    
-               
-                 <div class="section-title row mb-3">
-                    <h2 class="fw-bolder">Testimonial</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum sit nibh amet egestas tellus.</p>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove shadow-md rounded bg-white p-3">
-                            <div class="prf row mb-3">
-                                <div class="col-3">
-                                    <img class="rounded-pill" src="{{ url_for('static', filename='client/assets/images/testimonial/member-01.jpg') }}" alt="">
-                                </div>
-                                <div class="col-9 align-self-center">
-                                    <h6 class="mb-0 fw-bolder">Vinoth Parkash</h6>
-                                    <span>CEO Fabric Nation</span>
-                                </div>
-                            </div>
-                            <div class="det text-center">
-                                <p class="fs-7 fst-italic">Sed lectus ante, pharetra in lacus sed, efficitur luctus elit. Suspendisse commodo felis dictum, tempor tortor a, dapibus tellus. Nam ornare felis ut arcu tristique luctus. Curabitur </p>
-                            </div>
-                       </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove shadow-md rounded bg-white p-3">
-                            <div class="prf row mb-3">
-                                <div class="col-3">
-                                    <img class="rounded-pill" src="{{ url_for('static', filename='client/assets/images/testimonial/member-03.jpg') }}" alt="">
-                                </div>
-                                <div class="col-9 align-self-center">
-                                    <h6 class="mb-0 fw-bolder">Jackson Daniel</h6>
-                                    <span>CEO Notitech</span>
-                                </div>
-                            </div>
-                            <div class="det text-center">
-                                <p class="fs-7 fst-italic">Sed lectus ante, pharetra in lacus sed, efficitur luctus elit. Suspendisse commodo felis dictum, tempor tortor a, dapibus tellus. Nam ornare felis ut arcu tristique luctus. Curabitur </p>
-                            </div>
-                       </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                       <div class="serv-cove shadow-md rounded bg-white p-3">
-                            <div class="prf row mb-3">
-                                <div class="col-3">
-                                    <img class="rounded-pill" src="{{ url_for('static', filename='client/assets/images/testimonial/member-02.jpg') }}" alt="">
-                                </div>
-                                <div class="col-9 align-self-center">
-                                    <h6 class="mb-0 fw-bolder">Praveen Thaney</h6>
-                                    <span>Admin Vintech</span>
-                                </div>
-                            </div>
-                            <div class="det text-center">
-                                <p class="fs-7 fst-italic">Sed lectus ante, pharetra in lacus sed, efficitur luctus elit. Suspendisse commodo felis dictum, tempor tortor a, dapibus tellus. Nam ornare felis ut arcu tristique luctus. Curabitur </p>
-                            </div>
-                       </div>
-                    </div>
-                     
-                </div>
-                 </div>
+        <div class="about-row row">
+          <div class="col-md-8">
+            <div class="abut-detail">
+              <h4>
+                KOMUNITAS AMAL UNTUK KORBAN BENCANA DAN KONFLIK ANTAR NEGARA.
+              </h4>
+              <p>
+                Komunitas amal kita adalah sinar harapan di tengah badai
+                penderitaan. Bersama, kita membentuk jaringan kasih dan
+                kepedulian yang menjangkau mereka yang terpinggirkan oleh
+                bencana dan konflik. Setiap tindakan kebaikan yang kita lakukan
+                menjadi langkah untuk mendukung, menyembuhkan luka, dan
+                membangun ulang kehidupan. Mari kita terus bersatu dalam membawa
+                cinta dan pencerahan kepada mereka yang membutuhkan, sehingga
+                setiap jiwa dapat merasakan kehangatan solidaritas kita.
+              </p>
+              <p>
+                Di tengah tragedi yang melanda, mari kita bersatu dalam sebuah
+                komunitas amal untuk memberikan harapan kepada korban bencana
+                dan konflik antar negara. Melalui kepedulian dan tindakan nyata,
+                kita dapat menyatukan kekuatan untuk memberikan bantuan yang
+                diperlukan. Bersama, kita membangun jaringan cinta dan
+                solidaritas yang mengatasi batas-batas negara dan membawa cahaya
+                di tengah kegelapan, membuktikan bahwa kebaikan tak mengenal
+                batas.
+              </p>
             </div>
-       
-            
-        <footer>
-            <div class="inner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 foot-about">
-                            <h4>About US</h4>
 
+            <div class="row diag-ro">
+              <div class="about-diag">
+                <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="tex">
+                  <h5>Rp5M</h5>
+                  <p>DIBANGKITKAN OLEH BANTUAN ANDA</p>
+                </div>
+              </div>
+              <div class="about-diag">
+                <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="tex">
+                  <h5>Rp10M</h5>
+                  <p>KEBUTUHAN SEGERA</p>
+                </div>
+              </div>
+              <div class="about-diag">
+                <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="tex">
+                  <h5>Rp50M</h5>
+                  <p>TARGET AWAL KAMI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='client/assets/images/about_img.png') }}"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+<<<<<<< HEAD
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit libero pellentesque libero interdum, id mattis felis dictum. Praesent eget lacus tempor justo efficitur malesuada. Cras ut suscipit nisi.</p>
 
                             <ul>
@@ -267,14 +322,112 @@
                     <a href="https://www.facebook.com/freewebtemplatesbysmarteye"><i class="fab fa-facebook-f"></i></a>
                 </span>
             </div>
+=======
+    <div id="testimonial" class="service bg-gray container-fluid px-4 py-5">
+      <div class="container">
+        <div class="section-title row mb-3">
+          <h2 class="fw-bolder">Testimonial</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+            ipsum sit nibh amet egestas tellus.
+          </p>
+>>>>>>> 48196da802ff88385432ad5a672ecd0c982869af
         </div>
-    </body>
-    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <div class="row mt-5">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove shadow-md rounded bg-white p-3">
+              <div class="prf row mb-3">
+                <div class="col-3">
+                  <img
+                    class="rounded-pill"
+                    src="{{ url_for('static', filename='client/assets/images/testimonial/member-01.jpg') }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-9 align-self-center">
+                  <h6 class="mb-0 fw-bolder">Adam Setiadi</h6>
+                  <span>CEO Fabric Nation</span>
+                </div>
+              </div>
+              <div class="det text-center">
+                <p class="fs-7 fst-italic">
+                  Sed lectus ante, pharetra in lacus sed, efficitur luctus elit.
+                  Suspendisse commodo felis dictum, tempor tortor a, dapibus
+                  tellus. Nam ornare felis ut arcu tristique luctus. Curabitur
+                </p>
+              </div>
+            </div>
+          </div>
 
-    <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove shadow-md rounded bg-white p-3">
+              <div class="prf row mb-3">
+                <div class="col-3">
+                  <img
+                    class="rounded-pill"
+                    src="{{ url_for('static', filename='client/assets/images/testimonial/member-03.jpg') }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-9 align-self-center">
+                  <h6 class="mb-0 fw-bolder">Juprianto Elkhat</h6>
+                  <span>CEO Notitech</span>
+                </div>
+              </div>
+              <div class="det text-center">
+                <p class="fs-7 fst-italic">
+                  Sed lectus ante, pharetra in lacus sed, efficitur luctus elit.
+                  Suspendisse commodo felis dictum, tempor tortor a, dapibus
+                  tellus. Nam ornare felis ut arcu tristique luctus. Curabitur
+                </p>
+              </div>
+            </div>
+          </div>
 
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="serv-cove shadow-md rounded bg-white p-3">
+              <div class="prf row mb-3">
+                <div class="col-3">
+                  <img
+                    class="rounded-pill"
+                    src="{{ url_for('static', filename='client/assets/images/testimonial/member-02.jpg') }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-9 align-self-center">
+                  <h6 class="mb-0 fw-bolder">Rayhan Richard</h6>
+                  <span>Admin Vintech</span>
+                </div>
+              </div>
+              <div class="det text-center">
+                <p class="fs-7 fst-italic">
+                  Sed lectus ante, pharetra in lacus sed, efficitur luctus elit.
+                  Suspendisse commodo felis dictum, tempor tortor a, dapibus
+                  tellus. Nam ornare felis ut arcu tristique luctus. Curabitur
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="inner">
+        
+      </div>
+    </footer>
+    
+  </body>
+  <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"
+  ></script>
+
+  <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
 </html>
