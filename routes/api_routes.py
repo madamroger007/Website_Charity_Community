@@ -77,7 +77,7 @@ def get_users():
 
 @api_bp.route('/get_news')
 def get_news():
-    news = db.news.find({}).limit(20)
+    news = db.news.find({}).sort('date', -1).limit(20)
   
     news_list = [
         {
@@ -122,7 +122,7 @@ def get_newsId(newsId):
 
 @api_bp.route('/get_donate')
 def get_donate():
-    donate = db.donations.find({})
+    donate = db.donations.find({}).sort('date', -1).limit(20)
     donate_list = [
         {
             '_id': str(user['_id']),
@@ -149,7 +149,7 @@ def get_donate():
 
 @api_bp.route('/get_project')
 def get_project():
-    projects = db.projects.find({})
+    projects = db.projects.find({}).sort('date', -1).limit(20)
     projects_list = [
         {
             '_id': str(user['_id']),
@@ -259,8 +259,8 @@ def posting_news():
             description_receive = form.description_give.data
             topic_receive = form.topic_give.data
             # time
-            time_now = datetime.now()
-            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+            time_now = datetime.utcnow()
+            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
             # Simpan gambar ke server
             img_url = save_image(file, 'news')
@@ -303,8 +303,8 @@ def posting_project():
             topic_receive = form.topic_give.data
             file = request.files.get('img_give')
             # time
-            time_now = datetime.now()
-            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+            time_now = datetime.utcnow()
+            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
             # Simpan gambar ke server
             img_url = save_image(file, 'projects')
@@ -426,6 +426,7 @@ def update_news(newsid):
                     new_doc["img"] = img_url
                 else:
                     # Handle the case when the file is empty
+                    db.news.update_one({"_id": ObjectId(newsid)}, {"$set":  new_doc })
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
             db.news.update_one({"_id": ObjectId(newsid)}, {"$set":  new_doc })
@@ -468,6 +469,7 @@ def update_project(projectid):
                     new_doc["img"] = img_url
                 else:
                     # Handle the case when the file is empty
+                    db.projects.update_one({"_id": ObjectId(projectid)}, {"$set":  new_doc })
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
             db.projects.update_one({"_id": ObjectId(projectid)}, {"$set":  new_doc })

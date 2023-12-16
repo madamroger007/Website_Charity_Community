@@ -108,8 +108,8 @@ def donate_pay():
 
         if request.method == 'POST' and form.validate_on_submit():
             # time
-            time_now = datetime.now()
-            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+            time_now = datetime.utcnow()
+            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             # Handle the form submission, store data in MongoDB
             donation_data = {
                 "username": user_info.get("username"),

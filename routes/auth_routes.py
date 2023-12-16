@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template, jsonify, request, redirect, url_for
+from flask import Blueprint,render_template, jsonify, request, redirect, url_for, make_response
 from pymongo import MongoClient
 import jwt
 from datetime import datetime, timedelta
@@ -42,8 +42,8 @@ def register(role):
     form = RegistrationForm()
     if request.method == 'POST' and form.validate_on_submit():
         # time
-        time_now = datetime.now()
-        time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+        time_now = datetime.utcnow()
+        time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         username = form.username_give.data
         fullname = form.fullname_give.data
         email = form.email_give.data
@@ -66,7 +66,11 @@ def register(role):
             "address": "unknown",
             "maps": "unknown",
             "profile_img_bg": "assets/img/bgusers/bg_users.jpg",
-            "date": time_str 
+            "date": time_str,
+            "url_fb": "https://www.facebook.com",
+            "url_x": "https://twitter.com",
+            "url_yt": "https://www.youtube.com" 
+
 
         }
 
@@ -117,3 +121,16 @@ def login():
                 return redirect(url_for("auth.login", msg=msg))
     else:
         return render_template("auth/login.html", form=form)
+
+# Fungsi logout yang menghapus cookie
+@auth_bp.route("/logout")
+def logout():
+    response = make_response(redirect(url_for("client.index")))
+    response.delete_cookie(TOKEN_KEY)
+    return response
+
+# Jalankan fungsi logout sebelum setiap permintaan ke route logout
+@auth_bp.before_request
+def before_request():
+    if request.endpoint == 'auth.logout':
+        return logout()
