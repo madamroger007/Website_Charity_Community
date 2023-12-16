@@ -51,7 +51,8 @@ def register(role):
         password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
         exists = bool(db.users.find_one({"username": username}))
         if exists:
-            return jsonify({"result": "success", "exists": exists,"msg":"User ada"})
+            msg = {"status": 200,"msg":"user sudah ada"}
+            return render_template("auth/register.html", form=form, role=role,msg=msg )
         default_role = role if role == 'admin' else 'users'
         doc = {
             "username": username,
@@ -83,10 +84,11 @@ def register(role):
 @auth_bp.route("/login", methods=['POST', 'GET'])
 def login():
     form = LoginForm()
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate_on_submit():
         # Regular login process
         username = form.username_give.data
         password = form.password_give.data
+        print(username)
         pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
         user = db.users.find_one(
@@ -108,19 +110,20 @@ def login():
                     "token": token,
                 })
             else:
-                msg = "Invalid username or password"
-                return render_template("auth/login.html", token=token, form=form, msg=msg)
+                success  = "Login berhasil"
+                return render_template("auth/login.html", token=token, form=form, success =success )
 
         else:
             # Check if it's an AJAX request
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return jsonify({"result": "fail", "msg": "We could not find a user with that id/password combination"})
             else:
-                # Assuming you are using Flask's flash messages
-                msg = "Invalid username or password"
+            
+                msg = "Salah username atau password"
                 return redirect(url_for("auth.login", msg=msg))
     else:
-        return render_template("auth/login.html", form=form)
+        msg = request.args.get("msg")
+        return render_template("auth/login.html", form=form, msg=msg)
 
 # Fungsi logout yang menghapus cookie
 @auth_bp.route("/logout")
