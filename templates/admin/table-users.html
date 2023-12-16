@@ -7,24 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Xtreme lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Xtreme admin lite design, Xtreme admin lite dashboard bootstrap 5 dashboard template">
-    <meta name="description"
-        content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
-    <meta name="robots" content="noindex,nofollow">
-    <title>Xtreme Admin Lite Template by WrapPixel</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/xtreme-admin-lite/" />
+    
+    <title>Tabel users</title>
+ 
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16"
-        href="{{ url_for('static', filename='admin/assets/images/favicon.png') }}">
+        href="{{ url_for('static', filename='client/assets/images/logo.png') }}">
+
+    <link href="/static/admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css " rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="{{ url_for('static', filename='admin/dist/css/style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='admin/dist/css/style.min.css') }}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <!-- SweetAlert -->
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js "></script>
+    
+
+ 
 </head>
 
 <body>
@@ -51,22 +51,28 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand " href="/dashboard/admin">
                         <!-- Logo icon -->
-                        <b class="logo-icon">
+                        <b class="logo-icon ">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="../../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="{{ url_for('static', filename='client/assets/images/logo.png') }}" alt="homepage"
+                                class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <img src="../../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            <img src="{{ url_for('static', filename='client/assets/images/logo.png') }}" alt="homepage"
+                                class="light-logo logo-size" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        <span class="logo-text fw-bold" style="height: 60px;">
                             <!-- dark Logo text -->
-                            <img src="../../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <p class="dark-logo" alt="homepage">
+                                Charity Community
+                            </p>
                             <!-- Light Logo text -->
-                            <img src="../../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                            <p class="light-logo " alt="homepage ">
+                                Charity Community
+                            </p>
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -87,13 +93,7 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a
-                                    class="srh-btn"><i class="ti-close"></i></a>
-                            </form>
-                        </li>
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -105,16 +105,15 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
                                 id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
+                                <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
+                                    class="rounded-circle" style="width: 30px; height: 30px;">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated"
                                 aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
+                                <a class="dropdown-item" href="/dashboard/admin/profile"><i
+                                        class="ti-user m-r-5 m-l-5"></i>
                                     My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i>
-                                    My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i>
-                                    Inbox</a>
+
                             </ul>
                         </li>
                         <!-- ============================================================== -->
@@ -140,56 +139,88 @@
                         <li>
                             <!-- User Profile-->
                             <div class="user-profile d-flex no-block dropdown m-t-20">
-                                <div class="user-pic"><img src="../../assets/images/users/1.jpg" alt="users"
-                                        class="rounded-circle" width="40" /></div>
+                                <div class="user-pic"><img src="{{ url_for('static', filename=user_info.profile_img) }}"
+                                        alt="users" class="rounded-circle" style="width: 30px; height: 30px;" /></div>
                                 <div class="user-content hide-menu m-l-10">
                                     <a href="#" class="" id="Userdd" role="button" data-bs-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <h5 class="m-b-0 user-name font-medium">Steave Jobs <i
+                                        <h5 class="m-b-0 user-name font-medium">{{user_info.username}} <i
                                                 class="fa fa-angle-down"></i></h5>
-                                        <span class="op-5 user-email">varun@gmail.com</span>
+                                        <span class="op-5 user-email">{{user_info.email }}</span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="Userdd">
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
+                                        <a class="dropdown-item" href="/dashboard/admin/profile"><i
                                                 class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
-                                                class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
-                                                class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
-                                                class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
+                                        <a class="dropdown-item" href="/logout"><i
                                                 class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                     </div>
                                 </div>
                             </div>
                             <!-- End User Profile-->
                         </li>
-                        <li class="p-15 m-t-10"><a href="javascript:void(0)"
-                                class="btn d-block w-100 create-btn text-white no-block d-flex align-items-center"><i
-                                    class="fa fa-plus-square"></i> <span class="hide-menu m-l-5">Create New</span> </a>
-                        </li>
+
                         <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="table-basic.html" aria-expanded="false"><i class="mdi mdi-border-all"></i><span
-                                    class="hide-menu">Table</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="icon-material.html" aria-expanded="false"><i class="mdi mdi-face"></i><span
-                                    class="hide-menu">Icon</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-file"></i><span
-                                    class="hide-menu">Blank</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="error-404.html" aria-expanded="false"><i class="mdi mdi-alert-outline"></i><span
-                                    class="hide-menu">404</span></a></li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/dashboard/admin"
+                                aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/dashboard/admin/profile"
+                                aria-expanded="false"><i class="mdi mdi-account-network"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link btn-toggle  collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#table-collapse" aria-expanded="false">
+                                <i class="mdi mdi-border-all"></i>
+                                <span class="hide-menu">Table</span>
+                            </a>
+                            <div class="collapse" id="table-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                                    <li class="sidebar-item ">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link ps-lg-5"
+                                            href="/dashboard/admin/users" aria-expanded="false">
+                                            <i
+                                                class="mdi mdi-account-multiple-plus"></i>
+                                                <span
+                                                class="hide-menu">Users
+                                            </span>
+                                        </a>
+
+                                    </li>
+                                    <li class="sidebar-item ">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link ps-lg-5"
+                                            href="/dashboard/admin/news" aria-expanded="false"><i
+                                                class="mdi mdi-library-books"></i><span class="hide-menu">News</span>
+                                        </a>
+
+                                    </li>
+                                    <li class="sidebar-item ">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link ps-lg-5"
+                                            href="/dashboard/admin/donate" aria-expanded="false"><i
+                                                class="mdi mdi-currency-usd"></i><span class="hide-menu">Donate</span>
+                                        </a>
+
+                                    </li>
+                                    <li class="sidebar-item ">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link ps-lg-5"
+                                            href="/dashboard/admin/project" aria-expanded="false"><i
+                                                class="mdi mdi-image-filter"></i><span class="hide-menu">Project</span>
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
                     </ul>
 
                 </nav>
@@ -210,12 +241,12 @@
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
                     <div class="col-5">
-                        <h4 class="page-title">Basic Table</h4>
+                        <h4 class="page-title">Users</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item"><a href="/dashboard/admin">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Users</li>
                                 </ol>
                             </nav>
                         </div>
@@ -238,18 +269,16 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Responsive tables</h4>
-                            <h6 class="card-subtitle">Responsive tables allow tables to be scrolled horizontally
-                                with ease. Make any table responsive across all viewports by wrapping a
-                                <code>.table</code> with <code>.table-responsive</code>. Or, pick a maximum
-                                breakpoint with which to have a responsive table up to by using
-                                <code>.table-responsive{-sm|-md|-lg|-xl}</code>.
+                            <h4 class="card-title">Table Users</h4>
+                            <h6 class="card-subtitle">Responsive tables enable easy horizontal scrolling for tables. Ensure the responsiveness of any table across all viewports by enclosing it with
+                                <code>.table responsive</code>. O Alternatively, you can specify a maximum breakpoint for responsiveness using
+                                <code>.This is particularly useful for managing the user data in the charity community website's tables.</code>.
                             </h6>
                         </div>
 
 
                         <div class="table-responsive m-t-20">
-                            <table class="table table-bordered table-responsive-lg">
+                            <table class="table table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -260,16 +289,22 @@
                                         <th scope="col">Country</th>
                                         <th scope="col">No HP</th>
                                         <th scope="col">Address</th>
-                                        <th scope="col">Maps</th>
+                                       
                                         <th scope="col">Action</th>
 
 
                                     </tr>
                                 </thead>
-                                <tbody>
-
-
-                                </tbody>
+                                <tbody id="users-form">
+                                    <tr>
+                                      <tr>
+                                          <td colspan="10" class="text-center">
+                                              <div class="loader-table"></div>
+                                          </td>
+                                      </tr>
+                                     
+                                    </tr>
+                                  </tbody>
                             </table>
                         </div>
                     </div>
@@ -293,8 +328,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer text-center">
-            All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-                href="https://www.wrappixel.com">WrapPixel</a>.
+            All Rights Reserved by Charity Community
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
@@ -315,94 +349,18 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ url_for('static', filename='admin/assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
-
     <script
         src="{{ url_for('static', filename='admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/dist/js/app-style-switcher.js') }}"></script>
     <!--Wave Effects -->
     <script src="{{ url_for('static', filename='admin/dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
+    
     <script src="{{ url_for('static', filename='admin/dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ url_for('static', filename='admin/dist/js/custom.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            updateTable()
+    <script src="{{ url_for('static', filename='admin/dist/js/pages/table-users/table_users.js') }}"> </script>
 
-        });
-
-        function updateTable() {
-            // Ambil data pengguna baru dan perbarui tabel
-            $.ajax({
-                type: 'GET',
-                url: "/get_users",
-                success: function (response) {
-                    // Perbarui tabel dengan data pengguna baru
-                    console.log(response.total_users)
-                    updateTableContent(response.users);
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
-        }
-
-        function updateTableContent(users) {
-            // Hapus semua baris tabel kecuali header
-            $('.table tbody').empty();
-
-            // Tambahkan data pengguna baru ke tabel
-            for (let index = 0; index < users.length; index++) {
-                let user = users[index];
-                let row = `
-        <tr>
-            <th scope="row">${(index + 1)}</th>
-            <td>${user.username}</td>
-            <td>${user.biodata}</td>
-            <td>${user.email}</td>
-            <td>${user.role}</td>
-            <td>${user.country}</td>
-            <td>${user.phone}</td>
-            <td>${user.address}</td>
-            <td>
-                <iframe
-                                        src="${user.maps}"
-                                        width="80%" height="50" frameborder="0" style="border:0"
-                                        allowfullscreen></iframe>
-                </td>
-            <td>
-                <button class="delete-button" onclick='delete_user("${user._id}")'>Delete</button>
-            </td>
-        </tr>`;
-                $('.table tbody').append(row);
-            }
-        }
-
-
-        function delete_user(userId) {
-
-            // Dapatkan token CSRF dari formulir
-            let csrfToken = $('meta[name=csrf-token]').attr('content');
-
-            $.ajax({
-                type: 'POST',
-                url: "/delete_user/" + userId,
-                headers: {
-                    'X-CSRFToken': csrfToken  // Setel token CSRF di header
-                },
-                success: function (response) {
-                    // Handle success, e.g., update the UI or reload the page
-                    console.log(response);
-
-                },
-                error: function (error) {
-                    // Handle error, e.g., show an alert
-                    console.error(error);
-                }
-            })
-        }
-    </script>
 </body>
 
 </html>
