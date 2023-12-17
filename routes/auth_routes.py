@@ -45,8 +45,6 @@ def register(role):
         # time
         time_now = datetime.utcnow()
         time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-        time_now = datetime.utcnow()
-        time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         username = form.username_give.data
         fullname = form.fullname_give.data
         email = form.email_give.data
@@ -54,8 +52,6 @@ def register(role):
         password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
         exists = bool(db.users.find_one({"username": username}))
         if exists:
-            msg = {"status": 200,"msg":"username sudah ada"}
-            return render_template("auth/register.html", form=form, role=role,msg=msg )
             msg = {"status": 200,"msg":"username sudah ada"}
             return render_template("auth/register.html", form=form, role=role,msg=msg )
         default_role = role if role == 'admin' else 'users'
@@ -75,10 +71,6 @@ def register(role):
             "date": time_str,
             "url_fb": "https://www.facebook.com",
             "url_x": "https://twitter.com",
-            "url_yt": "https://www.youtube.com",
-            "date": time_str,
-            "url_fb": "https://www.facebook.com",
-            "url_x": "https://twitter.com",
             "url_yt": "https://www.youtube.com" 
 
 
@@ -86,16 +78,16 @@ def register(role):
 
         db.users.insert_one(doc)
         msg = {"status": 208,"msg":"Selamat Anda sudah terdaftar, segera login"}
-       
         return redirect(url_for('auth.login',msg=msg))
-    msg = {"status": 205,"msg":"silahkan daftar di form ini"} 
-    return render_template("auth/register.html", form=form, role=role,msg=msg)
+    msg = {"status": 205,"msg":"silahkan daftar di form ini"}
+    return render_template("auth/register.html", form=form, role=role, msg=msg)
 
 
 @auth_bp.route("/login", methods=['POST', 'GET'])
 def login():
     form = LoginForm()
     msg = request.args.get("msg","")
+    print(msg)
     if msg != "" and msg != "Salah username atau password":
         try:
             msg_object = json.loads(msg.replace("'", "\""))
@@ -110,7 +102,6 @@ def login():
         # Regular login process
         username = form.username_give.data
         password = form.password_give.data
-        print(username)
         print(username)
         pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
@@ -133,7 +124,7 @@ def login():
                     "token": token,
                 })
             else:
-                msg  = {"status":210,"msg":"Login berhasil"}
+                msg  = "Login berhasil"
                 return render_template("auth/login.html", token=token, form=form, msg =msg )
 
         else:
@@ -143,12 +134,9 @@ def login():
             else:
             
                 msg = "Salah username atau password"
-            
-                msg = "Salah username atau password"
                 return redirect(url_for("auth.login", msg=msg))
     else:
         return render_template("auth/login.html", form=form, msg=msg)
-
 
 # Fungsi logout yang menghapus cookie
 @auth_bp.route("/logout")

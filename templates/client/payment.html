@@ -12,7 +12,7 @@
     rel="stylesheet" />
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
-
+  
   <link href="/static/admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -82,8 +82,6 @@
     </nav>
   </header>
 
-    </nav>
-  </header>
 
   <!--  ************************* Page Title Starts Here ************************** -->
   <div class="page-nav no-margin row">
@@ -126,7 +124,6 @@
             </div>
             {% if form.country_give.errors %}
             <p class="help is-danger">{{ form.country_give.errors[0] }}</p>
-
             {% endif %}
           </div>
           <h1 class="h4">Saran <span class="fw-bold">donasi</span> dari kami</h1>
@@ -422,8 +419,6 @@
 
     <!--  ************************* End Container 4 ************************** -->
   </form>
-
-
 
   <!--  ************************* End Form Donate ************************** -->
 
