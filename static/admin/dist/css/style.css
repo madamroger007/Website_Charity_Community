@@ -14279,7 +14279,9 @@ File: scss
       background: rgba(0, 0, 0, 0.05); }
 
 .comment-text {
-  padding-left: 15px;
+  padding: 0 10px 0 20px;
+  overflow: hidden;
+  text-overflow: "----"; 
   width: 100%; }
   .comment-text:hover .comment-footer .action-icons,
   .comment-text.active .comment-footer .action-icons {
@@ -14287,7 +14289,9 @@ File: scss
   .comment-text p {
     max-height: 65px;
     width: 100%;
-    overflow: hidden; }
+    overflow: hidden; 
+  
+  }
 
 .comment-footer .action-icons {
   visibility: hidden; }
@@ -15175,16 +15179,6 @@ max-height: 50px;
   10%,70%  {background-size:100% 205%,var(--s,0) 100%}
   70%,100% {background-position: top,center}
 }
-
-
-
-
-
-
-
-
-
-
 
 .light-logo, .dark-logo{
   border-radius: 50%;

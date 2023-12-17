@@ -57,10 +57,12 @@ def get_users():
             'profile_info': user.get('profile_info', ''),
             'role': user.get('role', ''),
             'country': user.get('country', ''),
-            'phone': user.get('phone', ''),
+            'no_hp': user.get('no_hp', ''),
             'address': user.get('address', ''),
             'maps': user.get('maps', ''),
-            'date': user.get('date', ''),
+            'url_fb': user.get('url_fb', ''),
+            'url_x': user.get('url_x', ''),
+            'url_yt': user.get('url_yt', ''),
 
         }
         for user in users

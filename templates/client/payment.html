@@ -12,7 +12,7 @@
     rel="stylesheet" />
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
-
+  
   <link href="/static/admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -82,25 +82,7 @@
     </nav>
   </header>
 
-    </nav>
-  </header>
 
-
-  <!--  ************************* Page Title Starts Here ************************** -->
-  <div class="page-nav no-margin row">
-    <div class="container">
-      <div class="row">
-        <h2 class="text-start">Payment</h2>
-        <ul>
-          <li>
-            <a href="#"><i class="bi bi-house-door"></i> Home</a>
-          </li>
-          <li><i class="bi bi-chevron-double-right pe-2"></i> Donate</li>
-          <li><i class="bi bi-chevron-double-right pe-2"></i> Payment</li>
-        </ul>
-      </div>
-    </div>
-  </div>
   <!--  ************************* Page Title Starts Here ************************** -->
   <div class="page-nav no-margin row">
     <div class="container">
@@ -141,7 +123,6 @@
               </span>
             </div>
             {% if form.country_give.errors %}
-            <p class="help is-danger">{{ form.country_give.errors[0] }}</p>
             <p class="help is-danger">{{ form.country_give.errors[0] }}</p>
             {% endif %}
           </div>
@@ -420,24 +401,6 @@
         <div class="col-lg-5 col-12 flex-fill d-flex align-items-center">
 
         </div>
-
-      </div>
-    </div>
-
-    <div class="container my-6">
-      <div class="notification " style="background-color: #d2e4fa;">
-        <p class="mb-3" style="font-size: 0.9rem; ">
-          Saat Anda berdonasi ke Program Pangan Dunia, kemurahan hati Anda akan segera digunakan untuk membantu
-          membangun dunia tanpa kelaparan. Anda dapat membantu menyelamatkan nyawa dalam keadaan darurat atau memberikan
-          makanan bergizi kepada anak-anak di sekolah. Kami tidak dapat melakukan semua ini tanpa dukungan Anda.
-        </p>
-
-        <span class="fw-bold">Mohon donasi sekarang.</span>
-      </div>
-    </div>
-
-    <!--  ************************* End Container 4 ************************** -->
-  </form>
 
       </div>
     </div>

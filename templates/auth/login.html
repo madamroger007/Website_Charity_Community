@@ -10,18 +10,7 @@
     <title>Login page</title>
     <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css " rel="stylesheet">
     <link rel="stylesheet" href="/static/client/assets/css/bootstrap.min.css">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="{{ url_for('static', filename='client/assets/images/logo.png') }}">
-    <title>Login page</title>
-    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css " rel="stylesheet">
-    <link rel="stylesheet" href="/static/client/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css"
-        href="{{ url_for('static', filename='client/assets/css/auth/login.css') }}" />
-
-    <!------------------------------------ Javascript ---------------------------------------->
-    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js "></script>
-    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
     <link rel="stylesheet" type="text/css"
         href="{{ url_for('static', filename='client/assets/css/auth/login.css') }}" />
 
@@ -143,10 +132,7 @@
     <!-- If a valid token exists, perform automatic login -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        document.addEventListener("DOMContentLoaded", function () {
             // Replace 'YOUR_TOKEN' with the actual token value
-         
-
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -168,20 +154,6 @@
 
             // Set the token in a cookie
             document.cookie = "mytoken=" + token + "; path=/";
-            document.cookie = "mytoken=" + token + "; path=/";
-
-            const succes = '{{msg}}'
-            console.log(succes)
-            if (succes) {
-                ToastJs("success", succes)
-
-            }
-
-
-            setTimeout(function () {
-                // Redirect to the home page
-                window.location.replace("/");
-            }, 2000)
 
             const succes = '{{msg}}'
             console.log(succes)
@@ -199,7 +171,6 @@
         });
     </script>
     {% endif %}
-    {% endif %}
 
     <script>
         {% if msg %}
@@ -212,11 +183,6 @@
         console.log(msgs)
         {% endif %}
 
-
-        {% if msg.status == 210 %}
-        const msgs = '{{ msg.msg }}'
-        console.log(msgs)
-        {% endif %}
     </script>
 
 
