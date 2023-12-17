@@ -372,7 +372,7 @@ function FormProjectPost() {
       <i class="fas fa-check"></i>
     </span>
   </div>
-  <p class="help ">Ini adalah deskripsi Project</p>
+  <p class="help ">Ini adalah title Project</p>
 </div>
 <!--End Input fb ... -->
 
