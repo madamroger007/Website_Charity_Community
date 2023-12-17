@@ -32,12 +32,25 @@ function updateTableContent(users) {
     <tr class="" style='height:50px;'>
         <th scope="row">${(index + 1)}</th>
         <td>${user.username}</td>
-        <td>${user.biodata}</td>
+        <td>${user.profile_info}</td>
         <td>${user.email}</td>
         <td>${user.role}</td>
         <td>${user.country}</td>
-        <td>${user.phone}</td>
+        <td>${user.no_hp}</td>
         <td>${user.address}</td>
+        <td>
+        <a class="text-dark" href="${user.maps}" target="_blank"><i class="fa-solid fa-location-dot"></i></a>
+        </td>
+        <td class='d-flex align-content-center justify-content-center gap-2'>
+
+        <a class="text-dark"  href="${user.url_fb}" target="_blank"><i
+        class="fab fa-facebook-f"></i></a>
+<a class="text-dark"   href="${user.url_x}" target="_blank"><i
+        class="fab fa-twitter"></i></a>
+<a  class="text-dark"  href="${user.url_yt}" target="_blank"><i
+        class="fab fa-youtube"></i></a>
+
+        </td>
         <td>
             <button class="btn" onclick='DeleteSweter("${user._id}")'><i class='mdi mdi-delete-forever'> </i></button>
         </td>

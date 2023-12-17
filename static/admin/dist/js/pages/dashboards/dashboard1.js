@@ -274,13 +274,13 @@ function getCardNews(news){
                     class="btn btn-circle d-flex btn-info text-white">${nama}</a>
                       
                     </div>
-            <div class="comment-text active w-100">
+            <div class="comment-text active">
                 <h6 class="font-medium">${data.username}</h6>
                 <div class="pb-2">
                 <img src="/static/${data.img}" alt="" style="width: 250px; height: 150px;" />
-            </div>
-                <span class="m-b-15 d-block">${data.description}</span>
-                <div class="comment-footer ">
+                </div>
+                <span class="m-b-15 d-block ">${data.description}</span>
+                <div class="comment-footer">
                     <span class="text-muted float-end">${moment(data.date).fromNow()}</span>
                     <span class="label label-success label-rounded">${data.topic}</span>
                     <span class="action-icons active">

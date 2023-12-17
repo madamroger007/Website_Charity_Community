@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from flask import render_template, request, redirect, url_for,Blueprint
 from validation.forms import DonateForm,UpdateUsersForm
-import jsonimport json
+import json
 
 client_bp = Blueprint('client', __name__)
 

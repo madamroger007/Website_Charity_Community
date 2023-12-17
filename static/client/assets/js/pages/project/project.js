@@ -1,6 +1,7 @@
 $(document).ready(function(){
-    getNews() 
-})
+    getProject() 
+    getNews()
+  })
 
 //********************* GET TOTAL
 
@@ -8,20 +9,34 @@ $(document).ready(function(){
 
 //********************* Get News
 // Get News
-function getNews() {
+function getProject() {
     $.ajax({
         type: 'GET',
-        url: "/get_news",
+        url: "/get_project",
         success: function (response) {
             // Perbarui tabel dengan data pengguna baru
-            getCardNews(response.news)
-
-            getFooterNews(response.news)
+            getCardNews(response.projects)
         },
         error: function (error) {
             console.error(error);
         }
     });
+
+}
+
+// Get News
+function getNews() {
+  $.ajax({
+      type: 'GET',
+      url: "/get_news",
+      success: function (response) {
+          // Perbarui tabel dengan data pengguna baru
+          getFooterNews(response.news)
+      },
+      error: function (error) {
+          console.error(error);
+      }
+  });
 
 }
 
