@@ -14,9 +14,9 @@ function getNews() {
         url: "/get_news",
         success: function (response) {
             // Perbarui tabel dengan data pengguna baru
+            getCardNews(response.news)
 
             getFooterNews(response.news)
-            getCardNews(response.news)
         },
         error: function (error) {
             console.error(error);

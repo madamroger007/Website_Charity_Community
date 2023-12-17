@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template, jsonify, request, redirect, url_for, make_response
+from flask import Blueprint,render_template, jsonify, request, redirect, url_for, make_response, make_response
 from pymongo import MongoClient
 import jwt
 from datetime import datetime, timedelta
@@ -45,6 +45,8 @@ def register(role):
         # time
         time_now = datetime.utcnow()
         time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        time_now = datetime.utcnow()
+        time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         username = form.username_give.data
         fullname = form.fullname_give.data
         email = form.email_give.data
@@ -52,6 +54,8 @@ def register(role):
         password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
         exists = bool(db.users.find_one({"username": username}))
         if exists:
+            msg = {"status": 200,"msg":"username sudah ada"}
+            return render_template("auth/register.html", form=form, role=role,msg=msg )
             msg = {"status": 200,"msg":"username sudah ada"}
             return render_template("auth/register.html", form=form, role=role,msg=msg )
         default_role = role if role == 'admin' else 'users'
@@ -73,14 +77,20 @@ def register(role):
             "url_x": "https://twitter.com",
             "url_yt": "https://www.youtube.com" 
 
+            "date": time_str,
+            "url_fb": "https://www.facebook.com",
+            "url_x": "https://twitter.com",
+            "url_yt": "https://www.youtube.com" 
+
 
         }
 
         db.users.insert_one(doc)
         msg = {"status": 208,"msg":"Selamat Anda sudah terdaftar, segera login"}
-        return redirect(url_for('auth.login',msg=msg))
-    msg = {"status": 205,"msg":"silahkan daftar di form ini"}
-    return render_template("auth/register.html", form=form, role=role, msg=msg)
+        msg = {"status": 208,"msg":"Selamat Anda sudah terdaftar, segera login"}
+        return redirect(url_for('auth.login',msg=msg,msg=msg))
+    msg = {"status": 205,"msg":"silahkan daftar di form ini"}    msg = {"status": 205,"msg":"silahkan daftar di form ini"}
+    return render_template("auth/register.html", form=form, role=role, msg=msg, msg=msg)
 
 
 @auth_bp.route("/login", methods=['POST', 'GET'])
@@ -99,9 +109,23 @@ def login():
             return render_template("auth/login.html", form=form, msg=msg_object)
      
     if request.method == 'POST' and form.validate_on_submit():
+    msg = request.args.get("msg","")
+    print(msg)
+    if msg != "" and msg != "Salah username atau password":
+        try:
+            msg_object = json.loads(msg.replace("'", "\""))
+            print(msg_object)
+            return render_template("auth/login.html", form=form, msg=msg_object)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            msg_object = "Anda Logout"
+            return render_template("auth/login.html", form=form, msg=msg_object)
+     
+    if request.method == 'POST' and form.validate_on_submit():
         # Regular login process
         username = form.username_give.data
         password = form.password_give.data
+        print(username)
         print(username)
         pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
@@ -124,7 +148,7 @@ def login():
                     "token": token,
                 })
             else:
-                msg  = "Login berhasil"
+                msg  = {"status":210,"msg":"Login berhasil"}
                 return render_template("auth/login.html", token=token, form=form, msg =msg )
 
         else:
@@ -134,8 +158,24 @@ def login():
             else:
             
                 msg = "Salah username atau password"
+            
+                msg = "Salah username atau password"
                 return redirect(url_for("auth.login", msg=msg))
     else:
+        return render_template("auth/login.html", form=form, msg=msg)
+
+# Fungsi logout yang menghapus cookie
+@auth_bp.route("/logout")
+def logout():
+    response = make_response(redirect(url_for("client.index")))
+    response.delete_cookie(TOKEN_KEY)
+    return response
+
+# Jalankan fungsi logout sebelum setiap permintaan ke route logout
+@auth_bp.before_request
+def before_request():
+    if request.endpoint == 'auth.logout':
+        return logout()
         return render_template("auth/login.html", form=form, msg=msg)
 
 # Fungsi logout yang menghapus cookie

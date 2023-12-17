@@ -12,7 +12,7 @@
     rel="stylesheet" />
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
-  
+
   <link href="/static/admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="/static/client/assets/css/donate/payment.css">
   <!-- Font awesome -->
   <script src="https://kit.fontawesome.com/584805cf69.js" crossorigin="anonymous"></script>
+  <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js "></script>
+  <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
 
 </head>
 
@@ -75,11 +77,30 @@
           </div>
         </div>
 
+
       </div>
     </nav>
   </header>
 
+    </nav>
+  </header>
 
+
+  <!--  ************************* Page Title Starts Here ************************** -->
+  <div class="page-nav no-margin row">
+    <div class="container">
+      <div class="row">
+        <h2 class="text-start">Payment</h2>
+        <ul>
+          <li>
+            <a href="#"><i class="bi bi-house-door"></i> Home</a>
+          </li>
+          <li><i class="bi bi-chevron-double-right pe-2"></i> Donate</li>
+          <li><i class="bi bi-chevron-double-right pe-2"></i> Payment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <!--  ************************* Page Title Starts Here ************************** -->
   <div class="page-nav no-margin row">
     <div class="container">
@@ -113,12 +134,14 @@
           <div class="field p-2">
             <label class="label">Country</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input w-75" name="country_give" id="country" type="text" value="{{user_info.country}}" placeholder="{{user_info.country}}" required>
+              <input class="input w-75" name="country_give" id="country" type="text" value="{{user_info.country}}"
+                placeholder="{{user_info.country}}" required>
               <span class="icon is-small is-left">
                 <i class="fas fa-globe"></i>
               </span>
             </div>
             {% if form.country_give.errors %}
+            <p class="help is-danger">{{ form.country_give.errors[0] }}</p>
             <p class="help is-danger">{{ form.country_give.errors[0] }}</p>
             {% endif %}
           </div>
@@ -146,25 +169,26 @@
 
           <!-- *************************** Button Corousel End *********************************** -->
           <div class="mb-6">
-          <div class="field has-addons w-75  ">
-            <p class="control w-auto">
-              <span class="select">
-                <select id="select-money">
-                  <option value="rp">Rp</option>
-                  <option value="dollar">$</option>
-                </select>
-              </span>
-            </p>
-            <p class="control is-expanded ">
-              <input class="input " name="donate_give" type="text" id="donate-amount" placeholder="Jumlah Uang" required>
-            </p>
-           
-           
-          </div>
-          {% if form.donate_give.errors %}
-                <span  class="help is-danger">{{ form.donate_give.errors[0] }}</span>
+            <div class="field has-addons w-75  ">
+              <p class="control w-auto">
+                <span class="select">
+                  <select id="select-money">
+                    <option value="rp">Rp</option>
+                    <option value="dollar">$</option>
+                  </select>
+                </span>
+              </p>
+              <p class="control is-expanded ">
+                <input class="input " name="donate_give" type="text" id="donate-amount" placeholder="Jumlah Uang"
+                  required>
+              </p>
+
+
+            </div>
+            {% if form.donate_give.errors %}
+            <span class="help is-danger">{{ form.donate_give.errors[0] }}</span>
             {% endif %}
-        </div>
+          </div>
 
         </div>
 
@@ -197,7 +221,8 @@
           <div class="field my-4">
             <label class="label text-white">Email</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input respon" name="email_give" type="email" placeholder="{{user_info.email}}" value="{{user_info.email}}" required>
+              <input class="input respon" name="email_give" type="email" placeholder="{{user_info.email}}"
+                value="{{user_info.email}}" required>
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
@@ -206,8 +231,8 @@
               </span>
             </div>
             {% if form.email_give.errors %}
-            <span  class="help is-danger">{{ form.email_give.errors[0] }}</span>
-        {% endif %}
+            <span class="help is-danger">{{ form.email_give.errors[0] }}</span>
+            {% endif %}
           </div>
           <!-- ****************** Cekbok *********************************** -->
 
@@ -219,15 +244,16 @@
                 program, layanan komunitas. <a href="#">terms and conditions</a>
               </label>
             </div>
-            
-           
-       
+
+
+
           </div>
           <!-- ****************** Phone *********************************** -->
           <div class="field my-4">
             <label class="label text-white">Phone</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input respon" type="tel" placeholder="{{user_info.no_hp}}" name="phone_give" value="{{user_info.no_hp}}">
+              <input class="input respon" type="tel" placeholder="{{user_info.no_hp}}" name="phone_give"
+                value="{{user_info.no_hp}}">
               <span class="icon is-small is-left">
                 <i class="fas fa-phone"></i>
               </span>
@@ -237,8 +263,8 @@
               </span>
             </div>
             {% if form.phone_give.errors %}
-            <span  class="help is-danger">{{ form.phone_give.errors[0] }}</span>
-        {% endif %}
+            <span class="help is-danger">{{ form.phone_give.errors[0] }}</span>
+            {% endif %}
           </div>
 
           <!-- *************************** Text *********************************** -->
@@ -277,7 +303,8 @@
           <div class="field my-4">
             <label class="label ">Number Kartu</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input respon" name="rekening_give" type="text" placeholder="Number kartu rekening" value="" required>
+              <input class="input respon" name="rekening_give" type="text" placeholder="Number kartu rekening" value=""
+                required>
               <span class="icon is-small is-left">
                 <i class="fas fa-credit-card"></i>
 
@@ -287,8 +314,8 @@
               </span>
             </div>
             {% if form.rekening_give.errors %}
-            <span  class="help is-danger">{{ form.rekening_give.errors[0] }}</span>
-        {% endif %}
+            <span class="help is-danger">{{ form.rekening_give.errors[0] }}</span>
+            {% endif %}
           </div>
 
           <!-- ****************** Expiry date *********************************** -->
@@ -308,8 +335,8 @@
                 </span>
               </div>
               {% if form.expiry_date_give.errors %}
-              <span  class="help is-danger">{{ form.expiry_date_give.errors[0] }}</span>
-          {% endif %}
+              <span class="help is-danger">{{ form.expiry_date_give.errors[0] }}</span>
+              {% endif %}
             </div>
 
             <div class="field my-4">
@@ -327,7 +354,7 @@
               </div>
               {% if form.security_code_give.errors %}
               <span class="help is-danger">{{ form.security_code_give.errors[0] }}</span>
-          {% endif %}
+              {% endif %}
             </div>
           </div>
 
@@ -366,7 +393,8 @@
           <div class="field my-5">
             <label class="label ">Nama Lengkap</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input respon" name="fullname_give" type="text" placeholder="{{user_info.fullname}}" value="{{user_info.fullname}}" required>
+              <input class="input respon" name="fullname_give" type="text" placeholder="{{user_info.fullname}}"
+                value="{{user_info.fullname}}" required>
               <span class="icon is-small is-left">
                 <i class="fas fa-credit-card"></i>
 
@@ -376,8 +404,8 @@
               </span>
             </div>
             {% if form.fullname_give.errors %}
-              <span class="help is-danger">{{ form.fullname_give.errors[0] }}</span>
-          {% endif %}
+            <span class="help is-danger">{{ form.fullname_give.errors[0] }}</span>
+            {% endif %}
           </div>
 
 
@@ -392,6 +420,24 @@
         <div class="col-lg-5 col-12 flex-fill d-flex align-items-center">
 
         </div>
+
+      </div>
+    </div>
+
+    <div class="container my-6">
+      <div class="notification " style="background-color: #d2e4fa;">
+        <p class="mb-3" style="font-size: 0.9rem; ">
+          Saat Anda berdonasi ke Program Pangan Dunia, kemurahan hati Anda akan segera digunakan untuk membantu
+          membangun dunia tanpa kelaparan. Anda dapat membantu menyelamatkan nyawa dalam keadaan darurat atau memberikan
+          makanan bergizi kepada anak-anak di sekolah. Kami tidak dapat melakukan semua ini tanpa dukungan Anda.
+        </p>
+
+        <span class="fw-bold">Mohon donasi sekarang.</span>
+      </div>
+    </div>
+
+    <!--  ************************* End Container 4 ************************** -->
+  </form>
 
       </div>
     </div>
@@ -471,10 +517,10 @@
 
 
 
-   <!-- Sertakan jQuery dan Bootstrap JS jika diperlukan -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-   integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Sertakan jQuery dan Bootstrap JS jika diperlukan -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- JAVASCRIPT -->
 
@@ -493,6 +539,50 @@
   <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
   <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
   <script src="/static/client/assets/js/pages/donate/payment.js"></script>
+
+
+  {% if msg.status == 400 %}
+  {% set toast_icon = 'warning' %}
+  {% set toast_message = msg.msg %}
+{% else %}
+  {% set toast_icon = 'info' %}
+  {% set toast_message = 'Mari kita donasi' %}
+{% endif %}
+
+<script>
+  //******************************************* Library
+  // Penggunaan SweetAlert2
+  // Toast
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+
+  function ToastJs(icon, title) {
+    Toast.fire({
+      icon: icon,
+      title: title
+    });
+  }
+
+  const toastIcon = '{{ toast_icon }}';
+  const toastMessage = '{{ toast_message }}';
+
+  $(document).ready(function () {
+    if (toastMessage) {
+      ToastJs(toastIcon, toastMessage);
+    }
+  });
+</script>
+
+
 </body>
 
 </html>
