@@ -240,6 +240,33 @@ def get_total():
     })
 
 
+#***************** Contact 
+@api_bp.route('/get_contact')
+def get_contact():
+    
+    contact = db.message.find({}).sort('date', -1).limit(20)
+    
+    
+    contact_list = [
+        {
+            '_id': str(user['_id']),
+            'username': user.get('username', ''),
+            'name': user.get('name', ''),
+            'email': user.get('email', ''),
+            'message': user.get('message', ''),
+            'phone': user.get('phone', ''),
+            'img': user.get('img', ''),
+            'date': user.get('date', ''),
+        }
+        for user in contact
+    ]
+
+    return jsonify({
+        "msg": "success",
+        "contacs": contact_list,
+      
+    })
+
 #****************************************** POST API ********************************************* 
 
 #***************** NEWS
@@ -325,6 +352,45 @@ def posting_project():
             # Handle the case when form validation fails
             errors = {field: form[field].errors for field in form.errors}
             return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("client.index"))
+
+#**************** Contact
+@api_bp.route("/posting_contact", methods=["POST"])
+def posting_contact():
+    token_receive = request.cookies.get(TOKEN_KEY)
+    try:
+        payload = decode_token(token_receive)
+        user_info = db.users.find_one({"username": payload.get("username")})
+        if not user_info:
+            return jsonify({"result": "error", "msg": "User not found"})
+          
+        name_receive = request.form.get("name_give")
+        email_receive = request.form.get("email_give")
+        message_receive = request.form.get('message_give') 
+        phone_receive = request.form.get("phone_give") 
+        # time
+        print(name_receive)
+        print(email_receive)
+        print(message_receive)
+        print(phone_receive)
+
+        time_now = datetime.utcnow()
+        time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+        doc = {
+                "username": user_info.get("username"),
+                "name": name_receive,
+                "email": email_receive,
+                "message": message_receive,
+                "phone": phone_receive,
+                "img": user_info.get("profile_img"),
+                'date': time_str
+            }
+
+        db.message.insert_one(doc)
+        return jsonify({"result": "success", "msg": "Posting Message Successful"})
 
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
@@ -513,6 +579,16 @@ def delete_news(news_id):
 @api_bp.route('/delete_project/<project_id>', methods=['POST'])
 def delete_project(project_id):
     result = db.projects.delete_one({'_id': ObjectId(project_id)})
+    response = {
+        'status': 'success' if result.deleted_count == 1 else 'error',
+        'message': 'Projects deleted successfully' if result.deleted_count == 1 else 'Projects not found or could not be deleted'
+    }
+    return jsonify(response)
+
+#**************** Contact
+@api_bp.route('/delete_contact/<contact_id>', methods=['POST'])
+def delete_contact(contact_id):
+    result = db.message.delete_one({'_id': ObjectId(contact_id)})
     response = {
         'status': 'success' if result.deleted_count == 1 else 'error',
         'message': 'Projects deleted successfully' if result.deleted_count == 1 else 'Projects not found or could not be deleted'
