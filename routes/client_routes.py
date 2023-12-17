@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from flask import render_template, request, redirect, url_for,Blueprint
 from validation.forms import DonateForm,UpdateUsersForm
-import json
+import jsonimport json
 
 client_bp = Blueprint('client', __name__)
 
@@ -101,6 +101,15 @@ def donate():
                    
             return render_template('client/donate.html', user_info=user_info, msg=msg_object)
         return render_template('client/donate.html', user_info=user_info,msg=msg)
+        msg = request.args.get("msg","")   
+        print(msg)
+       # Replace single quotes with double quotes and then parse as JSON
+        if msg != "":
+            msg_str = msg.replace("'", "\"")
+            msg_object = json.loads(msg_str)
+                   
+            return render_template('client/donate.html', user_info=user_info, msg=msg_object)
+        return render_template('client/donate.html', user_info=user_info,msg=msg)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -115,6 +124,8 @@ def donate_pay():
   
         if request.method == 'POST' and form.validate_on_submit():
             # time
+            time_now = datetime.utcnow()
+            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             time_now = datetime.utcnow()
             time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             # Handle the form submission, store data in MongoDB
@@ -166,6 +177,8 @@ def contact_us():
         user_info = db.users.find_one({"username": payload.get("username")})
        
         return render_template('client/contact.html', user_info=user_info)
+       
+        return render_template('client/contact.html', user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -177,6 +190,8 @@ def profile():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
+        # Konversi ObjectId menjadi string
+        user_info["_id"] = str(user_info["_id"])
         # Konversi ObjectId menjadi string
         user_info["_id"] = str(user_info["_id"])
         return render_template('client/profile.html', user_info=user_info,form=form)
