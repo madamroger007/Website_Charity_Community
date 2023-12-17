@@ -101,7 +101,7 @@ ${users.profile_img}
 <div class="field">
   <label class="label">Facebook</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input is-success" type="text" placeholder="Text input" value="https://www.facebook.com">
+    <input class="input is-success" type="text" placeholder="Text input" name='fb_receive' value="${users.url_fb}">
     <span class="icon is-small is-left">
     <i class="fab fa-facebook-f"></i>
     </span>
@@ -117,7 +117,7 @@ ${users.profile_img}
 <div class="field">
   <label class="label">Twitter</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input is-success" type="text" placeholder="Text input" value="https://twitter.com">
+    <input class="input is-success" type="text" placeholder="Text input" name='x_receive' value="${users.url_x}">
     <span class="icon is-small is-left">
     <i class="fab fa-twitter"></i>
     </span>
@@ -133,7 +133,7 @@ ${users.profile_img}
 <div class="field">
   <label class="label">Youtube</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input is-success" type="text" placeholder="Text input" value="https://www.youtube.com">
+    <input class="input is-success" type="text" placeholder="Text input" name='yt_receive' value="${users.url_yt}">
     <span class="icon is-small is-left">
     <i class="fab fa-youtube"></i>
     </span>

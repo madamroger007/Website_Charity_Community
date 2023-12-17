@@ -412,6 +412,13 @@ def update_users(userid):
             profile_info_receive = request.form.get("profile_info_receive")
             email_receive = form.email_receive.data
             maps_receive = request.form.get("maps_receive")
+            yt_receive = request.form.get("yt_receive")
+            x_receive = request.form.get("x_receive")
+            fb_receive = request.form.get("fb_receive")
+            print(fb_receive)
+            print(yt_receive)
+            print(x_receive)
+            
             no_hp_receive = form.no_hp_receive.data
             address_receive = request.form.get("address_receive")
             country_receive = form.country_receive.data
@@ -423,7 +430,11 @@ def update_users(userid):
                 "maps": maps_receive,
                 "no_hp": no_hp_receive,
                 "address": address_receive,
-                "country": country_receive
+                "country": country_receive,
+                "url_fb": fb_receive,
+                "url_x": x_receive,
+                "url_yt": yt_receive,
+
             }
 
             # Check if a new image is uploaded
@@ -436,7 +447,8 @@ def update_users(userid):
                     new_doc["profile_img"] = img_url
                 else:
                     # Handle the case when the file is empty
-                    return jsonify({"result": "error", "msg": "No file provided for update"})
+                    db.users.update_one({"_id": ObjectId(userid)}, {"$set": new_doc})
+                    return jsonify({"result": "error", "msg": "No Img provided for update"})
             elif "profile_bg_img_receive" in request.files:
                 file = request.files.get('profile_bg_img_receive')
 
@@ -448,6 +460,7 @@ def update_users(userid):
                     # Handle the case when the file is empty
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
+           
             db.users.update_one({"_id": ObjectId(userid)}, {"$set": new_doc})
 
             return jsonify({"result": "success", "msg": "Update Successful"})

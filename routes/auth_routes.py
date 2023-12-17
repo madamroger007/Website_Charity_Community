@@ -89,11 +89,15 @@ def login():
     msg = request.args.get("msg","")
     print(msg)
     if msg != "" and msg != "Salah username atau password":
-            msg_str = msg.replace("'", "\"")
-            msg_object = json.loads(msg_str)
+        try:
+            msg_object = json.loads(msg.replace("'", "\""))
             print(msg_object)
             return render_template("auth/login.html", form=form, msg=msg_object)
-
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            msg_object = "Anda Logout"
+            return render_template("auth/login.html", form=form, msg=msg_object)
+     
     if request.method == 'POST' and form.validate_on_submit():
         # Regular login process
         username = form.username_give.data

@@ -1,44 +1,102 @@
-Saya mempunyai kode ini : 
-@api_bp.route("/posting_news", methods=["POST"])
-def posting_news():
-    token_receive = request.cookies.get(TOKEN_KEY)
-    try:
-        payload = decode_token(token_receive)
-        user_info = db.users.find_one({"username": payload.get("username")})
-        if not user_info:
-            return jsonify({"result": "error", "msg": "User not found"})
-        form = Newsform()
-        file = request.files.get('img_give')
-        if form.validate():
-            title_receive = form.title_give.data
-            description_receive = form.description_give.data
-            topic_receive = form.topic_give.data
-            # time
-            time_now = datetime.now()
-            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+Perbaiki kode ini :
+@auth_bp.route("/login", methods=['POST', 'GET'])
+def login():
+    form = LoginForm()
+    msg = request.args.get("msg","")
 
-            # Simpan gambar ke server
-            img_url = save_image(file, 'news')
+    if isinstance(msg, object):
+        msg_str = msg.replace("'", "\"")
+        msg_object = json.loads(msg_str)
+        print(msg_object)
+        return render_template("auth/login.html", form=form, msg=msg_object)
+    
+    if request.method == 'POST' and form.validate_on_submit():
+        # Regular login process
+        username = form.username_give.data
+        password = form.password_give.data
+        print(username)
+        pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
-            doc = {
-                "username": user_info.get("username"),
-                "title": title_receive,
-                "img": img_url,
-                "description": description_receive,
-                "topic": topic_receive,
-                'date': time_str
+        user = db.users.find_one(
+            {
+                "username": username,
+                "password": pw_hash,
+            })
+
+        if user:
+            payload = {
+                "username": username,
+                "exp": datetime.utcnow() + timedelta(seconds=60 * 60 * 24),
             }
+            token = encode_token(payload)
+            # Check if it's an AJAX request
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({
+                    "result": "success",
+                    "token": token,
+                })
+            else:
+                msg  = "Login berhasil"
+                return render_template("auth/login.html", token=token, form=form, msg =msg )
 
-            db.news.insert_one(doc)
-
-            return jsonify({"result": "success", "msg": "Posting News Successful"})
         else:
-            # Handle the case when form validation fails
-            errors = {field: form[field].errors for field in form.errors}
-            return jsonify({"result": "error", "msg": "Form validation failed", "errors": errors})
+            # Check if it's an AJAX request
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({"result": "fail", "msg": "We could not find a user with that id/password combination"})
+            else:
+            
+                msg = "Salah username atau password"
+                return redirect(url_for("auth.login", msg=msg))
+    else:
+        return render_template("auth/login.html", form=form, msg=msg)
 
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("client.index"))
 
-Saya ingin mengubah bagian date nya menjadi seperti ini formatnya :2023-12-13T15:45:03.142+00:00
+Karena menagalami error seperti ini :
+
+JSONDecodeError
+
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last)
+
+    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 1478, in __call__
+
+    return self.wsgi_app(environ, start_response)
+
+    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 1458, in wsgi_app
+
+    response = self.handle_exception(e)
+
+    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 1455, in wsgi_app
+
+    response = self.full_dispatch_request()
+
+    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 869, in full_dispatch_request
+
+    rv = self.handle_user_exception(e)
+
+    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 867, in full_dispatch_request
+
+    rv = self.dispatch_request()
+
+    File "/home/adam/Coding/Python/Final_porject/.venv/lib/python3.10/site-packages/flask/app.py", line 852, in dispatch_request
+
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+
+    File "/home/adam/Coding/Python/Final_porject/routes/auth_routes.py", line 93, in login
+
+    msg_object = json.loads(msg_str)
+
+    File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+
+    return _default_decoder.decode(s)
+
+    File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+
+    File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+
+    json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
