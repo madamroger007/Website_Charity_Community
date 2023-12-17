@@ -53,7 +53,8 @@ $(document).ready(function () {
     }
 
     if(msgs){
-        ToastJs("succes", msgs)
+        ToastJs("success", msgs)
     }
+
 
 });

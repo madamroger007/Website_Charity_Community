@@ -79,6 +79,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Replace 'YOUR_TOKEN' with the actual token value
+         
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -129,6 +131,11 @@
         console.log(msgs)
         {% endif %}
 
+
+        {% if msg.status == 210 %}
+        const msgs = '{{ msg.msg }}'
+        console.log(msgs)
+        {% endif %}
     </script>
 
 

@@ -14,9 +14,8 @@ function getNews() {
         url: "/get_news",
         success: function (response) {
             // Perbarui tabel dengan data pengguna baru
-
-            getFooterNews(response.news)
             getCardNews(response.news)
+            getFooterNews(response.news)
         },
         error: function (error) {
             console.error(error);
@@ -26,6 +25,8 @@ function getNews() {
 }
 
 function getCardNews(news){
+  console.log(news)
+
     $("#card-news-container").empty()
 
     for (let index = 0; index < news.length; index++) {
@@ -43,10 +44,10 @@ function getCardNews(news){
         <h5 class="mt-3 fs-7 fw-bold">
           ${berita.title}
         </h5>
-        <p class='description'> ${berita.title}</p>
-        <span class="fs-8">22 May 2015</span>
+        <p class='description'> ${berita.description}</p>
+        <span class="fs-8">${moment(berita.date).fromNow()}</span>
         <span class="float-end fs-8"
-          ><i class="bi bi-person"></i> Sam Anderson</span
+          ><i class="bi bi-person"></i>${berita.username}</span
         >
       </div>
     </div>

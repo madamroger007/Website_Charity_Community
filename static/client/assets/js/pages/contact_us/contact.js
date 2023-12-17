@@ -29,7 +29,7 @@ function PostSweetAlert() {
         title: "Apakah anda ingin memberikan kami pesan?",
         icon: "question",
         showCancelButton: true,
-        confirmButtonText: "Post",
+        confirmButtonText: "Kirim Pesan",
 
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
@@ -38,7 +38,7 @@ function PostSweetAlert() {
             Swal.fire("Terimakasih!", "", "success");
 
         } else if (result.isDenied) {
-            Swal.fire("Tidak bisa di Post", "", "info");
+            Swal.fire("Tidak bisa di Kirim", "", "info");
         }
     });
 }

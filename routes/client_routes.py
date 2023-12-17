@@ -112,8 +112,7 @@ def donate_pay():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-    
-
+  
         if request.method == 'POST' and form.validate_on_submit():
             # time
             time_now = datetime.utcnow()
@@ -133,12 +132,17 @@ def donate_pay():
                 "date": time_str 
             }
 
-        # Insert the data into the MongoDB collection (adjust collection name as needed)
             db.donations.insert_one(donation_data)
             msg = {"status": 201, "msg":"Terima Kasih sudah donasi"}
             return redirect(url_for('client.donate',msg=msg))
-
-        return render_template('client/payment.html', user_info=user_info, form=form)
+        elif request.method == 'POST' and not form.validate():
+            # Pesan gagal registrasi jika data dari form tidak sesuai
+            msg = {"status": 400, "msg": "Data tidak sesuai, silahkan cek kembali"}
+            return render_template('client/payment.html', user_info=user_info, form=form, msg=msg)
+        else:
+            # Pesan gagal registrasi jika data dari form tidak sesuai
+            msg= "Mari kita donasi"
+            return render_template('client/payment.html', user_info=user_info, form=form,msg=msg)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 

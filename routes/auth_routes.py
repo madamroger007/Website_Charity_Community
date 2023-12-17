@@ -124,7 +124,7 @@ def login():
                     "token": token,
                 })
             else:
-                msg  = "Login berhasil"
+                msg  = {"status":210,"msg":"Login berhasil"}
                 return render_template("auth/login.html", token=token, form=form, msg =msg )
 
         else:
