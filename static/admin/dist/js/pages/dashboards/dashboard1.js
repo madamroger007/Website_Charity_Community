@@ -277,7 +277,7 @@ function getCardNews(news){
             <div class="comment-text active">
                 <h6 class="font-medium">${data.username}</h6>
                 <div class="pb-2">
-                <img src="/static/${data.img}" alt="" style="width: 250px; height: 150px;" />
+                <img src="/static/${data.img}" alt="" style="width: 200px; height: 189px;" />
                 </div>
                 <span class="m-b-15 d-block ">${data.description}</span>
                 <div class="comment-footer">

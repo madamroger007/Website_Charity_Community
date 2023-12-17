@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from flask import render_template, request, redirect, url_for,Blueprint
 from validation.forms import DonateForm,UpdateUsersForm
-import jsonimport json
+import json
 
 client_bp = Blueprint('client', __name__)
 
@@ -101,15 +101,7 @@ def donate():
                    
             return render_template('client/donate.html', user_info=user_info, msg=msg_object)
         return render_template('client/donate.html', user_info=user_info,msg=msg)
-        msg = request.args.get("msg","")   
-        print(msg)
-       # Replace single quotes with double quotes and then parse as JSON
-        if msg != "":
-            msg_str = msg.replace("'", "\"")
-            msg_object = json.loads(msg_str)
-                   
-            return render_template('client/donate.html', user_info=user_info, msg=msg_object)
-        return render_template('client/donate.html', user_info=user_info,msg=msg)
+     
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
