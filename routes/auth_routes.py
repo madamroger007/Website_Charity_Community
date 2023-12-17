@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from os.path import join, dirname
 import os
 from validation.forms import RegistrationForm, LoginForm
+import json
 
 
 
@@ -51,7 +52,7 @@ def register(role):
         password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
         exists = bool(db.users.find_one({"username": username}))
         if exists:
-            msg = {"status": 200,"msg":"user sudah ada"}
+            msg = {"status": 200,"msg":"username sudah ada"}
             return render_template("auth/register.html", form=form, role=role,msg=msg )
         default_role = role if role == 'admin' else 'users'
         doc = {
@@ -76,14 +77,23 @@ def register(role):
         }
 
         db.users.insert_one(doc)
-        return redirect(url_for('auth.login'))
-
-    return render_template("auth/register.html", form=form, role=role)
+        msg = {"status": 208,"msg":"Selamat Anda sudah terdaftar, segera login"}
+        return redirect(url_for('auth.login',msg=msg))
+    msg = {"status": 205,"msg":"silahkan daftar di form ini"}
+    return render_template("auth/register.html", form=form, role=role, msg=msg)
 
 
 @auth_bp.route("/login", methods=['POST', 'GET'])
 def login():
     form = LoginForm()
+    msg = request.args.get("msg","")
+    print(msg)
+    if msg != "" and msg != "Salah username atau password":
+            msg_str = msg.replace("'", "\"")
+            msg_object = json.loads(msg_str)
+            print(msg_object)
+            return render_template("auth/login.html", form=form, msg=msg_object)
+
     if request.method == 'POST' and form.validate_on_submit():
         # Regular login process
         username = form.username_give.data
@@ -110,8 +120,8 @@ def login():
                     "token": token,
                 })
             else:
-                success  = "Login berhasil"
-                return render_template("auth/login.html", token=token, form=form, success =success )
+                msg  = "Login berhasil"
+                return render_template("auth/login.html", token=token, form=form, msg =msg )
 
         else:
             # Check if it's an AJAX request
@@ -122,7 +132,6 @@ def login():
                 msg = "Salah username atau password"
                 return redirect(url_for("auth.login", msg=msg))
     else:
-        msg = request.args.get("msg")
         return render_template("auth/login.html", form=form, msg=msg)
 
 # Fungsi logout yang menghapus cookie
