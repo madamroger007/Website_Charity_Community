@@ -77,7 +77,7 @@ def get_users():
 
 @api_bp.route('/get_news')
 def get_news():
-    news = db.news.find({}).limit(20)
+    news = db.news.find({}).sort('date', -1).limit(20)
   
     news_list = [
         {
@@ -122,7 +122,7 @@ def get_newsId(newsId):
 
 @api_bp.route('/get_donate')
 def get_donate():
-    donate = db.donations.find({})
+    donate = db.donations.find({}).sort('date', -1).limit(20)
     donate_list = [
         {
             '_id': str(user['_id']),
@@ -149,7 +149,7 @@ def get_donate():
 
 @api_bp.route('/get_project')
 def get_project():
-    projects = db.projects.find({})
+    projects = db.projects.find({}).sort('date', -1).limit(20)
     projects_list = [
         {
             '_id': str(user['_id']),
@@ -240,6 +240,33 @@ def get_total():
     })
 
 
+#***************** Contact 
+@api_bp.route('/get_contact')
+def get_contact():
+    
+    contact = db.message.find({}).sort('date', -1).limit(20)
+    
+    
+    contact_list = [
+        {
+            '_id': str(user['_id']),
+            'username': user.get('username', ''),
+            'name': user.get('name', ''),
+            'email': user.get('email', ''),
+            'message': user.get('message', ''),
+            'phone': user.get('phone', ''),
+            'img': user.get('img', ''),
+            'date': user.get('date', ''),
+        }
+        for user in contact
+    ]
+
+    return jsonify({
+        "msg": "success",
+        "contacs": contact_list,
+      
+    })
+
 #****************************************** POST API ********************************************* 
 
 #***************** NEWS
@@ -259,8 +286,8 @@ def posting_news():
             description_receive = form.description_give.data
             topic_receive = form.topic_give.data
             # time
-            time_now = datetime.now()
-            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+            time_now = datetime.utcnow()
+            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
             # Simpan gambar ke server
             img_url = save_image(file, 'news')
@@ -303,8 +330,8 @@ def posting_project():
             topic_receive = form.topic_give.data
             file = request.files.get('img_give')
             # time
-            time_now = datetime.now()
-            time_str = time_now.strftime("%Y-%m-%d-%H-%M-%S")
+            time_now = datetime.utcnow()
+            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
             # Simpan gambar ke server
             img_url = save_image(file, 'projects')
@@ -329,6 +356,45 @@ def posting_project():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
+#**************** Contact
+@api_bp.route("/posting_contact", methods=["POST"])
+def posting_contact():
+    token_receive = request.cookies.get(TOKEN_KEY)
+    try:
+        payload = decode_token(token_receive)
+        user_info = db.users.find_one({"username": payload.get("username")})
+        if not user_info:
+            return jsonify({"result": "error", "msg": "User not found"})
+          
+        name_receive = request.form.get("name_give")
+        email_receive = request.form.get("email_give")
+        message_receive = request.form.get('message_give') 
+        phone_receive = request.form.get("phone_give") 
+        # time
+        print(name_receive)
+        print(email_receive)
+        print(message_receive)
+        print(phone_receive)
+
+        time_now = datetime.utcnow()
+        time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+        doc = {
+                "username": user_info.get("username"),
+                "name": name_receive,
+                "email": email_receive,
+                "message": message_receive,
+                "phone": phone_receive,
+                "img": user_info.get("profile_img"),
+                'date': time_str
+            }
+
+        db.message.insert_one(doc)
+        return jsonify({"result": "success", "msg": "Posting Message Successful"})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("client.index"))
+
 #****************************************** UPDATE API ******************************************
 
 #***************** USERS
@@ -346,6 +412,13 @@ def update_users(userid):
             profile_info_receive = request.form.get("profile_info_receive")
             email_receive = form.email_receive.data
             maps_receive = request.form.get("maps_receive")
+            yt_receive = request.form.get("yt_receive")
+            x_receive = request.form.get("x_receive")
+            fb_receive = request.form.get("fb_receive")
+            print(fb_receive)
+            print(yt_receive)
+            print(x_receive)
+            
             no_hp_receive = form.no_hp_receive.data
             address_receive = request.form.get("address_receive")
             country_receive = form.country_receive.data
@@ -357,7 +430,11 @@ def update_users(userid):
                 "maps": maps_receive,
                 "no_hp": no_hp_receive,
                 "address": address_receive,
-                "country": country_receive
+                "country": country_receive,
+                "url_fb": fb_receive,
+                "url_x": x_receive,
+                "url_yt": yt_receive,
+
             }
 
             # Check if a new image is uploaded
@@ -370,7 +447,8 @@ def update_users(userid):
                     new_doc["profile_img"] = img_url
                 else:
                     # Handle the case when the file is empty
-                    return jsonify({"result": "error", "msg": "No file provided for update"})
+                    db.users.update_one({"_id": ObjectId(userid)}, {"$set": new_doc})
+                    return jsonify({"result": "error", "msg": "No Img provided for update"})
             elif "profile_bg_img_receive" in request.files:
                 file = request.files.get('profile_bg_img_receive')
 
@@ -382,6 +460,7 @@ def update_users(userid):
                     # Handle the case when the file is empty
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
+           
             db.users.update_one({"_id": ObjectId(userid)}, {"$set": new_doc})
 
             return jsonify({"result": "success", "msg": "Update Successful"})
@@ -426,6 +505,7 @@ def update_news(newsid):
                     new_doc["img"] = img_url
                 else:
                     # Handle the case when the file is empty
+                    db.news.update_one({"_id": ObjectId(newsid)}, {"$set":  new_doc })
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
             db.news.update_one({"_id": ObjectId(newsid)}, {"$set":  new_doc })
@@ -468,6 +548,7 @@ def update_project(projectid):
                     new_doc["img"] = img_url
                 else:
                     # Handle the case when the file is empty
+                    db.projects.update_one({"_id": ObjectId(projectid)}, {"$set":  new_doc })
                     return jsonify({"result": "error", "msg": "No file provided for update"})
             # Update other fields
             db.projects.update_one({"_id": ObjectId(projectid)}, {"$set":  new_doc })
@@ -511,6 +592,16 @@ def delete_news(news_id):
 @api_bp.route('/delete_project/<project_id>', methods=['POST'])
 def delete_project(project_id):
     result = db.projects.delete_one({'_id': ObjectId(project_id)})
+    response = {
+        'status': 'success' if result.deleted_count == 1 else 'error',
+        'message': 'Projects deleted successfully' if result.deleted_count == 1 else 'Projects not found or could not be deleted'
+    }
+    return jsonify(response)
+
+#**************** Contact
+@api_bp.route('/delete_contact/<contact_id>', methods=['POST'])
+def delete_contact(contact_id):
+    result = db.message.delete_one({'_id': ObjectId(contact_id)})
     response = {
         'status': 'success' if result.deleted_count == 1 else 'error',
         'message': 'Projects deleted successfully' if result.deleted_count == 1 else 'Projects not found or could not be deleted'

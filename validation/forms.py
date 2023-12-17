@@ -28,8 +28,8 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username_give = StringField('username', validators=[DataRequired()])
-    password_give = PasswordField('password', validators=[DataRequired()])
+    username_give = StringField('username', validators=[DataRequired(message='Username is required')])
+    password_give = PasswordField('password', validators=[DataRequired(message='password is required')])
     submit = SubmitField('login')
 
 
@@ -65,7 +65,7 @@ class DonateForm(FlaskForm):
 
 class Newsform(FlaskForm):
     title_give = StringField('Title', validators=[DataRequired()])
-    img_give = FileField('Image', validators=[DataRequired()])
+
     description_give = TextAreaField('Description', validators=[DataRequired()])
     topic_give = SelectField('Topic', choices=[('sosial', 'Sosial'), ('bencana', 'Bencana'), ('konflik', 'Konflik')],
                              validators=[DataRequired()])

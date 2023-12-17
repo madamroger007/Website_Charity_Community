@@ -55,7 +55,7 @@ def dashboard():
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
         
-        return render_template('admin/index.html')
+        return render_template('admin/index.html',user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -118,7 +118,23 @@ def profile_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
+        # Konversi ObjectId menjadi string
+        user_info["_id"] = str(user_info["_id"])
         
         return render_template('admin/pages-profile.html',user_info=user_info, form=form)
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("client.index"))
+
+
+@admin_bp.route('/dashboard/admin/mail')
+def mail_admin():
+    token_receive = request.cookies.get(TOKEN_KEY)
+    try:
+        payload = decode_token(token_receive)
+        user_info = db.users.find_one({"username": payload.get("username")})
+        # Konversi ObjectId menjadi string
+        user_info["_id"] = str(user_info["_id"])
+        
+        return render_template('admin/mail.html',user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))

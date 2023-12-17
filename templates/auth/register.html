@@ -1,63 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="/static/client/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css"
+        href="{{ url_for('static', filename='client/assets/css/auth/register.css') }}" />
+    <!------------------------------------ Javascript ---------------------------------------->
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js "></script>
+    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
+
 </head>
+
 <body>
-    <form id="formRegister" method="post" action="{{ url_for('auth.register', role=role) }}" class="d-flex flex-column justify-content-center  align-items-center w-100 h-100">
-         {{ form.hidden_tag() }}
-        <div class="mb-3">
-            <label for="username" class="form-label">Username:</label>
-            <input  class="form-control" type="text" id="username" name="username_give" required>
-            {% if form.username_give.errors %}
-                <span style="color: red;">{{ form.username_give.errors[0] }}</span>
-            {% endif %}
+    <div class="container-fluid">
+        <div class="row main-content bg-success text-center">
+            <div class="col-md-4 text-center company__info p-3 d-flex justify-content-center align-items-lg-center">
+                <img class="mx-5" src="{{ url_for('static', filename='client/assets/images/logo.png') }}" alt=""
+                    style="width: 200px; border-radius: 50%; " />
+            </div>
+            <div class="col-md-8 col-xs-12 col-sm-12 login_form py-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h2>Register </h2>
+                       
+                    </div>
+
+
+                    <div class="row">
+
+                        <form id="formRegister" method="post" action="{{ url_for('auth.register', role=role) }}"
+                            class="form-group">
+                            {{ form.hidden_tag() }}
+                            <div class="container w-20">
+                            <div class="mb-3">
+                                <input class="form__input" type="text" id="username" name="username_give" placeholder="Your Username" required>
+                                {% if form.username_give.errors %}
+                                <span class=" fw-light text-danger" style="font-size:0.8em ;">{{ form.username_give.errors[0] }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                              
+                                <input class="form__input" type="text" id="fullname" name="fullname_give" placeholder="Your Fullname" required>
+                                {% if form.fullname_give.errors %}
+                                <span class=" fw-light text-danger" style="font-size:0.8em ;">{{ form.fullname_give.errors[0] }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                      
+                                <input class="form__input" type="email" id="email" name="email_give" placeholder="Your Email" required>
+                                {% if form.email_give.errors %}
+                                <span class=" fw-light text-danger" style="font-size:0.8em ;">{{ form.email_give.errors[0] }}</span>
+                                {% endif %}
+                            </div>
+
+
+
+                            <div class="mb-3">
+                               
+                                <input class="form__input" type="password" id="password" name="password_give" placeholder="Your Password" required>
+                                {% if form.password_give.errors %}
+                                <span class=" fw-light text-danger" style="font-size:0.8em ;">{{ form.password_give.errors[0] }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                
+                                <input class="form__input" type="password" id="confirm_password"
+                                    name="confirm_password"  placeholder="Your Confirm Password" required>
+                                {% if form.password_give.errors %}
+                                <span  class=" fw-light text-danger" style="font-size:0.8em ;">{{ form.password_give.errors[0] }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3 text-start form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                                <label class="form-check-label " for="exampleCheck1">Saya menyetujui kebijakan dari komunitas</label>
+                              </div>
+
+                            <button type="submit" class="btn btn-primary mb-3">Register</button>
+                        </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
-        
-        <div class="mb-3">
-            <label for="fullname" class="form-label">Fullname:</label>
-            <input class="form-control"  type="text" id="fullname" name="fullname_give" required>
-            {% if form.fullname_give.errors %}
-                <span style="color: red;">{{ form.fullname_give.errors[0] }}</span>
-            {% endif %}
-        </div>
+    </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input class="form-control"  type="email" id="email" name="email_give"  required>
-            {% if form.email_give.errors %}
-                <span style="color: red;">{{ form.email_give.errors[0] }}</span>
-            {% endif %}
-        </div>
+    <!-- Javascript -->
 
-      
+    <script>
+    {% if msg.status == 200 %}
+        const msg = '{{msg.msg}}';
+        console.log(msg);
+        $(document).ready(function () {
+            if (msg) {
+                ToastJs("warning", msg);
+            }
+        });
 
-       <div class="mb-3">
-        <label for="password" class="form-label">Password:</label>
-        <input class="form-control"  type="password" id="password" name="password_give" required>
-        {% if form.password_give.errors %}
-            <span style="color: red;">{{ form.password_give.errors[0] }}</span>
-        {% endif %}
-       </div>
+{% endif%}
 
-       <div class="mb-3">
-        <label for="password" class="form-label">Confirm password:</label>
-        <input class="form-control"  type="password" id="confirm_password" name="confirm_password" required>
-        {% if form.password_give.errors %}
-            <span style="color: red;">{{ form.password_give.errors[0] }}</span>
-        {% endif %}
-       </div>
 
-       
+{% if msg.status == 205 %}
+        const info = '{{msg.msg}}';
+        console.log(info);
+        $(document).ready(function () {
+            if (info) {
+                ToastJs("info", info);
+            }
+        });
+ 
+{% endif %}
 
-        <button type="submit">Register</button>
-    </form>
+        //******************************************* Libary
+// penggunaan SweetAlert2
+// Toast
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+function ToastJs(icon, title) {
+    Toast.fire({
+        icon: icon,
+        title: title
+    });
+}
+
+
+
+//************************* DOM Content */
+
+    </script>
 </body>
+
 </html>

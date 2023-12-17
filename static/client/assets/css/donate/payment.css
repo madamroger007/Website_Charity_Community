@@ -1,0 +1,25 @@
+.button-donate-value{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.button-donate-value:hover{
+  background-color: rgb(186, 215, 241);
+
+}
+
+.respon{
+  width: 50%;
+}
+
+/* Image */
+.image-donate{
+  height: 320px; 
+  width: 100%;
+  box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (max-width: 800px) {
+  .respon{
+    width: 90%;
+  }
+}

@@ -7,19 +7,14 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Donate</title>
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='client/assets/images/fav.png') }}"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/logo.png') }}"
+    type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='client/assets/images/fav.jpg') }}"
-    />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/logo.png') }}"
+    type="image/x-icon" />
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}"
@@ -33,44 +28,75 @@
       type="text/css"
       href="{{ url_for('static', filename='client/assets/css/style.css') }}"
     />
-
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css " rel="stylesheet">
   </head>
   <body class="bg-white">
-    <header class="mb-5 ">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top p-1">
-          <div class="container-fluid">
-            
-              <img class="mx-2" src="{{ url_for('static', filename='client/assets/images/logo.jpg') }}" alt="" style="max-width: 100px;">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link"  href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page"  href="/donate">Donate</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/news">News</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/project">Project</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/contact_us">Contact Us</a>
-                </li>
-                
-              </ul>
+    
+    <header class="mb-5">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top ">
+        <div class="container-fluid ">
+          <img
+            class="mx-2 "
+            src="{{ url_for('static', filename='client/assets/images/logo.png') }}"
+            alt=""
+            style="max-width: 80px"
+          />
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse col" id="navbarNavDropdown">
+            <ul class="navbar-nav col-10">
+              <li class="nav-item">
+                <a class="nav-link " href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page"  href="/donate">Donate</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/news">News</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/project">Project</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact_us">Contact Us</a>
+              </li>
+            </ul>
+            <div class="d-flex justify-content-center col-2" id="navbarNavDropdown">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
+                        class="rounded-circle logo-small">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end user-dd animated"
+                    aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/profile"><i class="ti-user m-r-5 m-l-5"></i>
+                        My Profile</a>
+                        <a class="dropdown-item" href="/logout"><i class="ti-user m-r-5 m-l-5"></i>
+                          Logout</a>
+  
+                </ul>
+            </li>
             </div>
           </div>
-        </nav>
-     </header>
+         
+        </div>    
+      </nav>
+    </header>
     <!--  ************************* Page Title Starts Here ************************** -->
     <div class="page-nav no-margin row">
       <div class="container">
@@ -86,120 +112,202 @@
       </div>
     </div>
 
+
     <section class="container-fluid causes bg-gray">
       <div class="container">
         <div class="section-title row">
-          <p>Pelajari lebih lanjut tentang kami</p>
-          <h2>PENYEBAB TERBARU</h2>
+          <h2>
+            Mari sedekahkan sedikit Rezeki untuk mereka yang sangat
+            membutuhkannya
+          </h2>
+          <p>Bersedekah tidak membuat anda miskin</p>
+          <p>Jadi jangan takut buat bersedekah</p>
         </div>
         <div class="cuses-row row">
           <div class="col-md-4">
             <div class="causen-ccover">
               <div class="caus-img">
-                <img
-                  src="{{ url_for('static', filename='client/assets/images/causes/c1.jpg') }}"
-                  alt=""
-                />
+                <img src="{{ url_for('static', filename='client/assets/images/causes/c1.jpg') }}" alt="" />
               </div>
-              <div class="caus-info row no-margin">
-                <span class="left-info col-6"> RAISED: $764 </span>
-                <span class="rit-info text-right col-6"> TARGET: $1500 </span>
-              </div>
+  
               <div class="caus-detail">
-                <h4>PEDULI PALESTINA</h4>
+                <h4>PEDULI TERHADAP SESAMA</h4>
                 <p>
-                  Mari kita semua bersama membantu negara kecil ini yang sedang
-                  dalam keadaan yang sangat menyedihkan yaitu dibunuh di siksa
-                  oleh zionis, walaupun kita tidakbisa membantu secara langsung
+                  Mari kita semua bersama membantu sesama kita yang sedang
+                  dalam keadaan yang sangat sedang kesusahan, walaupun kita tidak bisa membantu secara langsung
                   terjun kesana berharap dengan donasi ini bisa membantu mereka
                   yang sangat kesusahan menghadapi ini semua disana.
                 </p>
               </div>
-
+  
               <div class="donat-btn">
-                <main>
-                  <button class="btn btn-danger">
-                    <i class="fas fa-hand-holding-usd"></i> Donate
-                  </button>
-                </main>
+                <a class="btn btn-danger" href="/donate/payment">
+                  <i class="fas fa-hand-holding-usd"></i> Donate
+                </a>
               </div>
             </div>
           </div>
-
+  
           <div class="col-md-4">
             <div class="causen-ccover">
               <div class="caus-img">
-                <img
-                  src="{{ url_for('static', filename='client/assets/images/causes/c2.jpg') }}"
-                  alt=""
-                />
+                <img src="{{ url_for('static', filename='client/assets/images/blog/blog_02.jpg') }}" alt="" />
               </div>
-              <div class="caus-info row no-margin">
-                <span class="left-info col-6"> RAISED: $764 </span>
-                <span class="rit-info text-right col-6"> TARGET: $1500 </span>
-              </div>
+  
               <div class="caus-detail">
-                <h4>CONNECTING THE PEOPLE</h4>
+                <h4>BANTUAN UNTUK KORBAN BENCANA</h4>
                 <p>
-                  he point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
+                  Mari kita semua bersama membantu sesama kita yang sedang dalam keadaan yang sangat sedang kesusahan,
+                  walaupun kita tidak bisa membantu secara langsung terjun kesana berharap dengan donasi ini bisa membantu
+                  mereka yang sangat kesusahan menghadapi ini semua disana.
                 </p>
               </div>
-
+  
               <div class="donat-btn">
-                <button class="btn btn-danger">
+                <a class="btn btn-danger" href="/donate/payment">
                   <i class="fas fa-hand-holding-usd"></i> Donate
-                </button>
+                </a>
               </div>
             </div>
           </div>
-
+  
           <div class="col-md-4">
             <div class="causen-ccover">
               <div class="caus-img">
-                <img
-                  src="{{ url_for('static', filename='client/assets/images/causes/c3.jpg') }}"
-                  alt=""
-                />
+                <img src="{{ url_for('static', filename='client/assets/images/causes/c2.jpg') }}" alt="" />
               </div>
-              <div class="caus-info row no-margin">
-                <span class="left-info col-6"> RAISED: $764 </span>
-                <span class="rit-info text-right col-6"> TARGET: $1500 </span>
-              </div>
+  
               <div class="caus-detail">
-                <h4>CONNECTING THE PEOPLE</h4>
+                <h4>DUKUNG PEDIDIKAN ANAK-ANAK</h4>
                 <p>
-                  he point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
+                  Mari berikan semangat kepada anak-anak untuk berpendidikan,
+                  sangatbanyak diluar sana anak-anak yang ingin sekolah tapi
+                  tidak mampu. Semoga dengan bantuan donasi kita semua ini
+                  kepada mereka akan bermanfaat untuknya
                 </p>
               </div>
-
+  
               <div class="donat-btn">
-                <button class="btn btn-danger">
+                <a class="btn btn-danger" href="/donate/payment">
                   <i class="fas fa-hand-holding-usd"></i> Donate
-                </button>
+                </a>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
     </section>
 
     <footer>
-      <div class="inner">FOOTER</div>
+      <div class="inner">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 foot-about">
+              <h4>About US</h4>
+  
+              <p>
+                Komunitas amal kita adalah sinar harapan di tengah badai
+                penderitaan. Bersama, kita membentuk jaringan kasih dan
+                kepedulian yang menjangkau mereka yang terpinggirkan oleh
+                bencana dan konflik. Setiap tindakan kebaikan yang kita lakukan
+                menjadi langkah untuk mendukung, menyembuhkan luka, dan
+                membangun ulang kehidupan. Mari kita terus bersatu dalam membawa
+                cinta dan pencerahan kepada mereka yang membutuhkan, sehingga
+                setiap jiwa dapat merasakan kehangatan solidaritas kita.
+              </p>
+  
+              <ul>
+                <li>Charity Community</li>
+                <li>AJR@gmail.com</li>
+                <li>085273883095</li>
+              </ul>
+            </div>
+  
+            <div class="col-md-3 foot-post">
+              <h4>Berita</h4>
+              <div id="news-footer">
+  
+              
+             
+  
+            </div>
+             
+            </div>
+  
+            <div class="col-md-3 foot-post">
+  
+            </div>
+  
+            <div class="col-md-3 foot-news">
+              <h4>Address</h4>
+              <p>Kota Bandung, Jawa Barat, Indonesia.</p>
+  
+              <ul>
+                <li><i class="bi bi-facebook"></i></li>
+                <li><i class="bi bi-twitter"></i></li>
+                <li><i class="bi bi-instagram"></i></li>
+                <li><i class="bi bi-linkedin"></i></li>
+                <li><i class="bi bi-pinterest"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
-  </body>
-  <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-    crossorigin="anonymous"
-  ></script>
+    <!-- *************************** Javascriptttt ********************************* -->
+    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+    
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js "></script>
+  
+    <script src="{{ url_for('static', filename='client/assets/js/pages/donate/donate.js') }}"></script>
+  
+    <script>
 
-  <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
-  <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+  // penggunaan SweetAlert2
+      // Toast
+      const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+          }
+      });
+      function ToastJs(icon, title) {
+          Toast.fire({
+              icon: icon,
+              title: title
+          });
+      }
+
+      {% if msg.status == 201 %}
+              const msg = "{{msg.msg}}"+" {{user_info.username }} 😇";
+              console.log(msg);
+              $(document).ready(function () {
+                  if (msg) {
+                      ToastJs("success", msg);
+                  }
+              });
+      
+      {% endif %}
+      
+      
+        
+        </script>
+ 
+  </body>
 </html>
+
