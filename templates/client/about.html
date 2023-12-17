@@ -57,7 +57,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse col" id="navbarNavDropdown">
-            <ul class="navbar-nav col-11">
+            <ul class="navbar-nav col-10">
               <li class="nav-item">
                 <a class="nav-link " href="/">Home</a>
               </li>
@@ -77,14 +77,22 @@
                 <a class="nav-link" href="/contact_us">Contact Us</a>
               </li>
             </ul>
-            <div class="d-flex justify-content-center col-1"">
-              <a href="/profile">
-                <img
-                  src="{{ url_for('static', filename=user_info.profile_img) }}"
-                  alt="Logo"
-                  class="logo-small rounded-circle"
-                />
-              </a>
+            <div class="d-flex justify-content-center col-2" id="navbarNavDropdown">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
+                        class="rounded-circle logo-small">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end user-dd animated"
+                    aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/profile"><i class="ti-user m-r-5 m-l-5"></i>
+                        My Profile</a>
+                        <a class="dropdown-item" href="/logout"><i class="ti-user m-r-5 m-l-5"></i>
+                          Logout</a>
+  
+                </ul>
+            </li>
             </div>
           </div>
          
@@ -147,7 +155,7 @@
               <div class="about-diag">
                 <div class="icon"><i class="fas fa-arrow-right"></i></div>
                 <div class="tex">
-                  <h5>Rp5M</h5>
+                  <h5 id="total-donate"></h5>
                   <p>DIBANGKITKAN OLEH BANTUAN ANDA</p>
                 </div>
               </div>
@@ -267,9 +275,61 @@
 
     <footer>
       <div class="inner">
-        
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 foot-about">
+              <h4>About US</h4>
+  
+              <p>
+                Komunitas amal kita adalah sinar harapan di tengah badai
+                penderitaan. Bersama, kita membentuk jaringan kasih dan
+                kepedulian yang menjangkau mereka yang terpinggirkan oleh
+                bencana dan konflik. Setiap tindakan kebaikan yang kita lakukan
+                menjadi langkah untuk mendukung, menyembuhkan luka, dan
+                membangun ulang kehidupan. Mari kita terus bersatu dalam membawa
+                cinta dan pencerahan kepada mereka yang membutuhkan, sehingga
+                setiap jiwa dapat merasakan kehangatan solidaritas kita.
+              </p>
+  
+              <ul>
+                <li>Charity Community</li>
+                <li>AJR@gmail.com</li>
+                <li>085273883095</li>
+              </ul>
+            </div>
+  
+            <div class="col-md-3 foot-post">
+              <h4>Berita</h4>
+              <div id="news-footer">
+  
+              
+             
+  
+            </div>
+             
+            </div>
+  
+            <div class="col-md-3 foot-post">
+  
+            </div>
+  
+            <div class="col-md-3 foot-news">
+              <h4>Address</h4>
+              <p>Kota Bandung, Jawa Barat, Indonesia.</p>
+  
+              <ul>
+                <li><i class="bi bi-facebook"></i></li>
+                <li><i class="bi bi-twitter"></i></li>
+                <li><i class="bi bi-instagram"></i></li>
+                <li><i class="bi bi-linkedin"></i></li>
+                <li><i class="bi bi-pinterest"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
+  
     
   </body>
   <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
@@ -282,5 +342,11 @@
   <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
   <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+  
+  <!-- Sertakan moment.js -->
+  <script src="https://unpkg.com/@develoka/angka-rupiah-js/index.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+ 
+ <script src="{{ url_for('static', filename='client/assets/js/pages/about/about.js') }}"></script>
 </html>

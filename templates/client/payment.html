@@ -1,290 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Payment</title>
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='client/assets/images/fav.png') }}"
-      type="image/x-icon"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/fav.png') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
-  
-    <style>
-      /* Tambahkan gaya CSS di sini jika diperlukan */
-      /* Contoh: Stilisasi form */
-      form {
-        max-width: 400px;
-        margin: 0 auto;
-        font-family: Arial, sans-serif;
-      }
-      label,
-      input,  
-      select,
-      button {
-        display: block;
-        margin-bottom: 10px;
-      }
-      button {
-        padding: 10px 15px;
-        background-color: #008CBA;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #005f6b;
-      }
-    </style>
-  
-  </head>
-  <body class="bg-white">
-    <header class="mb-5">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top ">
-        <div class="container-fluid ">
-          <img
-            class="mx-2 "
-            src="{{ url_for('static', filename='client/assets/images/logo.png') }}"
-            alt=""
-            style="max-width: 80px"
-          />
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse col" id="navbarNavDropdown">
-            <ul class="navbar-nav col-11">
-              <li class="nav-item">
-                <a class="nav-link " href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/donate">Donate</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/news">News</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/project">Project</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/contact_us">Contact Us</a>
-              </li>
-            </ul>
-            <div class="d-flex justify-content-center col-1"">
-              <a href="/profile">
-                <img
-                  src="{{ url_for('static', filename=user_info.profile_img) }}"
-                  alt="Logo"
-                  class="logo-small rounded-circle"
-                />
-              </a>
-            </div>
-          </div>
-         
-        </div>
-
-        
-      </nav>
-    </header>
-
-    <!--  ************************* Page Title Starts Here ************************** -->
-    <div class="page-nav no-margin row">
-      <div class="container">
-        <div class="row">
-          <h2 class="text-start">Payment</h2>
-          <ul>
-            <li>
-              <a href="#"><i class="bi bi-house-door"></i> Home</a>
-            </li>
-            <li><i class="bi bi-chevron-double-right pe-2"></i> Donate</li>
-            <li><i class="bi bi-chevron-double-right pe-2"></i> Payment</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <form id="paymentForm">
-    <div>
-      <label for="country">Country:</label>
-      <select id="country" name="country">
-        <option value="ID">Indonesia</option>
-        <option value="US">United States</option>
-        <!-- Tambahkan opsi negara lainnya sesuai kebutuhan -->
-      </select>
-    </div>
-
-    <div>
-      <label for="currency">Currency:</label>
-      <select id="currency" name="currency">
-        <option value="IDR">IDR - Indonesian Rupiah</option>
-        <option value="USD">USD - US Dollar</option>
-        <!-- Tambahkan opsi mata uang lainnya sesuai kebutuhan -->
-      </select>
-    </div>
-
-    <div>
-      <label for="donationAmount">Make a Single Donation of:</label>
-      <input type="number" id="donationAmount" name="donationAmount" min="1" step="1">
-    </div>
-
-    <button type="submit">Make a Single Donation</button>
-  </form>
-
-    <footer>
-      <div class="inner">
-        
-      </div>
-    </footer>
-    
-  </body>
-  <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-    crossorigin="anonymous"
-  ></script>
-
-  <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
-  <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
-</html>
-=======
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Payment</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/logo.png') }}"
+    type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
 
-    <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/fav.png') }}" type="image/x-icon">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/fav.jpg') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='client/assets/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
+  
+  <link href="/static/admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+
+  <link rel="stylesheet" href="/static/client/assets/css/donate/payment.css">
+  <!-- Font awesome -->
+  <script src="https://kit.fontawesome.com/584805cf69.js" crossorigin="anonymous"></script>
 
 </head>
-<body>
-    <h1>Donation Form {{ user_info.username }}</h1>
 
-    <form id="donateForm" method="post" action="{{ url_for('client.donate_pay') }}" class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-        {{ form.hidden_tag() }}
-        
-        <div class="mb-3">
-            <label for="country" class="form-label">Country:</label>
-            <input class="form-control" type="text" id="country" name="country_give" value="{{ 'empty' if user_info.country == 'unknown' else user_info.country }}" placeholder="{{ 'empty' if user_info.country == 'unknown' else user_info.country }}" required>
-            {% if form.country_give.errors %}
-                <span style="color: red;">{{ form.country_give.errors[0] }}</span>
-            {% endif %}
+<body class="bg-white">
+
+  <header class="mb-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top ">
+      <div class="container-fluid ">
+        <img class="mx-2 " src="{{ url_for('static', filename='client/assets/images/logo.png') }}" alt=""
+          style="max-width: 80px" />
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse col" id="navbarNavDropdown">
+          <ul class="navbar-nav col-10">
+            <li class="nav-item">
+              <a class="nav-link " href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/donate">Donate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/news">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/project">Project</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/contact_us">Contact Us</a>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-center col-2" id="navbarNavDropdown">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
+                  class="rounded-circle logo-small">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/profile"><i class="ti-user m-r-5 m-l-5"></i>
+                  My Profile</a>
+                <a class="dropdown-item" href="/logout"><i class="ti-user m-r-5 m-l-5"></i>
+                  Logout</a>
+
+              </ul>
+            </li>
+          </div>
         </div>
-    
-        <div class="mb-3">
-            <label for="donation" class="form-label">Donation Amount:</label>
-            <input class="form-control" type="number" id="donation" name="donate_give" required>
-            {% if form.donate_give.errors %}
-                <span style="color: red;">{{ form.donate_give.errors[0] }}</span>
-            {% endif %}
-        </div>
-    
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input class="form-control" type="email" id="email" name="email_give" value="{{ 'empty' if user_info.email == 'unknown' else user_info.email }}" placeholder="{{ 'empty' if user_info.email == 'unknown' else user_info.email }}"  required>
-            {% if form.email_give.errors %}
-                <span style="color: red;">{{ form.email_give.errors[0] }}</span>
-            {% endif %}
-        </div>
-    
-        <div class="mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="flexCheckChecked" name="agree_give " required>
-                <label class="form-check-label" for="flexCheckChecked">Click Here</label>
-                {% if form.agree_give.errors %}
-                    <span style="color: red;">{{ form.agree_give.errors[0] }}</span>
-                {% endif %}
+
+      </div>
+    </nav>
+  </header>
+
+
+  <!--  ************************* Page Title Starts Here ************************** -->
+  <div class="page-nav no-margin row">
+    <div class="container">
+      <div class="row">
+        <h2 class="text-start">Payment</h2>
+        <ul>
+          <li>
+            <a href="#"><i class="bi bi-house-door"></i> Home</a>
+          </li>
+          <li><i class="bi bi-chevron-double-right pe-2"></i> Donate</li>
+          <li><i class="bi bi-chevron-double-right pe-2"></i> Payment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!--  ************************* Page Title End Here ************************** -->
+
+
+  <!--  ************************* Form Donate ************************** -->
+  <form id="Formdonate" class="p-5" method="post" action="{{ url_for('client.donate_pay') }}">
+    {{ form.hidden_tag() }}
+    <!--  ************************* Container 1 ************************** -->
+
+    <div class="container my-6">
+      <div class="notification d-flex flex-wrap " style="background-color: beige;">
+
+        <div class="col-lg-7 flex-fill">
+          <h1 class="h2 fw-bold">Marilah kita berdonasi</h1>
+          <h6>Donasimu adalah amal baik untuk dirimu</h6>
+          <div class="field p-2">
+            <label class="label">Country</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input w-75" name="country_give" id="country" type="text" value="{{user_info.country}}" placeholder="{{user_info.country}}" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </span>
             </div>
+            {% if form.country_give.errors %}
+            <p class="help is-danger">{{ form.country_give.errors[0] }}</p>
+            {% endif %}
+          </div>
+          <h1 class="h4">Saran <span class="fw-bold">donasi</span> dari kami</h1>
+
+          <!-- *************************** Corousel *********************************** -->
+          <div class="columns my-3 mx-5 gap-3 mb-5">
+            <div class="column button-donate-value my-2" data-value="156550"
+              data-src="https://gdb.voanews.com/9855cc88-7940-483d-bde7-ae04f38554a7_w1080_h608_s.jpg"
+              style="cursor: pointer;">
+              <h6>Rp156550.00</h6>
+            </div>
+            <div class="column button-donate-value my-2" data-value="456550"
+              data-src="https://cdnuploads.aa.com.tr/uploads/Contents/2020/07/10/thumbs_b_c_ebd54e8f552b20ea66ed8df077994883.jpg?v=054833"
+              style="cursor: pointer;">
+              <h6>Rp456550.00</h6>
+            </div>
+            <div class="column button-donate-value my-2" data-value="2156550"
+              data-src="https://storage.nu.or.id/storage/post/1_1/mid/148186221258536c448e271.jpg"
+              style="cursor: pointer;">
+              <h6>Rp2156550.00</h6>
+            </div>
+          </div>
+
+
+          <!-- *************************** Button Corousel End *********************************** -->
+          <div class="mb-6">
+          <div class="field has-addons w-75  ">
+            <p class="control w-auto">
+              <span class="select">
+                <select id="select-money">
+                  <option value="rp">Rp</option>
+                  <option value="dollar">$</option>
+                </select>
+              </span>
+            </p>
+            <p class="control is-expanded ">
+              <input class="input " name="donate_give" type="text" id="donate-amount" placeholder="Jumlah Uang" required>
+            </p>
+           
+           
+          </div>
+          {% if form.donate_give.errors %}
+                <span  class="help is-danger">{{ form.donate_give.errors[0] }}</span>
+            {% endif %}
         </div>
-    
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone:</label>
-            <input class="form-control" type="text" id="phone" name="phone_give" required>
+
+        </div>
+
+        <div class="col-lg-5 col-12 flex-fill">
+          <figure class="image">
+            <img class="image-donate"
+              src="https://gdb.voanews.com/9855cc88-7940-483d-bde7-ae04f38554a7_w1080_h608_s.jpg" id="image-donate"
+              alt="Logo">
+          </figure>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!--  ************************* End Container 1 ************************** -->
+
+
+    <!--  ************************* Container 2 ************************** -->
+
+    <div class="container my-6">
+      <div class="notification d-flex flex-wrap " style="background-color: rgb(29, 0, 97);">
+
+        <div class="col-lg-9 flex-fill ">
+          <h1 class="h2 fw-bold text-white">Kontak Anda</h1>
+          <h6 class="text-white">Donasimu adalah amal baik untuk dirimu</h6>
+
+          <!-- ****************** Email *********************************** -->
+
+          <div class="field my-4">
+            <label class="label text-white">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input respon" name="email_give" type="email" placeholder="{{user_info.email}}" value="{{user_info.email}}" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span class="icon is-small ">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% if form.email_give.errors %}
+            <span  class="help is-danger">{{ form.email_give.errors[0] }}</span>
+        {% endif %}
+          </div>
+          <!-- ****************** Cekbok *********************************** -->
+
+          <div class="container" style="right: 15px; margin: 35px 0 35px 0;">
+            <div class="notification bg-primary">
+              <label class="checkbox text-white" style="font-size: 0.9rem; ">
+                <input type="checkbox" name="agree_give" required>
+                Ya, saya senang menggunakan informasi pribadi yang saya bagikan untuk mengirimi saya komunikasi tentang
+                program, layanan komunitas. <a href="#">terms and conditions</a>
+              </label>
+            </div>
+            
+           
+       
+          </div>
+          <!-- ****************** Phone *********************************** -->
+          <div class="field my-4">
+            <label class="label text-white">Phone</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input respon" type="tel" placeholder="{{user_info.no_hp}}" name="phone_give" value="{{user_info.no_hp}}">
+              <span class="icon is-small is-left">
+                <i class="fas fa-phone"></i>
+              </span>
+              <!-- <i class="fa-solid "></i> -->
+              <span class="icon is-small ">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
             {% if form.phone_give.errors %}
-                <span style="color: red;">{{ form.phone_give.errors[0] }}</span>
-            {% endif %}
+            <span  class="help is-danger">{{ form.phone_give.errors[0] }}</span>
+        {% endif %}
+          </div>
+
+          <!-- *************************** Text *********************************** -->
+          <div>
+            <p class="text-white" style="font-size: 0.9rem; ">
+              Dengan memberikan nomor telepon Anda, Anda setuju bahwa Komunitas akan menggunakan informasi pribadi yang
+              Anda
+              bagikan kepada kami untuk mengirimi Anda informasi tentang program, layanan dan acara kami melalui SMS,
+              telepon (suara) dan melalui platform pengiriman pesan misalnya WhatsApp.
+            </p>
+          </div>
         </div>
-    
-        <div class="mb-3">
-            <label for="rekening" class="form-label">Bank Account:</label>
-            <input class="form-control" type="text" id="rekening" name="rekening_give" required>
+
+        <div class="col-lg-3 col-12 flex-fill">
+
+        </div>
+
+      </div>
+    </div>
+
+    <!--  ************************* End Container 2 ************************** -->
+
+
+
+    <!--  ************************* Container 3 ************************** -->
+
+    <div class="container my-6  border-bottom">
+      <div class="notification d-flex flex-wrap " style="background-color: rgb(253, 253, 253);">
+
+        <div class="col-lg-7 flex-fill ">
+          <h1 class="h2 fw-bold ">Donasi Rekening</h1>
+          <h6 class="">Pilih metode pembayaran bulanan Anda</h6>
+
+          <!-- ****************** Card number rekening *********************************** -->
+
+          <div class="field my-4">
+            <label class="label ">Number Kartu</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input respon" name="rekening_give" type="text" placeholder="Number kartu rekening" value="" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-credit-card"></i>
+
+              </span>
+              <span class="icon is-small ">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
             {% if form.rekening_give.errors %}
-                <span style="color: red;">{{ form.rekening_give.errors[0] }}</span>
-            {% endif %}
+            <span  class="help is-danger">{{ form.rekening_give.errors[0] }}</span>
+        {% endif %}
+          </div>
+
+          <!-- ****************** Expiry date *********************************** -->
+
+          <div class="columns" style="right: 15px; margin: 35px 0 35px 0;">
+            <div class="field my-4">
+              <label class="label ">Expire date</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input respon" name="expiry_date_give" type="text" placeholder="MM/YY" value="" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-calendar-days"></i>
+
+                </span>
+                <span class="icon is-small ">
+                  <i class="fas fa-exclamation-triangle"></i>
+
+                </span>
+              </div>
+              {% if form.expiry_date_give.errors %}
+              <span  class="help is-danger">{{ form.expiry_date_give.errors[0] }}</span>
+          {% endif %}
+            </div>
+
+            <div class="field my-4">
+              <label class="label ">Kode keamanan</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input respon" name="security_code_give" type="text" placeholder="Kode keamanan rekening"
+                  value="" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+
+                </span>
+                <span class="icon is-small ">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              {% if form.security_code_give.errors %}
+              <span class="help is-danger">{{ form.security_code_give.errors[0] }}</span>
+          {% endif %}
+            </div>
+          </div>
+
         </div>
-    
-        <div class="mb-3">
-            <label for="expiry_date" class="form-label">Expiry Date:</label>
-            <input class="form-control" type="text" id="expiry_date" name="expiry_date_give" required>
-            {% if form.expiry_date_give.errors %}
-                <span style="color: red;">{{ form.expiry_date_give.errors[0] }}</span>
-            {% endif %}
+
+        <div class="col-lg-5 col-12 flex-fill d-flex align-items-center">
+
+
+          <div>
+            <p>Kita menerima:</p>
+            <div class="my-5">
+              <i class="fa-brands fa-cc-visa fa-bounce fa-2xl  me-2" style="color: #444440;"></i>
+              <i class="fa-brands fa-cc-mastercard fa-beat-fade fa-2xl me-2" style="color: #818305;"></i>
+              <i class="fa-brands fa-cc-paypal fa-shake fa-2xl me-2" style="color: #1a5fb4;"></i>
+              <i class="fa-brands fa-cc-stripe fa-fade fa-2xl me-2" style="color: #ff8e8e;"></i>
+            </div>
+
+          </div>
         </div>
-    
-        <div class="mb-3">
-            <label for="security_code" class="form-label">Security Code:</label>
-            <input class="form-control" type="text" id="security_code" name="security_code_give" required>
-            {% if form.security_code_give.errors %}
-                <span style="color: red;">{{ form.security_code_give.errors[0] }}</span>
-            {% endif %}
-        </div>
-    
-        <div class="mb-3">
-            <label for="fullname" class="form-label">Full Name:</label>
-            <input class="form-control" type="text" id="fullname" name="fullname_give" value="{{ 'empty' if user_info.full_name == 'unknown' else user_info.full_name }}" placeholder="{{ 'empty' if user_info.full_name == 'unknown' else user_info.full_name }}"  required>
+
+      </div>
+    </div>
+
+    <!--  ************************* End Container 3 ************************** -->
+
+
+    <!--  ************************* Container 4 ************************** -->
+
+    <div class="container">
+      <div class="notification d-flex flex-wrap " style="background-color: rgb(253, 253, 253);">
+
+        <div class="col-lg-7 flex-fill ">
+          <h1 class="h2 fw-bold ">Detail Pembayaran</h1>
+          <!-- ****************** Email *********************************** -->
+
+          <div class="field my-5">
+            <label class="label ">Nama Lengkap</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input respon" name="fullname_give" type="text" placeholder="{{user_info.fullname}}" value="{{user_info.fullname}}" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-credit-card"></i>
+
+              </span>
+              <span class="icon is-small ">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
             {% if form.fullname_give.errors %}
-                <span style="color: red;">{{ form.fullname_give.errors[0] }}</span>
-            {% endif %}
+              <span class="help is-danger">{{ form.fullname_give.errors[0] }}</span>
+          {% endif %}
+          </div>
+
+
+          <div class="container my-5">
+            <button type="submit" class="btn btn-success" style="width:50% ;">
+              <span class=" fw-bold fs-5">Klik donasi</span>
+            </button>
+          </div>
+
         </div>
-    
-        <button type="submit">Donate</button>
-    </form>
 
-    <!-- JAVASCRIPT -->
-    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+        <div class="col-lg-5 col-12 flex-fill d-flex align-items-center">
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container my-6">
+      <div class="notification " style="background-color: #d2e4fa;">
+        <p class="mb-3" style="font-size: 0.9rem; ">
+          Saat Anda berdonasi ke Program Pangan Dunia, kemurahan hati Anda akan segera digunakan untuk membantu
+          membangun dunia tanpa kelaparan. Anda dapat membantu menyelamatkan nyawa dalam keadaan darurat atau memberikan
+          makanan bergizi kepada anak-anak di sekolah. Kami tidak dapat melakukan semua ini tanpa dukungan Anda.
+        </p>
+
+        <span class="fw-bold">Mohon donasi sekarang.</span>
+      </div>
+    </div>
+
+    <!--  ************************* End Container 4 ************************** -->
+  </form>
+
+  <!--  ************************* End Form Donate ************************** -->
+
+
+  <!--  ************************* Footer ************************** -->
+  <footer>
+    <div class="inner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 foot-about">
+            <h4>About US</h4>
+
+            <p>
+              Komunitas amal kita adalah sinar harapan di tengah badai
+              penderitaan. Bersama, kita membentuk jaringan kasih dan
+              kepedulian yang menjangkau mereka yang terpinggirkan oleh
+              bencana dan konflik. Setiap tindakan kebaikan yang kita lakukan
+              menjadi langkah untuk mendukung, menyembuhkan luka, dan
+              membangun ulang kehidupan. Mari kita terus bersatu dalam membawa
+              cinta dan pencerahan kepada mereka yang membutuhkan, sehingga
+              setiap jiwa dapat merasakan kehangatan solidaritas kita.
+            </p>
+
+            <ul>
+              <li>Charity Community</li>
+              <li>AJR@gmail.com</li>
+              <li>085273883095</li>
+            </ul>
+          </div>
+
+          <div class="col-md-3 foot-post">
+            <h4>Berita</h4>
+            <div id="news-footer">
+            </div>
+          </div>
+
+          <div class="col-md-3 foot-post">
+
+          </div>
+
+          <div class="col-md-3 foot-news">
+            <h4>Address</h4>
+            <p>Kota Bandung, Jawa Barat, Indonesia.</p>
+
+            <ul>
+              <li><i class="bi bi-facebook"></i></li>
+              <li><i class="bi bi-twitter"></i></li>
+              <li><i class="bi bi-instagram"></i></li>
+              <li><i class="bi bi-linkedin"></i></li>
+              <li><i class="bi bi-pinterest"></i></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!--  ************************* End Form Donate ************************** -->
+
+
+
+   <!-- Sertakan jQuery dan Bootstrap JS jika diperlukan -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+   integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- JAVASCRIPT -->
+
+  <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+  <!--Custom JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+  <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script
+    src="{{ url_for('static', filename='client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='client/assets/js/script.js') }}"></script>
+  <script src="/static/client/assets/js/pages/donate/payment.js"></script>
 </body>
+
 </html>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 48196da802ff88385432ad5a672ecd0c982869af

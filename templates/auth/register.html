@@ -99,17 +99,28 @@
     <!-- Javascript -->
 
     <script>
-        {% if msg.status == 200 %}
-        const msg = '{{msg.msg}}'
-        console.log(msg)
+    {% if msg.status == 200 %}
+        const msg = '{{msg.msg}}';
+        console.log(msg);
         $(document).ready(function () {
-    
-    if(msg){
-        ToastJs("warning", "User sudah ada")
-    }
+            if (msg) {
+                ToastJs("warning", msg);
+            }
+        });
 
-});
-        {% endif %}
+{% endif%}
+
+
+{% if msg.status == 205 %}
+        const info = '{{msg.msg}}';
+        console.log(info);
+        $(document).ready(function () {
+            if (info) {
+                ToastJs("info", info);
+            }
+        });
+ 
+{% endif %}
 
         //******************************************* Libary
 // penggunaan SweetAlert2
@@ -132,31 +143,7 @@ function ToastJs(icon, title) {
     });
 }
 
-// Delete 
-const SweetDeleteButton = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-danger",
-      cancelButton: "btn btn-secondary"
-    }
-  });
-function DeleteSweetAlert(usersId) {
-    SweetDeleteButton.fire({
-        title: "Apakah Kamu ingin menghapus?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Hapus",
 
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            delete_project(usersId)
-            Swal.fire("Hapus!", "", "success");
-
-        } else if (result.isDenied) {
-            Swal.fire("Tidak Bisa dihapus", "", "info");
-        }
-    });
-}
 
 //************************* DOM Content */
 

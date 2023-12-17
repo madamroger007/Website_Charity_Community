@@ -49,7 +49,11 @@ function DeleteSweetAlert(usersId) {
 $(document).ready(function () {
     
     if(msg){
-        ToastJs("warning", "login Gagal")
+        ToastJs("warning", msg)
+    }
+
+    if(msgs){
+        ToastJs("succes", msgs)
     }
 
 });

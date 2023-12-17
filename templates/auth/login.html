@@ -101,10 +101,10 @@
             // Set the token in a cookie
             document.cookie = "mytoken=" + token + "; path=/";
 
-            const succes = '{{success}}'
+            const succes = '{{msg}}'
             console.log(succes)
             if (succes) {
-                ToastJs("success", "login Berhasil")
+                ToastJs("success", succes)
 
             }
 
@@ -117,12 +117,21 @@
         });
     </script>
     {% endif %}
+
     <script>
         {% if msg %}
         const msg = '{{msg}}'
         console.log(msg)
         {% endif %}
+
+        {% if msg.status == 208 %}
+        const msgs = '{{ msg.msg }}' + '😊'
+        console.log(msgs)
+        {% endif %}
+
     </script>
+
+
     <script src="/static/client/assets/js/pages/login.js"> </script>
 </body>
 
