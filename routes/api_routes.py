@@ -417,10 +417,7 @@ def update_users(userid):
             yt_receive = request.form.get("yt_receive")
             x_receive = request.form.get("x_receive")
             fb_receive = request.form.get("fb_receive")
-            print(fb_receive)
-            print(yt_receive)
-            print(x_receive)
-            
+        
             no_hp_receive = form.no_hp_receive.data
             address_receive = request.form.get("address_receive")
             country_receive = form.country_receive.data
@@ -458,9 +455,7 @@ def update_users(userid):
                 if file and file.filename:
                     img_url = save_image(file, 'bgusers')
                     new_doc["profile_img_bg"] = img_url
-                else:
-                    # Handle the case when the file is empty
-                    return jsonify({"result": "error", "msg": "No file provided for update"})
+                
             # Update other fields
            
             db.users.update_one({"_id": ObjectId(userid)}, {"$set": new_doc})
