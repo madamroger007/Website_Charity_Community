@@ -15,16 +15,30 @@ function getProject() {
         url: "/get_project",
         success: function (response) {
             // Perbarui tabel dengan data pengguna baru
-
+            getCardNews(response.projects)
+          },
+          error: function (error) {
+              console.error(error);
+          }
+      });
+  
+  }
+  
+  // Get News
+  function getNews() {
+    $.ajax({
+        type: 'GET',
+        url: "/get_news",
+        success: function (response) {
+            // Perbarui tabel dengan data pengguna baru
             getFooterNews(response.news)
-            getCardNews(response.news)
         },
         error: function (error) {
             console.error(error);
         }
     });
-
-}
+  
+  }
 
 function getCardNews(news){
     $("#card-project-container").empty()
