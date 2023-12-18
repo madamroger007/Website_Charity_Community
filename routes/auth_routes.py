@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template, jsonify, request, redirect, url_for, make_response, make_response
+from flask import Blueprint,render_template, jsonify, request, redirect, url_for, make_response, make_response,abort
 from pymongo import MongoClient
 import jwt
 from datetime import datetime, timedelta
@@ -40,6 +40,8 @@ def encode_token(payload):
 
 @auth_bp.route("/register/<role>", methods=["POST", 'GET'])
 def register(role):
+    if role not in ['admin', 'users']:
+        abort(404)
     form = RegistrationForm()
     if request.method == 'POST' and form.validate_on_submit():
         # time

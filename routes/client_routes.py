@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import jwt
 from datetime import datetime
 import os
-from flask import render_template, request, redirect, url_for,Blueprint
+from flask import render_template, request, redirect, url_for,Blueprint,abort
 from validation.forms import DonateForm,UpdateUsersForm
 import json
 from bson import ObjectId
@@ -199,18 +199,23 @@ def detail(id):
         if news:
             page ="news"
             news['date'] = datetime.strptime(news['date'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime('%d %B %Y')
-            return render_template('client/detail.html', detail=news, user_info=user_info,page=page)
+            return render_template('client/detail.html', detail=news, user_info=user_info, page=page)
         # If not found in 'news', try finding in the 'projects' collection
         project = db.projects.find_one({'_id': ObjectId(id)})
         if project:
             project['date'] =  datetime.strptime(project['date'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime('%d %B %Y')
-            page="project"
-            return render_template('client/detail.html', detail=project,user_info=user_info,page=page)
+            page = "project"
+            return render_template('client/detail.html', detail=project, user_info=user_info, page=page)
         
         # If not found in either collection, display a message
         msg = "Tidak ada"
-        page=""
-        return render_template('client/detail.html', detail=msg,user_info=user_info,page=page)
+        page = ""
+        return render_template('client/detail.html', detail=msg, user_info=user_info, page=page)
     
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+    except (jwt.ExpiredSignatureError, jwt.DecodeError):
+        # Jika terjadi kesalahan terkait JWT, bisa juga di-handle di sini
         return redirect(url_for("client.index"))
+    except Exception as e:
+        # Tangkap kesalahan dan alihkan ke penanganan kesalahan 500 di tingkat aplikasi
+        abort(500) 
+
