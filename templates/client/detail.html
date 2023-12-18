@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>News</title>
+   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+   
+    <link rel="shortcut icon" href="{{ url_for('static', filename='client/assets/images/logo.png') }}"
+      type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+  
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+      
+    
+      <link href="/static/admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client/assets/css/style.css') }}" />
+   
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/584805cf69.js" crossorigin="anonymous"></script>
+
+   
+  
+</head>
+  <body class="bg-white">
+    
+    <header class="mb-5">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top ">
+        <div class="container-fluid ">
+          <img
+            class="mx-2 "
+            src="{{ url_for('static', filename='client/assets/images/logo.png') }}"
+            alt=""
+            style="max-width: 80px"
+          />
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav col-10">
+              <li class="nav-item">
+                <a class="nav-link " href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/donate">Donate</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " >News</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/project">Project</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/contact_us">Contact Us</a>
+              </li>
+            </ul>
+            <div class="d-flex justify-content-center col-2" id="navbarNavDropdown">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
+                        class="rounded-circle logo-small">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end user-dd animated"
+                    aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/profile"><i class="ti-user m-r-5 m-l-5"></i>
+                        My Profile</a>
+                        <a class="dropdown-item" href="/logout"><i class="ti-user m-r-5 m-l-5"></i>
+                          Logout</a>
+  
+                </ul>
+            </li>
+            </div>
+          </div>
+         
+        </div>    
+      </nav>
+    </header>
+     
+
+
+    {% if page == "news" %}
+    
+<!-- ******************************************************* News ***************************************************** -->
+ 
+    <!--  ************************* Page Title Starts Here ************************** -->
+    <div class="page-nav no-margin row">
+        <div class="container">
+          <div class="row">
+            <h2 class="text-start">News</h2>
+            <ul>
+              <li>
+                <a href="/"><i class="bi bi-house-door"></i> Home</a>
+              </li>
+              <li><i class="bi bi-chevron-double-right pe-2"></i>News</li>
+              <li><i class="bi bi-chevron-double-right pe-2"></i>Detail</li>
+  
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <!--########################## Blog Starts Here ############################# -->
+  
+      <div id="blog" class="service container-fluid px-4 bg-white py-5">
+        <div class="container">
+          <div class="section-title row mb-3">
+            <h2 class="fw-bolder">Berita Terkini</h2>
+            <p>
+              Update berita terkini
+            </p>
+          </div>
+  
+  
+          <div class="row mt-5 card p-2" >
+           <div class="container-fluid p-4">
+              <img src="/static/{{detail.img}}" class="img-fluid" alt="Gambar">
+             <div class="w-100 mt-2 ">
+              <div class="px-4 py-2 rounded-end text-white" style="background-color: rgba(8, 8, 8, 0.6); max-width: 250px;">
+                  <span class="fw-bold mr-2"><i class="bi bi-person"></i> {{detail.username }}</span>
+              <span class="text-capitalize fw-light">{{detail.date }}</span>
+              </div>
+             </div>
+           </div>
+           <div class="container  p-3">
+              <h3 class="mb-4">{{ detail.title}}</h3>
+              <p>{{detail.description}}.</p>
+           </div>
+           
+          </div>
+        </div>
+      </div>
+  
+      <!--########################## Blog Starts Here ############################# -->
+
+
+<!-- ******************************************************* End News ***************************************************** -->
+
+{% elif page == "project" %}
+
+
+<!-- ******************************************************* Project ***************************************************** -->
+ 
+    <!--  ************************* Page Title Starts Here ************************** -->
+    <div class="page-nav no-margin row">
+        <div class="container">
+          <div class="row">
+            <h2 class="text-start">Project</h2>
+            <ul>
+              <li>
+                <a href="/"><i class="bi bi-house-door"></i> Home</a>
+              </li>
+              <li><i class="bi bi-chevron-double-right pe-2"></i>Project</li>
+              <li><i class="bi bi-chevron-double-right pe-2"></i>Detail</li>
+  
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <!--########################## Blog Starts Here ############################# -->
+  
+      <div id="blog" class="service container-fluid px-4 bg-white py-5">
+        <div class="container">
+          <div class="section-title row mb-3">
+            <h2 class="fw-bolder">Project</h2>
+            <p>
+              Pengalaman Donasi
+            </p>
+          </div>
+  
+  
+          <div class="row mt-5 card p-2" >
+           <div class="container-fluid p-4">
+              <img src="/static/{{detail.img}}" class="img-fluid" alt="Gambar">
+             <div class="w-100 mt-2 ">
+              <div class="px-4 py-2 rounded-end text-white" style="background-color: rgba(8, 8, 8, 0.6); max-width: 250px;">
+                  <span class="fw-bold mr-2"><i class="bi bi-person"></i> {{detail.username }}</span>
+              <span class="text-capitalize fw-light">{{detail.date }}</span>
+              </div>
+             </div>
+           </div>
+           <div class="container  p-3">
+              <h3 class="mb-4">{{ detail.title}}</h3>
+              <p>{{detail.description}}.</p>
+           </div>
+           
+          </div>
+        </div>
+      </div>
+  
+      <!--########################## Blog Starts Here ############################# -->
+
+
+<!-- ******************************************************* End project ***************************************************** -->
+
+
+
+
+
+
+{% else %}
+
+<h1>Empty</h1>
+
+    {# Render content for other cases #}
+{% endif %}
+
+
+
+
+    <!-- **************************FOOTERRR ************************* -->
+    <footer>
+      <div class="inner">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 foot-about">
+              <h4>About US</h4>
+  
+              <p>
+                Komunitas amal kita adalah sinar harapan di tengah badai
+                penderitaan. Bersama, kita membentuk jaringan kasih dan
+                kepedulian yang menjangkau mereka yang terpinggirkan oleh
+                bencana dan konflik. Setiap tindakan kebaikan yang kita lakukan
+                menjadi langkah untuk mendukung, menyembuhkan luka, dan
+                membangun ulang kehidupan. Mari kita terus bersatu dalam membawa
+                cinta dan pencerahan kepada mereka yang membutuhkan, sehingga
+                setiap jiwa dapat merasakan kehangatan solidaritas kita.
+              </p>
+  
+              <ul>
+                <li>Charity Community</li>
+                <li>AJR@gmail.com</li>
+                <li>085273883095</li>
+              </ul>
+            </div>
+  
+            <div class="col-md-3 foot-post">
+              <h4>Berita</h4>
+              <div id="news-footer">
+  
+              
+             
+  
+            </div>
+             
+            </div>
+  
+            <div class="col-md-3 foot-post">
+  
+            </div>
+  
+            <div class="col-md-3 foot-news">
+              <h4>Address</h4>
+              <p>Kota Bandung, Jawa Barat, Indonesia.</p>
+  
+              <ul>
+                <li><i class="bi bi-facebook"></i></li>
+                <li><i class="bi bi-twitter"></i></li>
+                <li><i class="bi bi-instagram"></i></li>
+                <li><i class="bi bi-linkedin"></i></li>
+                <li><i class="bi bi-pinterest"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+
+
+
+
+
+    <script src="{{ url_for('static', filename='client/assets/js/jquery-3.2.1.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+  <script src="{{ url_for('static', filename='client/assets/js/bootstrap.bundle.min.js') }}"></script>
+  
+  <script src="/static/client/assets/js/pages/news/news.js"></script>
+  </body>
+
+</html>

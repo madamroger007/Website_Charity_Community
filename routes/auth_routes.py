@@ -95,7 +95,7 @@ def login():
             return render_template("auth/login.html", form=form, msg=msg_object)
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")
-            msg_object = "Anda Logout"
+            msg_object = "Segera Login"
             return render_template("auth/login.html", form=form, msg=msg_object)
      
     if request.method == 'POST' and form.validate_on_submit():
@@ -124,7 +124,7 @@ def login():
                     "token": token,
                 })
             else:
-                msg  = "Login berhasil"
+                msg  = {"status":208 ,"msg":"Login berhasil"}
                 return render_template("auth/login.html", token=token, form=form, msg =msg )
 
         else:
