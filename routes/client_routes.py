@@ -5,6 +5,7 @@ import os
 from flask import render_template, request, redirect, url_for,Blueprint
 from validation.forms import DonateForm,UpdateUsersForm
 import json
+from bson import ObjectId
 
 client_bp = Blueprint('client', __name__)
 
@@ -116,8 +117,7 @@ def donate_pay():
   
         if request.method == 'POST' and form.validate_on_submit():
             # time
-            time_now = datetime.utcnow()
-            time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
             time_now = datetime.utcnow()
             time_str = time_now.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             # Handle the form submission, store data in MongoDB
@@ -170,7 +170,6 @@ def contact_us():
        
         return render_template('client/contact.html', user_info=user_info)
        
-        return render_template('client/contact.html', user_info=user_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -184,8 +183,34 @@ def profile():
         user_info = db.users.find_one({"username": payload.get("username")})
         # Konversi ObjectId menjadi string
         user_info["_id"] = str(user_info["_id"])
-        # Konversi ObjectId menjadi string
-        user_info["_id"] = str(user_info["_id"])
+       
         return render_template('client/profile.html', user_info=user_info,form=form)
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("client.index"))
+
+@client_bp.route('/detail/<id>', methods=["POST", "GET"])
+def detail(id):
+    token_receive = request.cookies.get(TOKEN_KEY)
+    try:
+        # Try finding the document in the 'news' collection
+        payload = decode_token(token_receive)
+        user_info = db.users.find_one({"username": payload.get("username")})
+        news = db.news.find_one({'_id': ObjectId(id)})
+        if news:
+            page ="news"
+            news['date'] = datetime.strptime(news['date'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime('%d %B %Y')
+            return render_template('client/detail.html', detail=news, user_info=user_info,page=page)
+        # If not found in 'news', try finding in the 'projects' collection
+        project = db.projects.find_one({'_id': ObjectId(id)})
+        if project:
+            project['date'] =  datetime.strptime(project['date'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime('%d %B %Y')
+            page="project"
+            return render_template('client/detail.html', detail=project,user_info=user_info,page=page)
+        
+        # If not found in either collection, display a message
+        msg = "Tidak ada"
+        page=""
+        return render_template('client/detail.html', detail=msg,user_info=user_info,page=page)
+    
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))

@@ -218,7 +218,7 @@ def get_total():
     # Function to get the latest date from a collection
     def get_latest_timestamp(collection):
         latest_data = collection.find_one(sort=[("date", -1)])
-        return latest_data.get("date")
+        return latest_data.get("date","")
 
 
 
@@ -232,7 +232,7 @@ def get_total():
         "msg": "success",
         "total_users": total_user,
         "total_news": total_news,
-        "total_donation": result[0]['total_donation_amount'],
+        "total_donation": result[0].get('total_donation_amount'),
         "user_donate": user_donate,
         "total_project": total_projects,
         "timestamp_users": timestamp_users,

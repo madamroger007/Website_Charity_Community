@@ -28,8 +28,8 @@ function getNews() {
 function getFooterNews(news){
 
     $("#news-footer").empty()
-
-    for (let index = 0; index < 3; index++) {
+    if(news.length <=3 ){
+    for (let index = 0; index < news.length; index++) {
         let berita = news[index];
         
         let load =`
@@ -39,14 +39,14 @@ function getFooterNews(news){
         </div>
         `
         let temp = `
-        <div class="post-row rounded-3">
+        <a href='/detail/${berita._id}' class="post-row rounded-3">
         <div class="image">
           <img src="/static/${berita.img}"  alt="" />
         </div>
-        <div class="detail">
+        <div class="detail text-white">
           <p>${berita.title}</p>
         </div>
-      </div>
+      </a>
     
     `
 
@@ -59,6 +59,6 @@ function getFooterNews(news){
 
   
     }
-
+    }
 }
 

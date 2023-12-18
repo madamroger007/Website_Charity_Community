@@ -666,7 +666,6 @@ footer .inner .foot-post .post-row .detail {
 footer .inner .foot-post .post-row .detail p {
   font-size: 0.8rem;
   margin-top: -5px;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
