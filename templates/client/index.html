@@ -62,21 +62,28 @@
             </li>
           </ul>
           <div class="d-flex justify-content-center col-2" id="navbarNavDropdown">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
-                  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
-                      class="rounded-circle logo-small">
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end user-dd animated"
-                  aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/profile"><i class="ti-user m-r-5 m-l-5"></i>
-                      My Profile</a>
-                      <a class="dropdown-item" href="/logout"><i class="ti-user m-r-5 m-l-5"></i>
-                        Logout</a>
+            {% if user_info.status == 401 %}
+            <a class="btn btn-primary" href="/login"
+            >
+            Login
+        </a>
+          {% else %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ url_for('static', filename=user_info.profile_img) }}" alt="user"
+                    class="rounded-circle logo-small">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end user-dd animated"
+                aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/profile"><i class="ti-user m-r-5 m-l-5"></i>
+                    My Profile</a>
+                    <a class="dropdown-item" href="/logout"><i class="ti-user m-r-5 m-l-5"></i>
+                      Logout</a>
 
-              </ul>
-          </li>
+            </ul>
+        </li>
+          {% endif %}
           </div>
         </div>
 
@@ -588,6 +595,44 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="{{ url_for('static', filename='client/assets/js/pages/home/home.js') }}"></script>
 
+   <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js "></script>
+  
+  <script>
+
+
+// penggunaan SweetAlert2
+// Toast
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+function ToastJs(icon, title) {
+    Toast.fire({
+        icon: icon,
+        title: title
+    });
+}
+
+{% if user_info.status == 401 %}
+        const info = '{{user_info.msg}}';
+        console.log(info);
+        $(document).ready(function () {
+            if (info) {
+                ToastJs("info", info);
+            }
+        });
+ 
+{% endif %}
+
+</script>
+  
 </body>
 
 

@@ -59,7 +59,7 @@ function getCardNews(news){
           ${berita.title}
         </h5>
         <p class='description'> ${berita.title}</p>
-        <span class="fs-8">22 May 2015</span>
+         <span class="fs-8">${moment(berita.date).fromNow()}</span>
         <span class="float-end fs-8"
           ><i class="bi bi-person"></i> ${berita.username}</span
         >

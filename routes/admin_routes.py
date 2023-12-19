@@ -54,8 +54,12 @@ def dashboard():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        
-        return render_template('admin/index.html',user_info=user_info)
+
+        if user_info["role"] == "admin":
+            # Jika role adalah admin, kembalikan True
+            return render_template('admin/index.html', user_info=user_info)
+            # Jika role bukan admin, kembalikan False atau lakukan penanganan lainnya
+        return redirect(url_for("client.index"))
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -66,8 +70,9 @@ def users_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        
-        return render_template('admin/table-users.html', user_info=user_info)
+        if user_info["role"] == "admin":
+            return render_template('admin/table-users.html', user_info=user_info)
+        return redirect(url_for("client.index"))
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -80,7 +85,9 @@ def news_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        return render_template('admin/table-news.html', user_info=user_info, form=form, updateform=updateform)
+        if user_info["role"] == "admin":
+            return render_template('admin/table-news.html', user_info=user_info, form=form, updateform=updateform)
+        return redirect(url_for("client.index"))   
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -93,8 +100,9 @@ def project_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        
-        return render_template('admin/table-project.html',user_info=user_info,form=form,updateform=updateform)
+        if user_info["role"] == "admin":
+            return render_template('admin/table-project.html',user_info=user_info,form=form,updateform=updateform)
+        return redirect(url_for("client.index"))
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -105,8 +113,9 @@ def donate_admin():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        
-        return render_template('admin/table-donate.html',user_info=user_info)
+        if user_info["role"] == "admin":
+          return render_template('admin/table-donate.html',user_info=user_info)
+        return redirect(url_for("client.index"))  
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -120,8 +129,9 @@ def profile_admin():
         user_info = db.users.find_one({"username": payload.get("username")})
         # Konversi ObjectId menjadi string
         user_info["_id"] = str(user_info["_id"])
-        
-        return render_template('admin/pages-profile.html',user_info=user_info, form=form)
+        if user_info["role"] == "admin":
+            return render_template('admin/pages-profile.html',user_info=user_info, form=form)
+        return redirect(url_for("client.index"))  
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 
@@ -134,7 +144,8 @@ def mail_admin():
         user_info = db.users.find_one({"username": payload.get("username")})
         # Konversi ObjectId menjadi string
         user_info["_id"] = str(user_info["_id"])
-        
-        return render_template('admin/mail.html',user_info=user_info)
+        if user_info["role"] == "admin":
+            return render_template('admin/mail.html',user_info=user_info)
+        return redirect(url_for("client.index"))
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))

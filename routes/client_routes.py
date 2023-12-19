@@ -53,14 +53,19 @@ def index():
         user_info = db.users.find_one({"username": payload.get("username")})
         if user_info["role"] == 'admin':
             return redirect(url_for('admin.dashboard'))
-        else:
-            return render_template('client/index.html', user_info=user_info)
+        elif  user_info["role"] == 'users':
+            msg= ""
+            return render_template('client/index.html',msg=msg,user_info=user_info)
+        msg= {"status":401,"msg":"Login","info":"Anda harus login"}
+        return render_template('client/index.html',user_info=msg)
+ 
     except jwt.ExpiredSignatureError:
         msg = "Your token has expired"
         return redirect(url_for("auth.login", msg=msg))
     except jwt.exceptions.DecodeError:
-        msg = "There was a problem logging your in"
-        return redirect(url_for("auth.login", msg=msg))
+        msg= {"status":401,"msg":"Anda Belum Login"}
+        return render_template('client/index.html',user_info=msg)
+
 
 
 @client_bp.route('/about')
