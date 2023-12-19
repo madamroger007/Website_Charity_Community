@@ -284,7 +284,7 @@ function ShowUpdateComponent(news) {
                   <div class="select">
                   <select name="topic_update" id="topic_update">
 
-                  <option value="">Select a topic</option>
+                  <option value="sosial">Select a topic</option>
 
                   <option value="sosial" ${topic === "sosial" ? "selected" : ""}>
                       Sosial</option>
