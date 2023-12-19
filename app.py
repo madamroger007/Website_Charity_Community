@@ -14,7 +14,7 @@ load_dotenv(dotenv_path)
 
 # * config flask
 app = Flask(__name__, template_folder='templates')
-csrf = CSRFProtect(app)
+
 
 app.config.from_mapping(
     SECRET_KEY=os.environ.get("SECRET_KEY"),
@@ -23,8 +23,9 @@ app.config.from_mapping(
                    "./static/assets/img/projects", "./static/assets/img/users"],
 )
 
-# * Connect database
-
+# CSRF protection
+csrf = CSRFProtect(app)
+# Register blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(client_bp)
 app.register_blueprint(admin_bp)
@@ -33,16 +34,16 @@ app.register_blueprint(api_bp)
 
 
 # *********************************************** Error Page *********************************************
-
+# Handler untuk kesalahan server internal (500)
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error/500.html'), 500
 # Handler untuk kesalahan server internal (404)
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('error/404.html'), 404
 
-# Handler untuk kesalahan server internal (500)
-@app.errorhandler(500)
-def internal_server_error(error):
-    return render_template('error/500.html'), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)

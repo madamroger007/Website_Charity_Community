@@ -14986,6 +14986,8 @@ max-height: 50px;
 .content-news p {
   max-height: 10em;
   overflow-y: hidden;
+   text-overflow: ellipsis; 
+  white-space: nowrap;
 }
 
 .normal-news:hover .content-news {
