@@ -1,11 +1,11 @@
 <div align='center'>
 
-<img src=https://caritycommunity.glitch.me/static/client/assets/images/logo.png alt="logo" width=1000 height=1000 />
+<a href=https://caritycommunity.glitch.me> <img src=https://caritycommunity.glitch.me/static/client/assets/images/logo.png alt="logo" width=1000 height=1000 /></a>
 
 <h1>Website Charity Community</h1>
 <p>Website Komunitas Amal merupakan solusi inovatif yang menggunakan teknologi internet untuk meningkatkan efisiensi, transparansi, dan respons terhadap krisis kemanusiaan. Aplikasi ini dirancang untuk menyediakan platform yang dapat digunakan oleh organisasi kemanusiaan, pemerintah, dan masyarakat umum dengan tujuan memberikan bantuan yang lebih cepat dan terkoordinasi kepada mereka yang membutuhkan dalam situasi darurat atau krisis. Berikut adalah deskripsi lebih rinci tentang beberapa fitur dan aspek utama dari website tersebut:</p>
 
-<h4> <a href=https://caritycommunity.glitch.me>View Demo</a> <span> · </span> <a href="https://github.com/Madamroger/Website_Charity_Community/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/Madamroger/Website_Charity_Community/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/Madamroger/Website_Charity_Community/issues"> Request Feature </a> </h4>
+<h4> <a href=https://caritycommunity.glitch.me>View Demo</a> <span> · </span> <a href="https://github.com/Madamroger/Website_Charity_Community/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/Madamroger/Website_Charity_Community/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/madamroger007/Website_Charity_Community/issues"> Request Feature </a> </h4>
 
 
 </div>
