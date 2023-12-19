@@ -54,8 +54,13 @@ def dashboard():
     try:
         payload = decode_token(token_receive)
         user_info = db.users.find_one({"username": payload.get("username")})
-        
-        return render_template('admin/index.html',user_info=user_info)
+
+        if user_info and "role" in user_info and user_info["role"] == "admin":
+            # Jika role adalah admin, kembalikan True
+            return render_template('admin/index.html', user_info=user_info)
+        else:
+            # Jika role bukan admin, kembalikan False atau lakukan penanganan lainnya
+            return redirect(url_for("client.index"))
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("client.index"))
 

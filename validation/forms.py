@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Email, Length, Regexp, NumberRange,
 class RegistrationForm(FlaskForm):
     username_give = StringField('username', validators=[
         DataRequired(),
-        Length(min=3, max=10, message='Username must be between 3 and 10 characters'),
+        Length(min=3, max=10, message='username minimal 3 karakter dan maksimal 10 karakter'),
         Regexp('^[A-Z][A-Za-z0-9]*$',
                message='Username must start with a capital letter and contain only letters and numbers'),
     ])
