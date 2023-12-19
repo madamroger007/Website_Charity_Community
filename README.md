@@ -22,7 +22,7 @@
 ## :star2: About the Project
 
 ### :camera: Screenshots
-<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://glitch.com/edit/#!/caritycommunity?previewSize=100&attributionHidden=false&sidebarCollapsed=false&path=templates%2Fclient%2Findex.html&previewFirst=false" alt='image' width='800'/></a> </div>
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/repo.png?v=1703003197146" alt='image' width='800'/></a> </div>
 
 
 
@@ -91,7 +91,7 @@ Glitch automation run deplot with start.sh
 
 ## :wave: Contributing
 
-<a href="https://github.com/madamroger007/Website_Charity_Community.git/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Louis3797/awesome-readme-template" /> </a>
+<a> <img src="https://contrib.rocks/image?repo=Louis3797/awesome-readme-template" /> </a>
 
 Contributions are always welcome!
 
