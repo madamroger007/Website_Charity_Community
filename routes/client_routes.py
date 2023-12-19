@@ -67,7 +67,6 @@ def index():
         return render_template('client/index.html',user_info=msg)
 
 
-
 @client_bp.route('/about')
 def about():
     token_receive = request.cookies.get(TOKEN_KEY)
