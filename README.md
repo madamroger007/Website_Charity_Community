@@ -1,6 +1,6 @@
 <div align='center'>
 
-<a href=https://caritycommunity.glitch.me> <img src=https://caritycommunity.glitch.me/static/client/assets/images/logo.png alt="logo" width=1000 height=1000 /></a>
+<a href=https://caritycommunity.glitch.me> <img src=https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/logo.png alt="logo" width=1000 height=1000 /></a>
 
 <h1>Website Charity Community</h1>
 <p>Website Komunitas Amal merupakan solusi inovatif yang menggunakan teknologi internet untuk meningkatkan efisiensi, transparansi, dan respons terhadap krisis kemanusiaan. Aplikasi ini dirancang untuk menyediakan platform yang dapat digunakan oleh organisasi kemanusiaan, pemerintah, dan masyarakat umum dengan tujuan memberikan bantuan yang lebih cepat dan terkoordinasi kepada mereka yang membutuhkan dalam situasi darurat atau krisis. Berikut adalah deskripsi lebih rinci tentang beberapa fitur dan aspek utama dari website tersebut:</p>
@@ -21,10 +21,33 @@
 
 ## :star2: About the Project
 
-### :camera: Screenshots
+### ▶️: Flow Aplication
+### 1. Home
 <div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/repo.png?v=1703003197146" alt='image' width='800'/></a> </div>
+<br>
+<p align="center">Halaman awal adalah halaman home nanti user harus login terlebih dahulu ketika ingin melanjutkan kehalaman lainnya</p>
 
+### 2. Login Users client
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/login.png?v=1703039452366" alt='image' width='800'/></a> </div>
+<p align="center">Halaman Login, jika users mempunyai akun sebagai users ataupun admin tinggal masukan username dan password jika tidak punya akun maka klik link tidak punya akun</p>
 
+### 3. Register Users client
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/register%20users.png?v=1703039469803" alt='image' width='800'/></a> </div>
+<p align="center">Untuk register users client terdapat di url nya adalah <em>https://caritycommunity.glitch.me/register/users</em> dan juga ada beberapa inputan seperti username, namalengkap, email dan password</p>
+
+### 4. Register Users Admin
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/register%20admin.png?v=1703039460062" alt='image' width='800'/></a> </div>
+<p align="center">Untuk register users admin terdapat di url nya adalah <em>https://caritycommunity.glitch.me/register/admin</em> dan juga ada beberapa inputan seperti username, namalengkap, email dan password. <strong>Untuk admin tidak ada tombol daftar dikarenakan untuk menjaga hak akses khusus admin</strong></p>
+
+### 5. Tampilan Home (setelah users client login) 
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/repo.png?v=1703003197146" alt='image' width='800'/></a> </div>
+<br>
+<p align="center">Halaman awal adalah halaman home seteelah <strong>users client</strong> login</p>
+
+### 6. Tampilan Home (setelah users client login) 
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/dashboard.png?v=1703039939234" alt='image' width='800'/></a> </div>
+<br>
+<p align="center">Halaman awal adalah halaman dashboadr setelah <strong>users admin</strong> login</p>
 
 ### :dart: Features
 - Login (Admin/User)
@@ -59,19 +82,26 @@
 
 ### :gear: Installation
 
-This project uses venv python as package manager
+Proyek ini menggunakan venv python sebagai package manager
 ```bash
 python3 -m venv venv
 ```
-Next you must activate your venv example in OS Linux :
+Selanjutnya, Anda harus mengaktifkan venv Anda, contoh pada sistem operasi Linux:
 ```bash
 . ./venv/bin/activate
 ```
-Next you must activate your venv example in OS Window:
+Selanjutnya, Anda harus mengaktifkan venv Anda, contoh pada sistem operasi Windows:
 ```bash
 \venv\Scripts\activate
 ```
-
+Selanjutnya instalasi library dengan pip :
+```bash
+pip install -r requirements.txt
+```
+Terakhir jalankan aplikasi :
+```bash
+python app.py
+```
 
 ### :triangular_flag_on_post: Deployment
 
