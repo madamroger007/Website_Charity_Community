@@ -40,7 +40,7 @@
 <p align="center">Untuk register users admin terdapat di url nya adalah <em>https://caritycommunity.glitch.me/register/admin</em> dan juga ada beberapa inputan seperti username, namalengkap, email dan password. <strong>Untuk admin tidak ada tombol daftar dikarenakan untuk menjaga hak akses khusus admin</strong></p>
 
 ### 5. Tampilan Home (setelah users client login) 
-<div align="center"> <a href="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/client%20login.png?v=1703040371901" alt='image' width='800'/></a> </div>
+<div align="center"> <a href="https://caritycommunity.glitch.me"><img src="https://cdn.glitch.global/e267590f-3227-4d3d-8155-04c9e48dbfaa/client%20login.png?v=1703040371901" alt='image' width='800'/></a> </div>
 <br>
 <p align="center">Halaman awal adalah halaman home seteelah <strong>users client</strong> login</p>
 
